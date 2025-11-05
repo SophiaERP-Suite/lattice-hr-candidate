@@ -479,6 +479,83 @@ textarea:focus {
   border-color: var(--color-primary);
 }
 
+      .apexcharts-flip-y {
+        SVGTransform: scaleY(-1) translateY(-100%);
+        transform-origin: top;
+        transform-box: fill-box;
+      }
+      .apexcharts-flip-x {
+        SVGTransform: scaleX(-1);
+        transform-origin: center;
+        transform-box: fill-box;
+      }
+      .apexcharts-legend {
+        display: flex;
+        overflow: auto;
+        padding: 0 10px;
+      }
+      .apexcharts-legend.apexcharts-legend-group-horizontal {
+        flex-direction: column;
+      }
+      .apexcharts-legend-group {
+        display: flex;
+      }
+      .apexcharts-legend-group-vertical {
+        flex-direction: column-reverse;
+      }
+      .apexcharts-legend.apx-legend-position-bottom, .apexcharts-legend.apx-legend-position-top {
+        flex-wrap: wrap
+      }
+      .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
+        flex-direction: column;
+        bottom: 0;
+      }
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-left, .apexcharts-legend.apx-legend-position-top.apexcharts-align-left, .apexcharts-legend.apx-legend-position-right, .apexcharts-legend.apx-legend-position-left {
+        justify-content: flex-start;
+        align-items: flex-start;
+      }
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-center, .apexcharts-legend.apx-legend-position-top.apexcharts-align-center {
+        justify-content: center;
+        align-items: center;
+      }
+      .apexcharts-legend.apx-legend-position-bottom.apexcharts-align-right, .apexcharts-legend.apx-legend-position-top.apexcharts-align-right {
+        justify-content: flex-end;
+        align-items: flex-end;
+      }
+      .apexcharts-legend-series {
+        cursor: pointer;
+        line-height: normal;
+        display: flex;
+        align-items: center;
+      }
+      .apexcharts-legend-text {
+        position: relative;
+        font-size: 14px;
+      }
+      .apexcharts-legend-text *, .apexcharts-legend-marker * {
+        pointer-events: none;
+      }
+      .apexcharts-legend-marker {
+        position: relative;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        margin-right: 1px;
+      }
+
+      .apexcharts-legend-series.apexcharts-no-click {
+        cursor: auto;
+      }
+      .apexcharts-legend .apexcharts-hidden-zero-series, .apexcharts-legend .apexcharts-hidden-null-series {
+        display: none !important;
+      }
+      .apexcharts-inactive-legend {
+        opacity: 0.45;
+      }
+
+  
+
 *::-moz-selection {
   background: var(--color-primary);
   color: var(--color-white);
@@ -10157,7 +10234,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   align-items: center;
   text-decoration: none;
   font-size: 14px;
-  color: var(--color-menu);
+  color: #000;
   font-weight: 500;
   transition: all 0.3s ease-in-out;
   border-radius: 4px;
@@ -10271,7 +10348,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   white-space: nowrap;
   position: relative;
   font-size: 14px;
-  color: var(--color-menu);
+  color: #000;
   font-weight: var(--fw-regular);
   line-height: 1;
   display: -moz-box;
@@ -10283,7 +10360,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   text-transform: capitalize;
 }
 [data-theme-mode=dark] .app-sidebar .sidebar-menu-label {
-  color: var(--color-heading);
+  color: #000;
 }
 .app-sidebar .side-menu-icon {
   margin-inline-end: 10px;
@@ -10299,7 +10376,11 @@ div.dataTables_wrapper div.dataTables_filter input {
   height: 18px;
 }
 .app-sidebar .side-menu-icon svg * {
-  fill: var(--color-menu);
+  fill: #000;
+  transition: all 0.3s ease-in-out;
+}
+.app-sidebar .side-menu-icon {
+  fill: #000;
   transition: all 0.3s ease-in-out;
 }
 [data-theme-mode=dark] .app-sidebar .side-menu-icon svg * {
@@ -10363,9 +10444,10 @@ div.dataTables_wrapper div.dataTables_filter input {
 
 .app-sidebar-main-menu > .slide.active .sidebar-menu .sidebar-menu-item:hover .side-menu-angle, .app-sidebar-main-menu > .slide:hover .sidebar-menu .sidebar-menu-item:hover .side-menu-angle {
   color: var(--color-primary);
+  cursor: pointer
 }
 [data-theme-mode=dark] .app-sidebar-main-menu > .slide.active .sidebar-menu .sidebar-menu-item:hover .side-menu-angle, [data-theme-mode=dark] .app-sidebar-main-menu > .slide:hover .sidebar-menu .sidebar-menu-item:hover .side-menu-angle {
-  color: var(--color-black);
+  color: #000;
 }
 
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {

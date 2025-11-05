@@ -1,26 +1,69 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import { User } from "lucide-react";
-import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp"
-
+import {
+  Briefcase,
+  CheckCircle,
+  ChevronDown,
+  ChevronRight,
+  Eye,
+  XCircle,
+} from "lucide-react";
+import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
+import blackLogo from "../assets/images/logo/logo-black.svg";
+import whiteLogo from "../assets/images/logo/logo-white.svg";
 
 function Dashboard() {
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
         <div className="row fix">
+          <div className="col-xl-12">
+            <div className="page-title-box d-flex-between flex-wrap gap-15">
+              <h1 className="page-title fs-18 lh-1">Dashboard</h1>
+              <nav aria-label="breadcrumb">
+                <ol className="breadcrumb breadcrumb-example1 mb-0">
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
+                  </li>
+                  <ChevronRight size={15} style={{position: "relative", top: "3px"}} />
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Dashboard
+                  </li>
+                </ol>
+              </nav>
+            </div>
+          </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
-              <div className="card-body mini-card-body d-flex align-center gap-16">
-                <div className="avatar avatar-xl bg-primary-transparent text-primary">
-                  <User size={42} className=""/>
+              <div className="card-body mini-card-body d-flex align-center">
+                <div
+                  className="avatar avatar-xl bg-primary-transparent radius-100 text-primary"
+                  style={{ marginBottom: "5px" }}
+                >
+                  {/* <User size={42} className="" /> */}
+                  <img
+                    className="radius-100"
+                    src={avatar1}
+                    alt="image not found"
+                  />
                 </div>
                 <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Total Employees</span>
-                  <h2 className="mb-5">1,250</h2>
-                  <span className="text-success">
+                  <span
+                    className="d-block fs-16 mb-5"
+                    style={{ textAlign: "left" }}
+                  >
+                    Current Job
+                  </span>
+                  <p
+                    className=""
+                    style={{ textAlign: "left", fontWeight: "bold" }}
+                  >
+                    Head Nurse at carling Care home
+                  </p>
+                  {/* <span className="text-success">
                     +5%<i className="ri-arrow-up-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">vs. last month</span>
+                  <span className="fs-12 text-muted ml-5">vs. last month</span> */}
                 </div>
               </div>
             </div>
@@ -29,12 +72,12 @@ function Dashboard() {
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
                 <div className="avatar avatar-xl bg-warning-transparent text-warning">
-                  <i className="ri-calendar-event-fill fs-42"></i>
+                  <Briefcase size={42} className="" />
                 </div>
                 <div className="card-content">
-                  <span className="d-block fs-16 mb-5">On Leave Today</span>
+                  <span className="d-block fs-16 mb-5">Jobs Applied</span>
                   <h2 className="mb-5">42</h2>
-                  <span className="fs-12 text-muted">Sick/Annual Leave</span>
+                  {/* <span className="fs-12 text-muted">Sick/Annual Leave</span> */}
                 </div>
               </div>
             </div>
@@ -43,16 +86,16 @@ function Dashboard() {
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
                 <div className="avatar avatar-xl bg-info-transparent text-info">
-                  <i className="ri-folder-open-fill fs-42"></i>
+                  <CheckCircle size={42} className="" />
                 </div>
                 <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Active Projects</span>
+                  <span className="d-block fs-16 mb-5">Saved Jobs</span>
                   <h2 className="mb-5">28</h2>
-                  <span className="text-success">
+                  {/* <span className="text-success">
                     +3 New
                     <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">this week</span>
+                  <span className="fs-12 text-muted ml-5">this week</span> */}
                 </div>
               </div>
             </div>
@@ -61,79 +104,157 @@ function Dashboard() {
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
                 <div className="avatar avatar-xl bg-purple-transparent text-purple">
-                  <i className="ri-file-list-fill fs-42"></i>
+                  <XCircle size={42} className="" />
                 </div>
                 <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Job Applicants</span>
+                  <span className="d-block fs-16 mb-5">Rejected Jobs</span>
                   <h2 className="mb-5">156</h2>
-                  <span className="fs-12 text-muted">30-day pipeline</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
-            <div className="card">
-              <div className="card-body mini-card-body d-flex align-center gap-16">
-                <div className="avatar avatar-xl bg-success-transparent text-success">
-                  <i className="ri-user-add-fill fs-42"></i>
-                </div>
-                <div className="card-content">
-                  <span className="d-block fs-16 mb-5">New Hires (MTD)</span>
-                  <h2 className="mb-5">15</h2>
-                  <span className="text-success">
-                    +10%<i className="ri-arrow-up-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">YoY</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
-            <div className="card">
-              <div className="card-body mini-card-body d-flex align-center gap-16">
-                <div className="avatar avatar-xl bg-slateblue-transparent text-slateblue">
-                  <i className="ri-checkbox-circle-fill fs-42"></i>
-                </div>
-                <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Attendance Rate</span>
-                  <h2 className="mb-5">94%</h2>
-                  <span className="fs-12 text-muted">This week</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
-            <div className="card">
-              <div className="card-body mini-card-body d-flex align-center gap-16">
-                <div className="avatar avatar-xl bg-teal-transparent text-teal">
-                  <i className="ri-graduation-cap-fill fs-42"></i>
-                </div>
-                <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Training Completed</span>
-                  <h2 className="mb-5">120 hrs</h2>
-                  <span className="text-success">
-                    +25%<i className="ri-arrow-up-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">QoQ</span>
-                </div>
-              </div>
-            </div>
-          </div>
-          <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
-            <div className="card">
-              <div className="card-body mini-card-body d-flex align-center gap-16">
-                <div className="avatar avatar-xl bg-pink-transparent text-pink">
-                  <i className="ri-star-fill fs-42"></i>
-                </div>
-                <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Employee eNPS</span>
-                  <h2 className="mb-5">72</h2>
-                  <span className="fs-12 text-muted">Engagement Score</span>
+                  {/* <span className="fs-12 text-muted">30-day pipeline</span> */}
                 </div>
               </div>
             </div>
           </div>
 
+          <div className="col-xxl-6 col-xl-12">
+            <div className="card">
+              <div className="card-header justify-between">
+                <h4 className="">Jobs Applied</h4>
+                <div className="card-dropdown">
+                  <div className="dropdown">
+                    <a
+                      className="card-dropdown-icon"
+                      href="javascript:void(0);"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <ChevronDown className="" />
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Week
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        Last Week
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Month
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-body pt-15">
+                <div className="table-responsive">
+                  <table className="table tbody-b-none text-nowrap">
+                    <thead>
+                      <tr>
+                        <th>Company</th>
+                        <th>Position</th>
+                        <th>Status</th>
+                        <th>Applied</th>
+                        <th>Action</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      
+                      <tr>
+                        <td>
+                          <div className="d-flex-items gap-10">
+                            <div className="avatar avatar-md radius-100">
+                              <img
+                                className="radius-100 border"
+                                src={blackLogo}
+                                alt="image not found"
+                              />
+                            </div>
+                            <h6>Barnes care home</h6>
+                          </div>
+                        </td>
+                        <td>Head Nurse</td>
+                        <td>
+                          <span className="badge bg-label-warning">
+                            Interview
+                          </span>
+                        </td>
+                        <td>2025-10-14</td>
+                        <td>
+                          <div className="d-flex-items gap-10">
+                            <a
+                              className="btn-icon btn-success-light"
+                              href="javascript:void(0);"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              data-bs-title="View"
+                            >
+                              <Eye  />
+                            </a>
+                            {/* <a
+                              className="btn-icon btn-secondary-light"
+                              href="javascript:void(0);"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              data-bs-title="Download CV"
+                            >
+                              <i className="ri-download-line"></i>
+                            </a> */}
+                          </div>
+                        </td>
+                      </tr>
+                      <tr>
+                        <td>
+                          <div className="d-flex-items gap-10">
+                            <div className="avatar avatar-md radius-100">
+                              <img
+                                className="radius-100 border"
+                                src={whiteLogo}
+                                alt="image not found"
+                              />
+                            </div>
+                            <h6>Jenkins Hospitals</h6>
+                          </div>
+                        </td>
+                        <td>Mid-wife</td>
+                        <td>
+                          <span className="badge bg-label-warning">
+                            Interview
+                          </span>
+                        </td>
+                        <td>2025-09-05</td>
+                        <td>
+                          <div className="d-flex-items gap-10">
+                            <a
+                              className="btn-icon btn-success-light"
+                              href="javascript:void(0);"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              data-bs-title="View"
+                            >
+                              <Eye />
+                            </a>
+                            {/* <a
+                              className="btn-icon btn-secondary-light"
+                              href="javascript:void(0);"
+                              data-bs-toggle="tooltip"
+                              data-bs-placement="top"
+                              data-bs-title="Download CV"
+                            >
+                              <i className="ri-download-line"></i>
+                            </a> */}
+                          </div>
+                        </td>
+                      </tr>
+                     
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            </div>
+          </div>
+
+
+
+{/* 
           <div className="col-xxl-5 col-xl-12 col-lg-12">
             <div className="card">
               <div className="card-header justify-between">
@@ -294,355 +415,6 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="col-xxl-6 col-xl-12">
-            <div className="card">
-              <div className="card-header justify-between">
-                <h4 className="">Latest Job Applications</h4>
-                <div className="card-dropdown">
-                  <div className="dropdown">
-                    <a
-                      className="card-dropdown-icon"
-                      href="javascript:void(0);"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i className="ri-more-2-fill"></i>
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Week
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        Last Week
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Month
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card-body pt-15">
-                <div className="table-responsive">
-                  <table className="table tbody-b-none text-nowrap">
-                    <thead>
-                      <tr>
-                        <th>Applicant</th>
-                        <th>Position</th>
-                        <th>Status</th>
-                        <th>Applied</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-001.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Emily Chen</h6>
-                          </div>
-                        </td>
-                        <td>Senior UX Designer</td>
-                        <td>
-                          <span className="badge bg-label-primary">
-                            In Review
-                          </span>
-                        </td>
-                        <td>2023-07-15</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Schedule Interview"
-                            >
-                              <i className="ri-calendar-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-002.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Michael Rodriguez</h6>
-                          </div>
-                        </td>
-                        <td>Backend Developer</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Technical Test
-                          </span>
-                        </td>
-                        <td>2023-07-14</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-secondary-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Download CV"
-                            >
-                              <i className="ri-download-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-003.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Priya Patel</h6>
-                          </div>
-                        </td>
-                        <td>Marketing Manager</td>
-                        <td>
-                          <span className="badge bg-label-success">Hired</span>
-                        </td>
-                        <td>2023-07-10</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Onboarding"
-                            >
-                              <i className="ri-user-follow-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-004.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>David Kim</h6>
-                          </div>
-                        </td>
-                        <td>Data Analyst</td>
-                        <td>
-                          <span className="badge bg-label-danger">
-                            Rejected
-                          </span>
-                        </td>
-                        <td>2023-07-08</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-danger-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Archive"
-                            >
-                              <i className="ri-archive-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-005.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Sophia Williams</h6>
-                          </div>
-                        </td>
-                        <td>Product Manager</td>
-                        <td>
-                          <span className="badge bg-label-info">
-                            Interview Scheduled
-                          </span>
-                        </td>
-                        <td>2023-07-12</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-warning-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Reschedule"
-                            >
-                              <i className="ri-time-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-006.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>James Wilson</h6>
-                          </div>
-                        </td>
-                        <td>DevOps Engineer</td>
-                        <td>
-                          <span className="badge bg-label-slateblue">
-                            Offer Sent
-                          </span>
-                        </td>
-                        <td>2023-07-05</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-primary-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Track Response"
-                            >
-                              <i className="ri-mail-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/avatar/avatar-thumb-007.webp"
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Lisa Wong</h6>
-                          </div>
-                        </td>
-                        <td>Frontend Developer</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Code Review
-                          </span>
-                        </td>
-                        <td>2023-07-11</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Evaluate"
-                            >
-                              <i className="ri-file-code-line"></i>
-                            </a>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
           <div className="col-xxl-6 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
@@ -3560,7 +3332,7 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

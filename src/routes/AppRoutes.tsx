@@ -2,6 +2,7 @@ import { Routes, Route, Navigate } from "react-router-dom";
 import CandidateLayout from "../layout/CandidateLayout";
 import CandidateDashboard from "../layout/CandidateDashboard";
 import Dashboard from "../pages/Dashboard";
+import Profile from "../pages/profile/Profile";
 
 function AppRoutes() {
   return (
@@ -10,6 +11,7 @@ function AppRoutes() {
       
         <Route index element={<CandidateDashboard />} />
         <Route path="Dashboard" element={<Dashboard />} />
+        <Route path="Profile" element={<Profile />} />
         {/* <Route path="Employee" element={<Applicants />} />
         <Route path="EmployeeNew" element={<ApplicantNew />} />
         <Route path="EmployeeProfile" element={<ApplicantProfile />} />
