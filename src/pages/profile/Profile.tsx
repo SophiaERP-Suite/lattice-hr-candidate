@@ -1,16 +1,10 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 import {
   Briefcase,
-  CheckCircle,
   ChevronDown,
   ChevronRight,
-  Eye,
-  User,
-  XCircle,
+  EyeIcon,
 } from "lucide-react";
-import avatar1 from "../../assets/images/avatar/avatar-thumb-010.webp";
-import blackLogo from "../../assets/images/logo/logo-black.svg";
-import whiteLogo from "../../assets/images/logo/logo-white.svg";
 import john from "../../assets/images/avatar/avatar-thumb-001.webp";
 
 function Profile() {
@@ -20,14 +14,18 @@ function Profile() {
         <div className="row">
           <div className="col-xl-12">
             <div className="page-title-box d-flex-between flex-wrap gap-15">
-              <h1 className="page-title fs-18 lh-1">Employee Details</h1>
+              <h1 className="page-title fs-18 lh-1">Profile</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
                   <li className="breadcrumb-item">
-                    <a href="javascript:void(0);">Home</a>
+                    <a href="Dashboard">Home</a>
                   </li>
+                  <ChevronRight
+                    size={15}
+                    style={{ position: "relative", top: "3px" }}
+                  />
                   <li className="breadcrumb-item active" aria-current="page">
-                    Employee Details
+                    Profile
                   </li>
                 </ol>
               </nav>
@@ -49,7 +47,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">
@@ -78,7 +76,7 @@ function Profile() {
                 <div className="profile-info text-center mb-15">
                   <h3 className="mb-5">John Parker</h3>
                   <h6 className="text-body mb-10">Nurse</h6>
-                  <div className="d-flex-center gap-15">
+                  {/* <div className="d-flex-center gap-15">
                     <a
                       href="javascript:void(0);"
                       className="btn-icon btn-warning-light fs-16"
@@ -109,7 +107,7 @@ function Profile() {
                     >
                       <i className="ri-telegram-2-fill"></i>
                     </a>
-                  </div>
+                  </div> */}
                 </div>
                 <div className="table-responsive mb-15">
                   <table className="table">
@@ -231,7 +229,7 @@ function Profile() {
 
                 <div className="exp-timeline-item mb-25">
                   <div className="exp-timeline-badge btn-icon btn-sm btn-info-light fs-20">
-                     <Briefcase />
+                    <Briefcase />
                   </div>
                   <div className="exp-timeline-content">
                     <div className="exp-timeline-header d-flex-between gap-15 mb-5">
@@ -261,7 +259,7 @@ function Profile() {
                 </div>
                 <div className="exp-timeline-item">
                   <div className="exp-timeline-badge btn-icon btn-sm btn-info-light fs-20">
-                     <Briefcase />
+                    <Briefcase />
                   </div>
                   <div className="exp-timeline-content">
                     <div className="exp-timeline-header d-flex-between gap-15 mb-5">
@@ -308,7 +306,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">
@@ -400,7 +398,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-xxl-8 col-xl-12">
+          {/* <div className="col-xxl-8 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="">Projects Status Overview</h4>
@@ -995,7 +993,7 @@ function Profile() {
                               </a>
                             </div>
                             <div className="avatar-group-item avatar avatar-sm">
-                              <a
+                              <a 
                                 href="javascript:void(0);"
                                 data-bs-toggle="tooltip"
                                 data-bs-placement="top"
@@ -1056,7 +1054,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col-xxl-4 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
@@ -1070,7 +1068,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">
@@ -1187,7 +1185,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">
@@ -1296,7 +1294,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">
@@ -1316,7 +1314,7 @@ function Profile() {
                 <ul className="bank-info enhanced-list">
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <User />
+                      {/* <User /> */}
                       <span className="text-body">Account Holder Name:</span>
                     </div>
                     <div className="info-value">John Parker</div>
@@ -1324,7 +1322,7 @@ function Profile() {
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <i className="ri-bank-card-line"></i>
+                      {/* <i className="ri-bank-card-line"></i> */}
                       <span className="text-body">Account Number:</span>
                     </div>
                     <div className="info-value">
@@ -1340,14 +1338,14 @@ function Profile() {
                         className="btn-eye ms-2"
                         type="button"
                       >
-                        <i id="eyeIcon" className="ri-eye-line"></i>
+                        <EyeIcon size={15} />
                       </button>
                     </div>
                   </li>
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <i className="ri-building-line"></i>
+                      {/* <i className="ri-building-line"></i> */}
                       <span className="text-body">Bank Name:</span>
                     </div>
                     <div className="info-value">ABC Bank</div>
@@ -1355,7 +1353,7 @@ function Profile() {
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <i className="ri-map-pin-line"></i>
+                      {/* <i className="ri-map-pin-line"></i> */}
                       <span className="text-body">Branch Location:</span>
                     </div>
                     <div className="info-value">
@@ -1368,7 +1366,7 @@ function Profile() {
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <i className="ri-global-line"></i>
+                      {/* <i className="ri-global-line"></i> */}
                       <span className="text-body">SWIFT/BIC Code:</span>
                     </div>
                     <div className="info-value">ABCXYZ123</div>
@@ -1376,7 +1374,7 @@ function Profile() {
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      <i className="ri-exchange-line"></i>
+                      {/* <i className="ri-exchange-line"></i> */}
                       <span className="text-body">Routing Number:</span>
                     </div>
                     <div className="info-value">ABC12345</div>
@@ -1466,7 +1464,7 @@ function Profile() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                       <ChevronDown />
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">

@@ -50,7 +50,7 @@ function CandidateDashboard() {
                   </span>
                 </li>
                 <li className="slide has-sub">
-                  <a className="sidebar-menu-item">
+                  <a className="sidebar-menu-item" href="dashboard">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -104,13 +104,13 @@ function CandidateDashboard() {
                       <li className="slide">
                         <a
                           className="sidebar-menu-item"
-                          href="TechnicalProfile"
+                          href="Resume"
                         >
                           <ArrowRight
                             size={12}
                             style={{ marginRight: "10px", marginLeft: "10px" }}
                           />{" "}
-                          CV Builder
+                          Resume
                         </a>
                       </li>
                     </ul>
@@ -151,7 +151,7 @@ function CandidateDashboard() {
                         </a>
                       </li>
                       <li className="slide">
-                        <a className="sidebar-menu-item" href="Jobs Applied">
+                        <a className="sidebar-menu-item" href="MyApplication">
                           <ArrowRight
                             size={12}
                             style={{ marginRight: "10px", marginLeft: "10px" }}
@@ -160,7 +160,7 @@ function CandidateDashboard() {
                         </a>
                       </li>
                       <li className="slide">
-                        <a className="sidebar-menu-item" href="Saved Jobs">
+                        <a className="sidebar-menu-item" href="JobsSaved">
                           <ArrowRight
                             size={12}
                             style={{ marginRight: "10px", marginLeft: "10px" }}
@@ -173,7 +173,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="Compliance" className="sidebar-menu-item">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -192,7 +192,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a className="sidebar-menu-item">
+                  <a className="sidebar-menu-item" href="attendance">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -264,13 +264,13 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="Notifications" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
                         <BellIcon size={16} />
                       </i>
                     </div>
-                    <span className="sidebar-menu-label">Notification</span>
+                    <span className="sidebar-menu-label">Notifications</span>
                   </a>
                 </li>
 
@@ -455,7 +455,7 @@ function CandidateDashboard() {
                             <div className="content">
                               <h6 className="mb-5">New Order Received 🛒</h6>
                               <p className="mb-5">
-                                Order #14523 has been placed by John Doe
+                                Order #14523 has been placed by John Dane
                               </p>
                               <span className="text-body-secondary">
                                 Just now
@@ -536,7 +536,7 @@ function CandidateDashboard() {
                         <div className="author-thumb">
                           <img src={john} alt="user" />
                         </div>
-                        <h6 className="author-name lh-1">John Wick</h6>
+                        <h6 className="author-name lh-1">John Parker</h6>
                       </div>
                     </a>
                     <ul className="dropdown-menu">
