@@ -79,7 +79,7 @@ function Dashboard() {
                   <Briefcase size={42} className="" />
                 </div>
                 <div className="card-content">
-                  <span className="d-block fs-16 mb-5">Jobs Applied</span>
+                  <span className="d-block fs-16 mb-5">My Applications</span>
                   <h2 className="mb-5">42</h2>
                   {/* <span className="fs-12 text-muted">Sick/Annual Leave</span> */}
                 </div>
@@ -122,8 +122,14 @@ function Dashboard() {
           <div className="col-xxl-6 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
-                <h4 className="">Jobs Applied</h4>
-                <div className="card-dropdown">
+                <h4 className="">My Applications</h4>
+                <a
+                  href="MyApplications"
+                  className="btn btn-primary-light text-primary"
+                >
+                  <Eye size={15} /> View All
+                </a>
+                {/* <div className="card-dropdown">
                   <div className="dropdown">
                     <a
                       className="card-dropdown-icon"
@@ -146,11 +152,14 @@ function Dashboard() {
                       </a>
                     </div>
                   </div>
-                </div>
+                </div> */}
               </div>
               <div className="card-body pt-15">
                 <div className="table-responsive">
-                  <table className="table tbody-b-none text-nowrap">
+                  <table
+                    className="table tbody-b-none text-nowrap"
+                    style={{ textAlign: "left" }}
+                  >
                     <thead>
                       <tr>
                         <th>Company</th>
@@ -174,7 +183,7 @@ function Dashboard() {
                             <h6>Barnes care home</h6>
                           </div>
                         </td>
-                        <td>Head Nurse</td>
+                        <td>Engineer</td>
                         <td>
                           <span className="badge bg-label-warning">
                             Interview
@@ -217,7 +226,7 @@ function Dashboard() {
                             <h6>Jenkins Hospitals</h6>
                           </div>
                         </td>
-                        <td>Mid-wife</td>
+                        <td>Software Developer</td>
                         <td>
                           <span className="badge bg-label-warning">
                             Interview
@@ -262,7 +271,7 @@ function Dashboard() {
                   className="btn btn-primary-light btn-sm text-primary"
                   href="javascript:void(0);"
                 >
-                  View All
+                  <Eye size={15} /> View All
                 </a>
               </div>
               <div className="card-body pt-15">
@@ -288,7 +297,7 @@ function Dashboard() {
                     </div>
                     <span className="badge bg-label-success">Friday</span>
                   </li>
-               
+
                   <li className="task-item d-flex-between flex-wrap gap-15">
                     <div className="d-flex-items gap-10">
                       <span className="bullet bg-warning"></span>
@@ -321,148 +330,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          <div className="col-xxl-4 col-xl-12">
-            <div className="card-column">
-              <div className="card">
-                <div className="card-header justify-between">
-                  <h4 className="">My Attendance Status</h4>
-                  <div className="card-dropdown">
-                    <div className="dropdown">
-                      <a
-                        className="card-dropdown-icon"
-                        href="javascript:void(0);"
-                        role="button"
-                        data-bs-toggle="dropdown"
-                        aria-expanded="false"
-                      >
-                         <ChevronDown className="" />
-                      </a>
-                      <div className="dropdown-menu">
-                        <a className="dropdown-item" href="javascript:void(0);">
-                          This Month
-                        </a>
-                        <a className="dropdown-item" href="javascript:void(0);">
-                          Last Month
-                        </a>
-                        <a className="dropdown-item" href="javascript:void(0);">
-                          This Year
-                        </a>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div className="card-body pt-15">
-                  <div className="row gy-15">
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-primary">20</h2>
-                        <p>Total Leaves Allowed</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-secondary">6.5</h2>
-                        <p>Leaves Used</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-success">13.5</h2>
-                        <p>Leaves Remaining</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-warning">2</h2>
-                        <p>Pending Requests</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-info">214/230</h2>
-                        <p>Days Present (93%)</p>
-                      </div>
-                    </div>
-                    <div className="col-md-4 col-6">
-                      <div className="attendance-info">
-                        <h2 className="mb-5 text-danger">3</h2>
-                        <p>Unexcused Absences</p>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card">
-                <div className="card-body">
-                  <div className="row align-center">
-                    <div className="col-xxl-12 col-xl-12 col-lg-12 col-md-12 d-flex-items justify-center flex-column text-xs-center">
-                      <span className="d-block text-muted mb-15">
-                        <strong>Office Time:</strong> 09:00AM to 05:00PM
-                      </span>
-                      <div className="d-flex-items justify-xs-center gap-15 mb-10">
-                        <button type="submit" className="btn btn-primary">
-                          Clock In
-                        </button>
-                        <button type="submit" className="btn btn-danger">
-                          Clock Out
-                        </button>
-                      </div>
-                      <h6 className="fs-14 mb-10 text-muted">
-                        Clock In Today at 10.00 AM
-                      </h6>
-                      {/* <h6 className="fs-14text-muted">
-                        Remaining Hour 04:04:30
-                      </h6> */}
-                    </div>
-                    {/* <div className="col-xxl-6 col-xl-6 col-lg-6 col-md-6">
-                      <div id="totalHoursChart" className=""></div>
-                    </div> */}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-          {/* <div className="col-xxl-4 col-xl-12">
-            <div className="card">
-              <div className="card-header justify-between">
-                <h4 className="">Working Hours</h4>
-                <div className="card-dropdown">
-                  <div className="dropdown">
-                    <a
-                      className="card-dropdown-icon"
-                      href="javascript:void(0);"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i className="ri-more-2-fill"></i>
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        Today
-                      </a>
-                      <a
-                        className="dropdown-item active"
-                        href="javascript:void(0);"
-                      >
-                        This Week
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Month
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Year
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card-body pt-15">
-                <div id="workday-chart"></div>
-              </div>
-            </div>
-          </div> */}
-         
+
           <div className="col-xxl-2 col-xl-6 col-lg-6">
             <div className="d-flex flex-column">
               <div className="holiday-card">
@@ -541,6 +409,76 @@ function Dashboard() {
                 </div>
               </div>
             </div>
+
+            <div className="card">
+              <div className="card-header justify-between">
+                <h4 className="">My Attendance Status</h4>
+                <div className="card-dropdown">
+                  <div className="dropdown">
+                    <a
+                      className="card-dropdown-icon"
+                      href="javascript:void(0);"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <ChevronDown className="" />
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Month
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        Last Month
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Year
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-body pt-15">
+                <div className="row gy-15" style={{ textAlign: "left" }}>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-primary">20</h2>
+                      <p>Total Leaves Allowed</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-secondary">6.5</h2>
+                      <p>Leaves Used</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-success">13.5</h2>
+                      <p>Leaves Remaining</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-warning">2</h2>
+                      <p>Pending Requests</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-info">214/230</h2>
+                      <p>Days Present (93%)</p>
+                    </div>
+                  </div>
+                  <div className="col-md-4 col-6">
+                    <div className="attendance-info">
+                      <h2 className="mb-5 text-danger">3</h2>
+                      <p>Unexcused Absences</p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
           </div>
           {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
             <div className="card height-equal">
@@ -582,8 +520,10 @@ function Dashboard() {
               </div>
             </div>
           </div> */}
-          
-          
+          {/* <div className="col-xxl-4 col-xl-6">
+            
+          </div> */}
+
           <div className="col-xxl-4 col-xl-6">
             <div className="card height-equal">
               <div className="card-header justify-between">
@@ -669,14 +609,10 @@ function Dashboard() {
                       </div>
                     </div>
                   </div>
-                  
                 </div>
 
                 <div className="announcement-view-btn">
-                  <a
-                    href="Announcement"
-                    className="btn btn-primary w-100"
-                  >
+                  <a href="Announcement" className="btn btn-primary w-100">
                     View All Announcements
                   </a>
                 </div>

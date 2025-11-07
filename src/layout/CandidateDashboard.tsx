@@ -2,6 +2,7 @@ import { Outlet } from "react-router-dom";
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
 import fullLogo from "../assets/images/logo/lattice-logo.png";
+import fullLogoMobile from "../assets/images/logo/lattice-logo-mobile.png";
 import {
   ArrowRight,
   ArrowUp,
@@ -10,12 +11,10 @@ import {
   ChevronDown,
   CircleQuestionMark,
   ClockPlus,
-  CreditCard,
   LogOut,
   LogOutIcon,
   Search,
   Settings,
-  UserCog2,
   UserRound,
 } from "lucide-react";
 import { useState } from "react";
@@ -36,7 +35,7 @@ function CandidateDashboard() {
               <img src={fullLogo} alt="image" />
             </a>
             <a href="Dashboard" className="desktop-dark">
-              <img src="assets/images/logo/logo-white.svg" alt="image" />
+              <img src={fullLogo} alt="image" />
             </a>
           </div>
           {/* <!-- end app-sidebar-header --> */}
@@ -360,13 +359,13 @@ function CandidateDashboard() {
                   <div className="app-header-mobile-logo">
                     <a className="app-header-dark-logo" href="index.html">
                       <img
-                        src="../assets/images/logo/mobile-logo.svg"
+                        src={fullLogoMobile}
                         alt="image"
                       />
                     </a>
                     <a className="app-header-light-logo" href="index.html">
                       <img
-                        src="../assets/images/logo/mobile-logo-light.svg"
+                        src={fullLogoMobile}
                         alt="image"
                       />
                     </a>
@@ -387,14 +386,14 @@ function CandidateDashboard() {
               </div>
               <div className="app-header-right">
                 <div className="app-header-search-modal">
-                  <button
+                  <a
                     type="button"
                     className="app-header-circle"
                     data-bs-toggle="modal"
                     data-bs-target="#searchModal"
                   >
-                    <Search />
-                  </button>
+                    <Search size={18} />
+                  </a>
                 </div>
                 {/* <div className="app-header-link">
                             <div className="dropdown">
@@ -525,8 +524,9 @@ function CandidateDashboard() {
                         <a
                           className="btn btn-primary w-100"
                           onClick={() => toggleDropdown("menu1")}
+                          href="Notifications"
                         >
-                          View all notifications
+                          View all notifications 
                         </a>
                       </li>
                     </ul>
@@ -551,7 +551,7 @@ function CandidateDashboard() {
                     </a>
                     <ul className="dropdown-menu">
                       <li className="bd-user-info-list">
-                        <a href="app-user-account.html">
+                        <a href="Profile">
                           <UserRound
                             size={17}
                             style={{ marginRight: "7px" }}
@@ -560,7 +560,7 @@ function CandidateDashboard() {
                           Profile
                         </a>
                       </li>
-                      <li className="bd-user-info-list">
+                      {/* <li className="bd-user-info-list">
                         <a href="app-user-billing.html">
                           <CreditCard
                             size={17}
@@ -569,10 +569,10 @@ function CandidateDashboard() {
                           />
                           Plans & Billing
                         </a>
-                      </li>
+                      </li> */}
                       <li className="bd-user-info-list">
-                        <a href="Setting">
-                          <UserCog2
+                        <a href="Settings">
+                          <Settings
                             size={17}
                             style={{ marginRight: "7px" }}
                             className=""

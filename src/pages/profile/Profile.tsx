@@ -78,7 +78,7 @@ function Profile() {
                 </div>
                 <div className="profile-info text-center mb-15">
                   <h3 className="mb-5">John Parker</h3>
-                  <h6 className="text-body mb-10">Nurse</h6>
+                  <h6 className="text-body mb-10">Developer</h6>
                   {/* <div className="d-flex-center gap-15">
                     <a
                       href="javascript:void(0);"
@@ -113,7 +113,7 @@ function Profile() {
                   </div> */}
                 </div>
                 <div className="table-responsive mb-15">
-                  <table className="table">
+                  <table className="table" style={{ textAlign: "left" }}>
                     <tbody>
                       {/* <tr>
                         <td style={{ minWidth: "105px" }}>Employee ID:</td>
