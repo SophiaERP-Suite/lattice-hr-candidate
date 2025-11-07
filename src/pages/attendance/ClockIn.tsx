@@ -92,10 +92,12 @@ function ClockIn() {
 
           <div className="col-lg-12">
             <div className="card shadow-sm border-0 p-4 text-center">
-              <h2 className="fw-bold text-primary mb-3">
-                Clock In Verification
-              </h2>
-              <p className="text-muted mb-4">
+              <div className="card-header">
+                <h3 className="text-primary">
+                  Clock In Verification
+                </h3>
+              </div>
+              <p className="text-dark mb-4 mt-4">
                 Please select a verification method to clock in securely.
               </p>
 
@@ -119,7 +121,7 @@ function ClockIn() {
                     setVerified(false);
                   }}
                 >
-                  <QrCode className="me-1" /> QR Code
+                  <QrCode size={16} className="me-1" /> QR Code
                 </button>
 
                 <button
@@ -131,7 +133,7 @@ function ClockIn() {
                     setVerified(false);
                   }}
                 >
-                  <KeyRound className="me-1" /> OTP PIN
+                  <KeyRound size={16} className="me-1" /> OTP PIN
                 </button>
 
                 <button
@@ -143,7 +145,7 @@ function ClockIn() {
                     setVerified(false);
                   }}
                 >
-                  <MapPin className="me-1" /> Geo-fencing
+                  <MapPin size={16} className="me-1" /> Geo-fencing
                 </button>
               </div>
 
