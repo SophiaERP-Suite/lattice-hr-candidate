@@ -21,6 +21,7 @@ import InductionModules from "../pages/Induction/InductionModules";
 import Jobs from "../pages/job/Jobs";
 import JobDetails from "../pages/job/JobDetails";
 import ClockIn from "../pages/attendance/ClockIn";
+import Settings from "../pages/Settings";
 
 function AppRoutes() {
   return (
@@ -45,8 +46,9 @@ function AppRoutes() {
         <Route path="TakeInterview" element={<TakeInterview />} />
         <Route path="Induction" element={<Induction />} />
         <Route path="InductionModules" element={<InductionModules />} />
-        <Route path="Security" element={<Security />} /> 
-        <Route path="ClockIn" element={<ClockIn />} /> 
+        <Route path="Security" element={<Security />} />
+        <Route path="Settings" element={<Settings />} />
+        <Route path="ClockIn" element={<ClockIn />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

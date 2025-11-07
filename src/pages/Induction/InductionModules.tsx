@@ -19,7 +19,7 @@ function InductionModules() {
                     style={{ position: "relative", top: "3px" }}
                   />
                   <li className="breadcrumb-item active" aria-current="page">
-                     <a href="Induction">Induction</a>
+                    <a href="Induction">Induction</a>
                   </li>
                   <ChevronRight
                     size={15}
@@ -33,14 +33,18 @@ function InductionModules() {
             </div>
           </div>
 
-
           <div className="col-xl-12">
-            <div className="card "><h6>Continue your Induction</h6></div>
+            <div className="card ">
+              <h6>Continue your Induction</h6>
+            </div>
             <div className="row g-4">
               {/* Card 1 */}
               <div className="col-md-6 col-lg-4">
                 <div className="card shadow-sm border-0 h-100">
-                  <div className="card-body d-flex flex-column">
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{ textAlign: "left" }}
+                  >
                     <h5 className="fw-semibold mb-2">Company Overview</h5>
                     <p className="text-muted flex-grow-1">
                       Learn about our mission, vision, values, and
@@ -56,7 +60,10 @@ function InductionModules() {
               {/* Card 2 */}
               <div className="col-md-6 col-lg-4">
                 <div className="card shadow-sm border-0 h-100">
-                  <div className="card-body d-flex flex-column">
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{ textAlign: "left" }}
+                  >
                     <h5 className="fw-semibold mb-2">Workplace Policies</h5>
                     <p className="text-muted flex-grow-1">
                       Understand company policies, ethics, and compliance
@@ -72,8 +79,13 @@ function InductionModules() {
               {/* Card 3 */}
               <div className="col-md-6 col-lg-4">
                 <div className="card shadow-sm border-0 h-100">
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="fw-semibold mb-2">Job Role InductionModules</h5>
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{ textAlign: "left" }}
+                  >
+                    <h5 className="fw-semibold mb-2">
+                      Job Role InductionModules
+                    </h5>
                     <p className="text-muted flex-grow-1">
                       Dive into department-specific learning materials and skill
                       InductionModules.
@@ -88,7 +100,10 @@ function InductionModules() {
               {/* Card 4 */}
               <div className="col-md-6 col-lg-4">
                 <div className="card shadow-sm border-0 h-100">
-                  <div className="card-body d-flex flex-column">
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{ textAlign: "left" }}
+                  >
                     <h5 className="fw-semibold mb-2">Health & Safety</h5>
                     <p className="text-muted flex-grow-1">
                       Learn safety procedures and best practices in the
@@ -104,8 +119,13 @@ function InductionModules() {
               {/* Card 5 */}
               <div className="col-md-6 col-lg-4">
                 <div className="card shadow-sm border-0 h-100">
-                  <div className="card-body d-flex flex-column">
-                    <h5 className="fw-semibold mb-2">Communication InductionModules</h5>
+                  <div
+                    className="card-body d-flex flex-column"
+                    style={{ textAlign: "left" }}
+                  >
+                    <h5 className="fw-semibold mb-2">
+                      Communication InductionModules
+                    </h5>
                     <p className="text-muted flex-grow-1">
                       Improve your interpersonal and professional communication
                       skills.

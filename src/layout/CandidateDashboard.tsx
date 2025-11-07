@@ -276,7 +276,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="Settings" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
                         <Settings size={16} />
