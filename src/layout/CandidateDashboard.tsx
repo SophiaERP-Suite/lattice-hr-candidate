@@ -286,7 +286,7 @@ function CandidateDashboard() {
                   </a>
                 </li>
 
-                <li className="slide has-sub">
+                {/* <li className="slide has-sub">
                   <a className="sidebar-menu-item" href="Security">
                     <div className="side-menu-icon">
                       <i className="">
@@ -301,7 +301,7 @@ function CandidateDashboard() {
                     </div>
                     <span className="sidebar-menu-label">Security</span>
                   </a>
-                </li>
+                </li> */}
 
                 <li className="slide has-sub">
                   <a href="Dashboard" className="sidebar-menu-item">
