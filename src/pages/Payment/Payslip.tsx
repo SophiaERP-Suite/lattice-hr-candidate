@@ -12,8 +12,8 @@ function Payslip() {
               <h1 className="page-title fs-18 lh-1">Payslip</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Payslip
                   </li>
                   <ChevronRight
                     size={15}
@@ -26,8 +26,8 @@ function Payslip() {
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Payslip
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -306,7 +306,7 @@ function Payslip() {
                     data-bs-toggle="modal"
                     data-bs-target="#emailSend"
                   >
-                    <Mail size={14} />  Email
+                    <Mail size={14} /> Email
                   </button>
                 </div>
               </div>

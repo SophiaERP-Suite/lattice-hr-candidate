@@ -961,9 +961,10 @@ textarea:focus {
   top: 50%;
   transform: translateY(-50%);
   background-image: none !important;
-  display: inline-flex;
+  /* display: inline-flex; */
   justify-content: center;
   align-items: center;
+  display: none;
 }
 .accordion-button:not(.collapsed)::after {
   content: "\ea78";
@@ -2776,6 +2777,7 @@ textarea:focus {
   z-index: 1;
   -webkit-transition: all 200ms linear;
   transition: all 200ms linear;
+  display: none
 }
 @media only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .progress-wrap::after {

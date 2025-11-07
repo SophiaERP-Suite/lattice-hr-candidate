@@ -22,6 +22,7 @@ import Jobs from "../pages/job/Jobs";
 import JobDetails from "../pages/job/JobDetails";
 import ClockIn from "../pages/attendance/ClockIn";
 import Settings from "../pages/Settings";
+import HelpSupport from "../pages/HelpSupport";
 
 function AppRoutes() {
   return (
@@ -49,6 +50,7 @@ function AppRoutes() {
         <Route path="Security" element={<Security />} />
         <Route path="Settings" element={<Settings />} />
         <Route path="ClockIn" element={<ClockIn />} />
+        <Route path="HelpSupport" element={<HelpSupport />} />
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

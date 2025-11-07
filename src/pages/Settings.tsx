@@ -14,18 +14,15 @@ function Settings() {
               <h1 className="page-title fs-18 lh-1">Settings</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Settings
                   </li>
-                  {/* <li className="breadcrumb-item">
-                    <a href="javascript:void(0);">User</a>
-                  </li> */}
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Settings
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -34,57 +31,64 @@ function Settings() {
 
           {/* ===== Sidebar Navigation ===== */}
           <div className="col-lg-12 mb-4">
-            <div className="card border-0 shadow-sm  d-flex justify-contents-center">
-              <div className=" d-flex justify-contents-around" >
-                <button
-                  className={`list-group-item list-group-item-action d-flex align-items-center ${
-                    activeTab === "profile" ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab("profile")}
-                >
-                  <User className="me-2" size={18} /> Profile Settings
-                </button>
-                <button
-                  className={`list-group-item list-group-item-action d-flex align-items-center ${
-                    activeTab === "security" ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab("security")}
-                >
-                  {/* <Lock className="me-2" size={18} />{" "} */}
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    viewBox="0 0 24 24"
-                    fill="currentColor"
-                    height={18}
-                    width={18}
-                    style={{marginRight: "5px"}}
+            <div className="card border-0 shadow-sm">
+              <div className="card-body py-3">
+                <div className="d-flex flex-wrap justify-content-center gap-15">
+                  {/* Profile Tab */}
+                  <button
+                    className={`btn d-flex align-items-center px-4 py-2 rounded-pill ${
+                      activeTab === "profile"
+                        ? "btn-primary text-white"
+                        : "btn-outline-primary"
+                    }`}
+                    onClick={() => setActiveTab("profile")}
                   >
-                    <path d="M12 1L20.2169 2.82598C20.6745 2.92766 21 3.33347 21 3.80217V13.7889C21 15.795 19.9974 17.6684 18.3282 18.7812L12 23L5.6718 18.7812C4.00261 17.6684 3 15.795 3 13.7889V3.80217C3 3.33347 3.32553 2.92766 3.78307 2.82598L12 1ZM12 3.04879L5 4.60434V13.7889C5 15.1263 5.6684 16.3752 6.7812 17.1171L12 20.5963L17.2188 17.1171C18.3316 16.3752 19 15.1263 19 13.7889V4.60434L12 3.04879ZM12 7C13.1046 7 14 7.89543 14 9C14 9.73984 13.5983 10.3858 13.0011 10.7318L13 15H11L10.9999 10.7324C10.4022 10.3866 10 9.74025 10 9C10 7.89543 10.8954 7 12 7Z"></path>
-                  </svg>{" "}
-                  Security
-                </button>
-                <button
-                  className={`list-group-item list-group-item-action d-flex align-items-center ${
-                    activeTab === "notifications" ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab("notifications")}
-                >
-                  <Bell className="me-2" size={18} /> Notifications
-                </button>
-                {/* <button
-                  className={`list-group-item list-group-item-action d-flex align-items-center ${
-                    activeTab === "appearance" ? "active" : ""
-                  }`}
-                  onClick={() => setActiveTab("appearance")}
-                >
-                  <Palette className="me-2" size={18} /> Appearance
-                </button> */}
+                    <User className="me-2" size={18} /> Profile Settings
+                  </button>
+
+                  {/* Security Tab */}
+                  <button
+                    className={`btn d-flex align-items-center px-4 py-2 rounded-pill ${
+                      activeTab === "security"
+                        ? "btn-primary text-white"
+                        : "btn-outline-primary"
+                    }`}
+                    onClick={() => setActiveTab("security")}
+                  >
+                    <svg
+                      xmlns="http://www.w3.org/2000/svg"
+                      viewBox="0 0 24 24"
+                      fill="currentColor"
+                      height={18}
+                      width={18}
+                      className="me-2"
+                    >
+                      <path d="M12 1L20.2169 2.82598C20.6745 2.92766 21 3.33347 21 3.80217V13.7889C21 15.795 19.9974 17.6684 18.3282 18.7812L12 23L5.6718 18.7812C4.00261 17.6684 3 15.795 3 13.7889V3.80217C3 3.33347 3.32553 2.92766 3.78307 2.82598L12 1ZM12 3.04879L5 4.60434V13.7889C5 15.1263 5.6684 16.3752 6.7812 17.1171L12 20.5963L17.2188 17.1171C18.3316 16.3752 19 15.1263 19 13.7889V4.60434L12 3.04879ZM12 7C13.1046 7 14 7.89543 14 9C14 9.73984 13.5983 10.3858 13.0011 10.7318L13 15H11L10.9999 10.7324C10.4022 10.3866 10 9.74025 10 9C10 7.89543 10.8954 7 12 7Z"></path>
+                    </svg>
+                    Security
+                  </button>
+
+                  {/* Notifications Tab */}
+                  <button
+                    className={`btn d-flex align-items-center px-4 py-2 rounded-pill ${
+                      activeTab === "notifications"
+                        ? "btn-primary text-white"
+                        : "btn-outline-primary"
+                    }`}
+                    onClick={() => setActiveTab("notifications")}
+                  >
+                    <Bell className="me-2" size={18} /> Notifications
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
           <div className="col-lg-12">
-            <div className="card border-0 shadow-sm p-4" style={{textAlign: "left"}}>
+            <div
+              className="card border-0 shadow-sm p-4"
+              style={{ textAlign: "left" }}
+            >
               {/* ===== Profile Settings ===== */}
               {activeTab === "profile" && (
                 <>
@@ -123,6 +127,24 @@ function Settings() {
                         type="text"
                         className="form-control"
                         placeholder="Enter address"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="row">
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">Gender</label>
+                      <select className="form-control">
+                        <option>Male</option>
+                        <option>Female</option>
+                      </select>
+                    </div>
+                    <div className="col-md-6 mb-3">
+                      <label className="form-label">Gender</label>
+                      <input
+                        type="date"
+                        className="form-control"
+                        placeholder="Enter Birtd"
                       />
                     </div>
                   </div>

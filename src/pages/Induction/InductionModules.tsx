@@ -11,8 +11,8 @@ function InductionModules() {
               <h1 className="page-title fs-18 lh-1">Induction Modules</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Induction Modules
                   </li>
                   <ChevronRight
                     size={15}
@@ -25,8 +25,8 @@ function InductionModules() {
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Induction Modules
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>

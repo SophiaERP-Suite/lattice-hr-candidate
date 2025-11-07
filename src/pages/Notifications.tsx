@@ -1,5 +1,5 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import { ChevronRight } from "lucide-react";
+import { CheckCheck, ChevronRight, Settings } from "lucide-react";
 
 function Compliance() {
   return (
@@ -11,15 +11,15 @@ function Compliance() {
               <h1 className="page-title fs-18 lh-1">Notifications</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Notifications
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Notifications
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -31,11 +31,11 @@ function Compliance() {
               <h4 className="fw-bold">All Notifications</h4>
               <div>
                 <button className="btn btn-outline-secondary btn-sm me-2">
-                  Mark All as Read
+                 <CheckCheck size={15} /> Mark All as Read
                 </button>
-                <button className="btn btn-primary btn-sm">
-                  Notification Settings
-                </button>
+                <a href="Settings" className="btn btn-primary btn-sm">
+                 <Settings size={15} /> Notification Settings
+                </a>
               </div>
             </div>
           </div>
@@ -92,9 +92,7 @@ function Compliance() {
                   </div> */}
                   Upload your background verification document before Nov 10.
                 </div>
-                <span className="badge bg-warning rounded-pill">
-                  3h ago
-                </span>
+                <span className="badge bg-warning rounded-pill">3h ago</span>
               </a>
             </div>
           </div>

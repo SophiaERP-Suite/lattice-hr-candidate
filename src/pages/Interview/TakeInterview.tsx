@@ -33,22 +33,22 @@ function TakeInterview() {
               <h1 className="page-title fs-4 lh-1 mb-0">Self Interview</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard" className="text-decoration-none">
-                      Home
-                    </a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Take Interview
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item">Self Interview</li>
+                  <li className="breadcrumb-item"><a href="SelfInterview">Self Interview</a></li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Take Interview
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard" className="text-decoration-none">
+                      Home
+                    </a>
                   </li>
                 </ol>
               </nav>

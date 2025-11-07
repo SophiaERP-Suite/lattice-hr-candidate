@@ -22,15 +22,15 @@ function Dashboard() {
               <h1 className="page-title fs-18 lh-1">Dashboard</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Dashboard
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Dashboard
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -119,7 +119,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="col-xxl-6 col-xl-12">
+          <div className=" col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="">My Applications</h4>
@@ -263,7 +263,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="col-xxl-4 col-xl-12">
+          <div className="col-xxl-6 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="">My Tasks</h4>
@@ -331,7 +331,7 @@ function Dashboard() {
             </div>
           </div>
 
-          <div className="col-xxl-2 col-xl-6 col-lg-6">
+          <div className="col-xxl-6 col-xl-6 col-lg-6">
             <div className="d-flex flex-column">
               <div className="holiday-card">
                 <h4 className="text-white text-center mb-10">Next Holiday</h4>
@@ -409,7 +409,48 @@ function Dashboard() {
                 </div>
               </div>
             </div>
-
+          </div>
+          {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
+            <div className="card height-equal">
+              <div className="card-header justify-between">
+                <h4 className="">Performance Summary / KPIs</h4>
+                <div className="card-dropdown">
+                  <div className="dropdown">
+                    <a
+                      className="card-dropdown-icon"
+                      href="javascript:void(0);"
+                      role="button"
+                      data-bs-toggle="dropdown"
+                      aria-expanded="false"
+                    >
+                      <i className="ri-more-2-fill"></i>
+                    </a>
+                    <div className="dropdown-menu">
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        Today
+                      </a>
+                      <a
+                        className="dropdown-item active"
+                        href="javascript:void(0);"
+                      >
+                        This Year
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Month
+                      </a>
+                      <a className="dropdown-item" href="javascript:void(0);">
+                        This Year
+                      </a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="card-body pt-15">
+                <div id="performance-chart"></div>
+              </div>
+            </div>
+          </div> */}
+          <div className="col-xxl-6 col-xl-6">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="">My Attendance Status</h4>
@@ -480,51 +521,8 @@ function Dashboard() {
               </div>
             </div>
           </div>
-          {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
-            <div className="card height-equal">
-              <div className="card-header justify-between">
-                <h4 className="">Performance Summary / KPIs</h4>
-                <div className="card-dropdown">
-                  <div className="dropdown">
-                    <a
-                      className="card-dropdown-icon"
-                      href="javascript:void(0);"
-                      role="button"
-                      data-bs-toggle="dropdown"
-                      aria-expanded="false"
-                    >
-                      <i className="ri-more-2-fill"></i>
-                    </a>
-                    <div className="dropdown-menu">
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        Today
-                      </a>
-                      <a
-                        className="dropdown-item active"
-                        href="javascript:void(0);"
-                      >
-                        This Year
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Month
-                      </a>
-                      <a className="dropdown-item" href="javascript:void(0);">
-                        This Year
-                      </a>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              <div className="card-body pt-15">
-                <div id="performance-chart"></div>
-              </div>
-            </div>
-          </div> */}
-          {/* <div className="col-xxl-4 col-xl-6">
-            
-          </div> */}
 
-          <div className="col-xxl-4 col-xl-6">
+          <div className="col-xxl-6 col-xl-6">
             <div className="card height-equal">
               <div className="card-header justify-between">
                 <h4 className="">Announcement</h4>
@@ -537,7 +535,7 @@ function Dashboard() {
                       data-bs-toggle="dropdown"
                       aria-expanded="false"
                     >
-                      <i className="ri-more-2-fill"></i>
+                      <ChevronDown />
                     </a>
                     <div className="dropdown-menu">
                       <a className="dropdown-item" href="javascript:void(0);">

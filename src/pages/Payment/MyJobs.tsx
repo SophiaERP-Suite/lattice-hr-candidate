@@ -1,8 +1,5 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import {
-  ChevronRight,
- 
-} from "lucide-react";
+import { ChevronRight } from "lucide-react";
 function MyJobs() {
   return (
     <div className="app-content-wrap">
@@ -13,15 +10,15 @@ function MyJobs() {
               <h1 className="page-title fs-18 lh-1 mb-0">My Jobs</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    My Jobs
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    My Jobs
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -67,11 +64,10 @@ function MyJobs() {
                   <table
                     id="dataTableDefault"
                     className="table text-nowrap w-100"
-                    style={{textAlign: "left"}}
+                    style={{ textAlign: "left" }}
                   >
                     <thead>
                       <tr>
-                        
                         <th>S/N</th>
                         <th>Job Title</th>
                         <th>Company</th>
@@ -107,13 +103,10 @@ function MyJobs() {
                         </td>
                         <td>N/A</td>
                         <td>San Francisco, CA</td>
-                        
+
                         <td>
                           <div className="d-flex-items gap-5">
-                            <a
-                              className="btn btn-warning-light"
-                              href="Payslip"
-                            >
+                            <a className="btn btn-warning-light" href="Payslip">
                               Payslip
                             </a>
                           </div>
@@ -143,19 +136,15 @@ function MyJobs() {
                         </td>
                         <td>N/A</td>
                         <td>San Francisco, CA</td>
-                        
+
                         <td>
                           <div className="d-flex-items gap-5">
-                            <a
-                              className="btn btn-warning-light"
-                              href="Payslip"
-                            >
+                            <a className="btn btn-warning-light" href="Payslip">
                               Payslip
                             </a>
                           </div>
                         </td>
                       </tr>
-                     
                     </tbody>
                   </table>
                 </div>

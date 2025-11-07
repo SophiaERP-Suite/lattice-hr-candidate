@@ -62,8 +62,8 @@ function CVBuilder() {
               <h1 className="page-title fs-18 lh-1">Cv Builder</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Cv Builder
                   </li>
                   <ChevronRight
                     size={15}
@@ -76,8 +76,8 @@ function CVBuilder() {
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Cv Builder
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -251,10 +251,7 @@ function CVBuilder() {
                     Work Experience
                   </h5>
                   {cv.experience.map((exp, index) => (
-                    <div
-                      key={index}
-                      className="border rounded p-3 mb-3 "
-                    >
+                    <div key={index} className="border rounded p-3 mb-3 ">
                       <div className="row">
                         <div className="col-md-4 mb-3">
                           <label className="form-label">Role</label>
@@ -404,10 +401,7 @@ function CVBuilder() {
                     Referees
                   </h5>
                   {cv.referees.map((ref, index) => (
-                    <div
-                      key={index}
-                      className="border rounded p-3 mb-3 "
-                    >
+                    <div key={index} className="border rounded p-3 mb-3 ">
                       <div className="row">
                         <div className="col-md-6 mb-3">
                           <label className="form-label">Name</label>

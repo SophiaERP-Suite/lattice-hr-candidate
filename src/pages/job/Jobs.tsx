@@ -41,15 +41,15 @@ function Jobs() {
               <h1 className="page-title fs-18 lh-1 mb-0"> Jobs</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Jobs
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Jobs
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -98,10 +98,11 @@ function Jobs() {
               {jobs.map((job) => (
                 <div className="col-md-6 col-lg-4" key={job.id}>
                   <div className="card h-100 shadow-sm border-0">
-                    <div className="card-body d-flex flex-column" style={{textAlign: "left"}}>
-                      <h5 className="fw-semibold mb-2 ">
-                        {job.title}
-                      </h5>
+                    <div
+                      className="card-body d-flex flex-column"
+                      style={{ textAlign: "left" }}
+                    >
+                      <h5 className="fw-semibold mb-2 ">{job.title}</h5>
                       <p className="mb-1 text-primary">
                         <Briefcase size={16} className="me-1" />
                         {job.company}
@@ -129,7 +130,10 @@ function Jobs() {
                         >
                           {job.type}
                         </span>
-                        <a href="JobDetails" className="btn btn-outline-primary btn-sm">
+                        <a
+                          href="JobDetails"
+                          className="btn btn-outline-primary btn-sm"
+                        >
                           View Details
                         </a>
                       </div>

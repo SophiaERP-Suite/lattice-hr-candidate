@@ -1,6 +1,14 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 
-import { CalendarDays, ChevronRight, Clock, ClockPlus, Eye, UserCheck, UserX } from "lucide-react";
+import {
+  CalendarDays,
+  ChevronRight,
+  Clock,
+  ClockPlus,
+  Eye,
+  UserCheck,
+  UserX,
+} from "lucide-react";
 
 function Attendance() {
   return (
@@ -12,15 +20,15 @@ function Attendance() {
               <h1 className="page-title fs-18 lh-1">Attendance</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Attendance
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Attendance
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -103,13 +111,15 @@ function Attendance() {
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
-                <h4 className="d-flex-items gap-10">November 2025 Attendance</h4>
+                <h4 className="d-flex-items gap-10">
+                  November 2025 Attendance
+                </h4>
                 <div className="d-flex flex-wrap gap-15">
                   <a className="btn btn-success text-white" href="TimeSheet">
-                  <Eye size={15} />  View TimeSheet
+                    <Eye size={15} /> View TimeSheet
                   </a>
                   <a href="ClockIn" className="btn btn-warning text-white">
-                   <ClockPlus size={15} /> Clock In
+                    <ClockPlus size={15} /> Clock In
                   </a>
                   {/* <div className="">
                     <select className="form-select sorting-dropdown">
@@ -129,7 +139,7 @@ function Attendance() {
                   <table
                     className="table w-100 text-nowrap"
                     id="employeeAttendanceTable"
-                    style={{textAlign: "left"}}
+                    style={{ textAlign: "left" }}
                   >
                     <thead>
                       <tr>
@@ -399,8 +409,6 @@ function Attendance() {
             </div>
           </div>
         </div>
-
-       
       </div>
     </div>
   );

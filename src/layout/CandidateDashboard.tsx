@@ -55,9 +55,11 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
+                          width="400"
                         >
                           <path d="M14 21C13.4477 21 13 20.5523 13 20V12C13 11.4477 13.4477 11 14 11H20C20.5523 11 21 11.4477 21 12V20C21 20.5523 20.5523 21 20 21H14ZM4 13C3.44772 13 3 12.5523 3 12V4C3 3.44772 3.44772 3 4 3H10C10.5523 3 11 3.44772 11 4V12C11 12.5523 10.5523 13 10 13H4ZM9 11V5H5V11H9ZM4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4ZM5 19H9V17H5V19ZM15 19H19V13H15V19ZM13 4C13 3.44772 13.4477 3 14 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 20.5523 9 20 9H14C13.4477 9 13 8.55228 13 8V4ZM15 5V7H19V5H15Z"></path>
                         </svg>
@@ -76,6 +78,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -86,7 +89,7 @@ function CandidateDashboard() {
                     </div>
                     <span className="sidebar-menu-label">Profile & Resume</span>
                     <ChevronDown
-                      size={16}
+                      size={24}
                       className="ri-arrow-down-s-fill side-menu-angle"
                     />
                   </a>
@@ -126,6 +129,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -136,7 +140,7 @@ function CandidateDashboard() {
                     </div>
                     <span className="sidebar-menu-label">Job Mgt</span>
                     <ChevronDown
-                      size={16}
+                      size={24}
                       className="ri-arrow-down-s-fill side-menu-angle"
                     />
                   </a>
@@ -178,6 +182,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -197,6 +202,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -216,6 +222,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -233,6 +240,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -253,6 +261,7 @@ function CandidateDashboard() {
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
+                          style={{scale: "1.3", marginRight: "10px"}}
                         >
                           <path d="M20.0833 15.1999L21.2854 15.9212C21.5221 16.0633 21.5989 16.3704 21.4569 16.6072C21.4146 16.6776 21.3557 16.7365 21.2854 16.7787L12.5144 22.0412C12.1977 22.2313 11.8021 22.2313 11.4854 22.0412L2.71451 16.7787C2.47772 16.6366 2.40093 16.3295 2.54301 16.0927C2.58523 16.0223 2.64413 15.9634 2.71451 15.9212L3.9166 15.1999L11.9999 20.0499L20.0833 15.1999ZM20.0833 10.4999L21.2854 11.2212C21.5221 11.3633 21.5989 11.6704 21.4569 11.9072C21.4146 11.9776 21.3557 12.0365 21.2854 12.0787L11.9999 17.6499L2.71451 12.0787C2.47772 11.9366 2.40093 11.6295 2.54301 11.3927C2.58523 11.3223 2.64413 11.2634 2.71451 11.2212L3.9166 10.4999L11.9999 15.3499L20.0833 10.4999ZM12.5144 1.30864L21.2854 6.5712C21.5221 6.71327 21.5989 7.0204 21.4569 7.25719C21.4146 7.32757 21.3557 7.38647 21.2854 7.42869L11.9999 12.9999L2.71451 7.42869C2.47772 7.28662 2.40093 6.97949 2.54301 6.7427C2.58523 6.67232 2.64413 6.61343 2.71451 6.5712L11.4854 1.30864C11.8021 1.11864 12.1977 1.11864 12.5144 1.30864ZM11.9999 3.33233L5.88723 6.99995L11.9999 10.6676L18.1126 6.99995L11.9999 3.33233Z"></path>
                         </svg>
@@ -268,7 +277,7 @@ function CandidateDashboard() {
                   <a href="Notifications" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
-                        <BellIcon size={16} />
+                        <BellIcon size={24} />
                       </i>
                     </div>
                     <span className="sidebar-menu-label">Notifications</span>
@@ -279,7 +288,7 @@ function CandidateDashboard() {
                   <a href="Settings" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
-                        <Settings size={16} />
+                        <Settings size={24} />
                       </i>
                     </div>
                     <span className="sidebar-menu-label">Settings</span>
@@ -291,6 +300,7 @@ function CandidateDashboard() {
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
+                        style={{scale: "1.3", marginRight: "10px"}}
                           xmlns="http://www.w3.org/2000/svg"
                           viewBox="0 0 24 24"
                           fill="currentColor"
@@ -307,7 +317,7 @@ function CandidateDashboard() {
                   <a href="Dashboard" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
-                        <LogOutIcon size={16} />
+                        <LogOutIcon size={24} />
                       </i>
                     </div>
                     <span className="sidebar-menu-label">Logout</span>
@@ -424,12 +434,12 @@ function CandidateDashboard() {
                 </div>
 
                 <div className="app-header-fullscreen app-header-circle cursor-pointer">
-                  <div>
+                  <a href="HelpSupport">
                     <CircleQuestionMark
                       size={18}
                       className="ri-fullscreen-line"
                     />
-                  </div>
+                  </a>
                 </div>
 
                 <div className="app-header-notification">
