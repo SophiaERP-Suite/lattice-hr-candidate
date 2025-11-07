@@ -11,6 +11,16 @@ import TimeSheet from "../pages/attendance/TimeSheet";
 import Notifications from "../pages/Notifications";
 import Resume from "../pages/profile/Resume";
 import CvBuilder from "../pages/profile/CvBuilder";
+import Security from "../pages/Security";
+import InterviewList from "../pages/Interview/InterviewList";
+import TakeInterview from "../pages/Interview/TakeInterview";
+import Payslip from "../pages/Payment/Payslip";
+import Induction from "../pages/Induction/Induction";
+import MyJobs from "../pages/Payment/MyJobs";
+import InductionModules from "../pages/Induction/InductionModules";
+import Jobs from "../pages/job/Jobs";
+import JobDetails from "../pages/job/JobDetails";
+import ClockIn from "../pages/attendance/ClockIn";
 
 function AppRoutes() {
   return (
@@ -27,19 +37,16 @@ function AppRoutes() {
         <Route path="Notifications" element={<Notifications />} />
         <Route path="Resume" element={<Resume />} />
         <Route path="CvBuilder" element={<CvBuilder />} />
-        {/* <Route path="Employee" element={<Applicants />} />
-        <Route path="EmployeeNew" element={<ApplicantNew />} />
-        <Route path="EmployeeProfile" element={<ApplicantProfile />} />
-        <Route path="ProfileUpdate" element={<ProfileUpdate />} />
-        <Route path="Profile" element={<Profile />} />
-        <Route path="Tracker" element={<DBSTrackerModule />} />
-        <Route path="IncidentMgt" element={<Incidents />} />
-        <Route path="Payment" element={<PaymentDashboard />} />
-        <Route path="Reports" element={<Reports />} />
-        <Route path="Communication" element={<CommunicationsPage />} />
-        <Route path="ControlPanel" element={<ControlPanel />} />
-        <Route path="Pricing" element={<Pricing />} />
-        <Route path="Security" element={<Security />} /> */}
+        <Route path="MyJobs" element={<MyJobs />} />
+        <Route path="Jobs" element={<Jobs />} />
+        <Route path="JobDetails" element={<JobDetails />} />
+        <Route path="Payslip" element={<Payslip />} />
+        <Route path="SelfInterview" element={<InterviewList />} />
+        <Route path="TakeInterview" element={<TakeInterview />} />
+        <Route path="Induction" element={<Induction />} />
+        <Route path="InductionModules" element={<InductionModules />} />
+        <Route path="Security" element={<Security />} /> 
+        <Route path="ClockIn" element={<ClockIn />} /> 
       </Route>
       <Route path="*" element={<Navigate to="/" replace />} />
     </Routes>

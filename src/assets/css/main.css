@@ -341,6 +341,7 @@ h6,
   font-weight: var(--fw-medium);
   word-break: break-word;
   font-family: var(--ff-title);
+  /* text-align: left; */
 }
 
 h1,
@@ -9666,7 +9667,7 @@ div.dataTables_wrapper div.dataTables_filter input {
 /*  3.2 app footer css
 /*----------------------------------------*/
 .app-footer-area {
-  background-color: var(--color-card-bg);
+  /* background-color: var(--color-card-bg); */
   padding: 15px 0px;
   width: 100%;
   text-align: center;

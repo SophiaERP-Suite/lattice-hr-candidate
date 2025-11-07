@@ -10,6 +10,7 @@ import {
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
 import blackLogo from "../assets/images/logo/logo-black.svg";
 import whiteLogo from "../assets/images/logo/logo-white.svg";
+import john from "../assets/images/avatar/avatar-thumb-001.webp";
 
 function Dashboard() {
   return (
@@ -46,7 +47,7 @@ function Dashboard() {
                   {/* <User size={42} className="" /> */}
                   <img
                     className="radius-100"
-                    src={avatar1}
+                    src={john}
                     alt="image not found"
                   />
                 </div>

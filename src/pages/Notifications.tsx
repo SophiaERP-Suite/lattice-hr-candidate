@@ -28,7 +28,7 @@ function Compliance() {
 
           <div className="col-xl-12 mb-3">
             <div className="d-flex justify-content-between align-items-center mb-3">
-              <h4 className="fw-bold">Notifications</h4>
+              <h4 className="fw-bold">All Notifications</h4>
               <div>
                 <button className="btn btn-outline-secondary btn-sm me-2">
                   Mark All as Read
@@ -60,11 +60,11 @@ function Compliance() {
                 href="NotificationDetail"
                 className="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
               >
-                <div className="ms-2 me-auto">
-                  <div className="fw-bold text-primary">
+                <div className="">
+                  {/* <div className="fw-bold text-primary">
                     New Investigation Request
-                  </div>
-                  A new case (#INV-2039) has been assigned to you.
+                  </div> */}
+                  <p>A new case (#INV-2039) has been assigned to you.</p>
                 </div>
                 <span className="badge bg-primary rounded-pill">2m ago</span>
               </a>
@@ -73,9 +73,11 @@ function Compliance() {
                 href="NotificationDetail"
                 className="list-group-item list-group-item-action d-flex justify-content-between align-items-start bg-light"
               >
-                <div className="ms-2 me-auto">
-                  <div className="fw-bold">Timesheet Approved</div>
-                  Your timesheet for Nov 4 was approved by Manager John Doe.
+                <div className="">
+                  {/* <div className="fw-bold text-left">Timesheet Approved</div> */}
+                  <p>
+                    Your timesheet for Nov 4 was approved by Manager John Doe.
+                  </p>
                 </div>
                 <span className="badge bg-success rounded-pill">1h ago</span>
               </a>
@@ -84,13 +86,13 @@ function Compliance() {
                 href="NotificationDetail"
                 className="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
               >
-                <div className="ms-2 me-auto">
-                  <div className="fw-bold text-warning">
+                <div className="">
+                  {/* <div className="fw-bold text-warning">
                     Compliance Reminder
-                  </div>
+                  </div> */}
                   Upload your background verification document before Nov 10.
                 </div>
-                <span className="badge bg-warning text-dark rounded-pill">
+                <span className="badge bg-warning rounded-pill">
                   3h ago
                 </span>
               </a>

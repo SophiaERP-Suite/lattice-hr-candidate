@@ -1,7 +1,6 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 
-import { ChevronRight } from "lucide-react";
-
+import { AlertCircle, ChevronRight, CircleCheck, ClockPlus, Eye, Plus, Save } from "lucide-react";
 
 function TimeSheet() {
   return (
@@ -34,19 +33,21 @@ function TimeSheet() {
               <div className="d-flex flex-wrap gap-15">
                 <button
                   type="button"
-                  className="btn btn-primary"
+                  className="btn btn-success"
                   data-bs-toggle="modal"
                   data-bs-target="#addNewTimeSheet"
                 >
-                  Add New Timesheet
+                 <Plus size={15} /> Add New Timesheet
                 </button>
-                <a href="Attendance" className="btn btn-primary">View Attendance</a>
+                <a href="Attendance" className="btn btn-primary">
+                 <Eye size={15} /> View Attendance
+                </a>
               </div>
             </div>
 
             {/* <!-- Summary Cards --> */}
             <div className="row g-3 mb-4">
-              <div className="col-md-4">
+              {/* <div className="col-md-4">
                 <div className="card text-center shadow-sm p-3">
                   <h6>Total Hours This Week</h6>
                   <h3 className="fw-bold text-primary">42 hrs</h3>
@@ -63,6 +64,48 @@ function TimeSheet() {
                   <h6>Approved Entries</h6>
                   <h3 className="fw-bold text-success">25</h3>
                 </div>
+              </div> */}
+
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <div className="card">
+                  <div className="card-body mini-card-body d-flex align-center gap-16">
+                    <div className="avatar avatar-xl bg-primary-transparent text-primary">
+                      <ClockPlus className="w-6 h-6 text-indigo-500" />
+                    </div>
+                    <div className="card-content">
+                      <span className="d-block fs-16 mb-5">
+                       Total Hours This Week
+                      </span>
+                      <h2 className="mb-5">25</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <div className="card">
+                  <div className="card-body mini-card-body d-flex align-center gap-16">
+                    <div className="avatar avatar-xl bg-success-transparent text-success">
+                      <AlertCircle className="w-6 h-6 text-orange-500" />
+                    </div>
+                    <div className="card-content">
+                      <span className="d-block fs-16 mb-5">Pending Approvals</span>
+                      <h2 className="mb-5">20</h2>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div className="col-xxl-4 col-xl-4 col-lg-4 col-md-6">
+                <div className="card">
+                  <div className="card-body mini-card-body d-flex align-center gap-16">
+                    <div className="avatar avatar-xl bg-warning-transparent text-warning">
+                      <CircleCheck className="w-6 h-6 text-green-500" />
+                    </div>
+                    <div className="card-content">
+                      <span className="d-block fs-16 mb-5">Approved Entries</span>
+                      <h2 className="mb-5">12</h2>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
 
@@ -70,7 +113,7 @@ function TimeSheet() {
             <div className="card shadow-sm">
               <div className="card-header fw-bold">Recent Entries</div>
               <div className="card-body p-0">
-                <table className="table table-hover mb-0">
+                <table className="table table-hover mb-0" style={{textAlign: "left"}}>
                   <thead className="table-light">
                     <tr>
                       <th>Date</th>
@@ -115,101 +158,101 @@ function TimeSheet() {
               </div>
             </div>
           </div>
-           <div
-          className="modal fade"
-          id="addNewTimeSheet"
-          tabIndex={-1}
-          aria-labelledby="addNewTimeSheetLabel"
-          aria-hidden="true"
-        >
-          <div className="modal-dialog modal-dialog-centered">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h1 className="modal-title fs-16" id="addNewTimeSheetLabel">
-                  Create New Timesheet
-                </h1>
-                <button
-                  type="button"
-                  className="btn-close"
-                  data-bs-dismiss="modal"
-                  aria-label="Close"
-                ></button>
-              </div>
-              <div className="modal-body">
-                <div className="row gy-15">
-                  <div className="col-xl-12">
-                    <label htmlFor="timesheetEmployee" className="form-label">
-                      Employee
-                    </label>
-                    <select className="employeeList form-control">
-                      <option value="p-1">John Doe</option>
-                      <option value="p-2">Jane Smith</option>
-                      <option value="p-3">Sarah Johnson</option>
-                      <option value="p-4">Michael Brown</option>
-                      <option value="p-5">Emily Davis</option>
-                      <option value="p-6">Robert Wilson</option>
-                    </select>
-                  </div>
-                  <div className="col-xl-12">
-                    <label htmlFor="timesheetDate" className="form-label">
-                      Date
-                    </label>
-                    <div className="input-group">
-                      <div className="input-group-text text-muted">
-                        <i className="ri-calendar-line"></i>
-                      </div>
-                      <input
-                        type="text"
-                        className="form-control flatpickr-input"
-                        id="timesheetDate"
-                        placeholder="Select work date"
-                      />
-                    </div>
-                  </div>
-                  <div className="col-xl-12">
-                    <label htmlFor="startTime" className="form-label">
-                      Hours Worked
-                    </label>
-                    <div className="input-group">
-                      <input
-                        type="number"
-                        className="form-control"
-                        id="startTime"
-                        placeholder="Enter hours (e.g. 7.5)"
-                        step="0.25"
-                        min="0"
-                        max="24"
-                      />
-                      <div className="input-group-text">hours</div>
-                    </div>
-                  </div>
-                  <div className="col-xl-12">
-                    <label className="form-label">Work Description</label>
-                    <textarea
-                      className="form-control"
-                      rows={3}
-                      placeholder="Enter task details (e.g. 'Project A development', 'Client meeting')"
-                    ></textarea>
-                  </div>
-                </div>
-              </div>
-              <div className="modal-footer">
-                <div className="d-flex justify-content-end gap-10 mt-20">
+          <div
+            className="modal fade"
+            id="addNewTimeSheet"
+            tabIndex={-1}
+            aria-labelledby="addNewTimeSheetLabel"
+            aria-hidden="true"
+          >
+            <div className="modal-dialog modal-dialog-centered">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h1 className="modal-title fs-16" id="addNewTimeSheetLabel">
+                    Create New Timesheet
+                  </h1>
                   <button
                     type="button"
-                    className="btn btn-danger"
+                    className="btn-close"
                     data-bs-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button type="submit" className="btn btn-primary">
-                    <i className="ri-save-line me-2"></i> Save Timesheet Entry
-                  </button>
+                    aria-label="Close"
+                  ></button>
+                </div>
+                <div className="modal-body">
+                  <div className="row gy-15">
+                    <div className="col-xl-12">
+                      <label htmlFor="timesheetEmployee" className="form-label">
+                        Employee
+                      </label>
+                      <select className="employeeList form-control">
+                        <option value="p-1">John Doe</option>
+                        <option value="p-2">Jane Smith</option>
+                        <option value="p-3">Sarah Johnson</option>
+                        <option value="p-4">Michael Brown</option>
+                        <option value="p-5">Emily Davis</option>
+                        <option value="p-6">Robert Wilson</option>
+                      </select>
+                    </div>
+                    <div className="col-xl-12">
+                      <label htmlFor="timesheetDate" className="form-label">
+                        Date
+                      </label>
+                      <div className="input-group">
+                        <div className="input-group-text text-muted">
+                          <i className="ri-calendar-line"></i>
+                        </div>
+                        <input
+                          type="text"
+                          className="form-control flatpickr-input"
+                          id="timesheetDate"
+                          placeholder="Select work date"
+                        />
+                      </div>
+                    </div>
+                    <div className="col-xl-12">
+                      <label htmlFor="startTime" className="form-label">
+                        Hours Worked
+                      </label>
+                      <div className="input-group">
+                        <input
+                          type="number"
+                          className="form-control"
+                          id="startTime"
+                          placeholder="Enter hours (e.g. 7.5)"
+                          step="0.25"
+                          min="0"
+                          max="24"
+                        />
+                        <div className="input-group-text">hours</div>
+                      </div>
+                    </div>
+                    <div className="col-xl-12">
+                      <label className="form-label">Work Description</label>
+                      <textarea
+                        className="form-control"
+                        rows={3}
+                        placeholder="Enter task details (e.g. 'Project A development', 'Client meeting')"
+                      ></textarea>
+                    </div>
+                  </div>
+                </div>
+                <div className="modal-footer">
+                  <div className="d-flex justify-content-end gap-10 mt-20">
+                    <button
+                      type="button"
+                      className="btn btn-danger"
+                      data-bs-dismiss="modal"
+                    >
+                      Cancel
+                    </button>
+                    <button type="submit" className="btn btn-primary">
+                      <Save size={15} /> Save Timesheet Entry
+                    </button>
+                  </div>
                 </div>
               </div>
             </div>
           </div>
-        </div>
         </div>
       </div>
     </div>

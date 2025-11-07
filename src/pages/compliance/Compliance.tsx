@@ -1,9 +1,5 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import {
-  ChevronRight,
-  Eye,
-  Flag,
-} from "lucide-react";
+import { ChevronRight, Eye, Flag } from "lucide-react";
 
 import { useState } from "react";
 
@@ -38,15 +34,15 @@ function Compliance() {
               <h1 className="page-title fs-18 lh-1">Compliance</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Compliance
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Compliance
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -87,63 +83,64 @@ function Compliance() {
           </div>
 
           {/* Compliance Table */}
-          <div className="card shadow-sm">
-            <div className="card-header fw-bold">
-              Compliance Records
-            </div>
-            <div className="table-responsive">
-              <table className="table table-hover align-middle mb-0">
-                <thead className="table-light">
-                  <tr>
-                    <th>Company</th>
-                    <th>Check Type</th>
-                    <th>Status</th>
-                    <th>Expiry Date</th>
-                    <th>Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {records.map((rec, idx) => (
-                    <tr key={idx}>
-                      <td>{rec.company}</td>
-                      <td>{rec.checkType}</td>
-                      <td>
-                        {rec.status === "Pending" && (
-                          <span className="badge bg-warning text-dark">
-                            Pending
-                          </span>
-                        )}
-                        {rec.status === "Valid" && (
-                          <span className="badge bg-success">Valid</span>
-                        )}
-                        {rec.status === "Expiring Soon" && (
-                          <span className="badge bg-info text-dark">
-                            Expiring Soon
-                          </span>
-                        )}
-                      </td>
-                      <td>{rec.expiry}</td>
-                      <td>
-                        <button
-                          className="btn btn-sm btn-outline-primary me-2"
-                          data-bs-toggle="modal"
-                          data-bs-target="#viewModal"
-                        >
-                          <Eye size={16} className="me-1" />
-                          View
-                        </button>
-                        <button className="btn btn-sm btn-outline-danger">
-                          <Flag size={16} className="me-1" />
-                          Flag
-                        </button>
-                      </td>
+          <div className="col-xl-12">
+            <div className="card shadow-sm">
+              <div className="card-header fw-bold">
+                <h5>Compliance Records</h5>
+              </div>
+              <div className="table-responsive">
+                <table
+                  id="dataTableDefault"
+                  className="table table-striped align-middle w-100"
+                  style={{ textAlign: "left" }}
+                >
+                  <thead className="table-light">
+                    <tr>
+                      <th>Company</th>
+                      <th>Check Type</th>
+                      <th>Status</th>
+                      <th>Expiry Date</th>
+                      <th>Action</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
+                  </thead>
+                  <tbody>
+                    {records.map((rec, idx) => (
+                      <tr key={idx}>
+                        <td>{rec.company}</td>
+                        <td>{rec.checkType}</td>
+                        <td>
+                          {rec.status === "Pending" && (
+                            <span className="badge bg-warning">Pending</span>
+                          )}
+                          {rec.status === "Valid" && (
+                            <span className="badge bg-success">Valid</span>
+                          )}
+                          {rec.status === "Expiring Soon" && (
+                            <span className="badge bg-info">Expiring Soon</span>
+                          )}
+                        </td>
+                        <td>{rec.expiry}</td>
+                        <td>
+                          <button
+                            className="btn btn-sm btn-outline-primary me-2"
+                            data-bs-toggle="modal"
+                            data-bs-target="#viewModal"
+                          >
+                            <Eye size={16} className="me-1" />
+                            View
+                          </button>
+                          <button className="btn btn-sm btn-outline-danger">
+                            <Flag size={16} className="me-1" />
+                            Flag
+                          </button>
+                        </td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
             </div>
           </div>
-
           {/* Modal for Details */}
           <div
             className="modal fade"
@@ -165,7 +162,7 @@ function Compliance() {
                     aria-label="Close"
                   ></button>
                 </div>
-                <div className="modal-body">
+                <div className="modal-body" style={{ textAlign: "left" }}>
                   <p>
                     <strong>Company:</strong> Bright Future Ltd
                   </p>

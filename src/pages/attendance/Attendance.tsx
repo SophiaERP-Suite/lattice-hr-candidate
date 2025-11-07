@@ -1,6 +1,6 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 
-import { CalendarDays, ChevronRight, Clock, UserCheck, UserX } from "lucide-react";
+import { CalendarDays, ChevronRight, Clock, ClockPlus, Eye, UserCheck, UserX } from "lucide-react";
 
 function Attendance() {
   return (
@@ -36,11 +36,11 @@ function Attendance() {
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Total Working Days</span>
                   <h2 className="mb-5">25</h2>
-                  <span className="text-success">
+                  {/* <span className="text-success">
                     +5.2%
                     <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span>
+                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
                 </div>
               </div>
             </div>
@@ -54,11 +54,11 @@ function Attendance() {
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Present</span>
                   <h2 className="mb-5">20</h2>
-                  <span className="text-success">
+                  {/* <span className="text-success">
                     92.7%
                     <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">Attendance Rate</span>
+                  <span className="fs-12 text-muted ml-5">Attendance Rate</span> */}
                 </div>
               </div>
             </div>
@@ -72,11 +72,11 @@ function Attendance() {
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Late Arrivals</span>
                   <h2 className="mb-5">12</h2>
-                  <span className="text-danger">
+                  {/* <span className="text-danger">
                     +1.1%
                     <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span>
+                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
                 </div>
               </div>
             </div>
@@ -90,11 +90,11 @@ function Attendance() {
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Absent</span>
                   <h2 className="mb-5">5</h2>
-                  <span className="text-success">
+                  {/* <span className="text-success">
                     -0.8%
                     <i className="ri-arrow-down-line ml-5 d-inline-block"></i>
                   </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span>
+                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
                 </div>
               </div>
             </div>
@@ -106,11 +106,11 @@ function Attendance() {
                 <h4 className="d-flex-items gap-10">November 2025 Attendance</h4>
                 <div className="d-flex flex-wrap gap-15">
                   <a className="btn btn-success text-white" href="TimeSheet">
-                    View TimeSheet
+                  <Eye size={15} />  View TimeSheet
                   </a>
-                  <button className="btn btn-success text-white">
-                    Clock In
-                  </button>
+                  <a href="ClockIn" className="btn btn-warning text-white">
+                   <ClockPlus size={15} /> Clock In
+                  </a>
                   {/* <div className="">
                     <select className="form-select sorting-dropdown">
                       <option value="">Sort by</option>
@@ -129,6 +129,7 @@ function Attendance() {
                   <table
                     className="table w-100 text-nowrap"
                     id="employeeAttendanceTable"
+                    style={{textAlign: "left"}}
                   >
                     <thead>
                       <tr>

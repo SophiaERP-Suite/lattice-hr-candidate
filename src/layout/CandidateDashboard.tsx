@@ -4,10 +4,12 @@ import john from "../assets/images/avatar/avatar-thumb-001.webp";
 import fullLogo from "../assets/images/logo/lattice-logo.png";
 import {
   ArrowRight,
+  ArrowUp,
   Bell,
   BellIcon,
   ChevronDown,
   CircleQuestionMark,
+  ClockPlus,
   CreditCard,
   LogOut,
   LogOutIcon,
@@ -30,10 +32,10 @@ function CandidateDashboard() {
         {/* <!-- Start app-sidebar --> */}
         <aside className="app-sidebar sticky" id="sidebar">
           <div className="app-sidebar-header">
-            <a href="index.html" className="desktop-logo">
+            <a href="Dashboard" className="desktop-logo">
               <img src={fullLogo} alt="image" />
             </a>
-            <a href="index.html" className="desktop-dark">
+            <a href="Dashboard" className="desktop-dark">
               <img src="assets/images/logo/logo-white.svg" alt="image" />
             </a>
           </div>
@@ -205,13 +207,13 @@ function CandidateDashboard() {
                       </i>
                     </div>
                     <span className="sidebar-menu-label">
-                      Timesheet / Attendance
+                      Timesheet & Attendance
                     </span>
                   </a>
                 </li>
 
                 <li className="slide has-sub">
-                  <a className="sidebar-menu-item">
+                  <a className="sidebar-menu-item" href="SelfInterview">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -228,7 +230,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="MyJobs" className="sidebar-menu-item">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -240,12 +242,12 @@ function CandidateDashboard() {
                         </svg>
                       </i>
                     </div>
-                    <span className="sidebar-menu-label">Payroll</span>
+                    <span className="sidebar-menu-label">Payslips</span>
                   </a>
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="Induction" className="sidebar-menu-item">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -258,7 +260,7 @@ function CandidateDashboard() {
                       </i>
                     </div>
                     <span className="sidebar-menu-label">
-                      Induction & Training
+                      Induction
                     </span>
                   </a>
                 </li>
@@ -286,7 +288,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a className="sidebar-menu-item">
+                  <a className="sidebar-menu-item" href="Security">
                     <div className="side-menu-icon">
                       <i className="">
                         <svg
@@ -303,7 +305,7 @@ function CandidateDashboard() {
                 </li>
 
                 <li className="slide has-sub">
-                  <a href="ComplianceManager" className="sidebar-menu-item">
+                  <a href="Dashboard" className="sidebar-menu-item">
                     <div style={{ marginRight: "13px" }}>
                       <i className="">
                         <LogOutIcon size={16} />
@@ -391,7 +393,7 @@ function CandidateDashboard() {
                     data-bs-toggle="modal"
                     data-bs-target="#searchModal"
                   >
-                    <i className="ri-search-line"></i>
+                    <Search />
                   </button>
                 </div>
                 {/* <div className="app-header-link">
@@ -413,6 +415,14 @@ function CandidateDashboard() {
                                 <i className="ri-sun-line change-theme theme-button"></i>
                             </div>
                         </div> */}
+
+                <div className=" cursor-pointer">
+                  <div>
+                    <a href="ClockIn" className="btn btn-success">
+                        <ClockPlus size={15} />  Clock In
+                        </a>
+                  </div>
+                </div>
 
                 <div className="app-header-fullscreen app-header-circle cursor-pointer">
                   <div>
@@ -561,17 +571,17 @@ function CandidateDashboard() {
                         </a>
                       </li>
                       <li className="bd-user-info-list">
-                        <a href="app-user-security.html">
+                        <a href="Setting">
                           <UserCog2
                             size={17}
                             style={{ marginRight: "7px" }}
                             className=""
                           />
-                          Profile Settings
+                          Settings
                         </a>
                       </li>
                       <li className="bd-user-info-list">
-                        <a href="auth-signin-basic.html">
+                        <a href="Dashboard">
                           <LogOut
                             size={17}
                             style={{ marginRight: "7px" }}
@@ -603,7 +613,7 @@ function CandidateDashboard() {
               <div className="card-footer d-flex justify-center">
                 <p>
                     © {new Date().getFullYear()} Powered by{" "}
-              <a
+              {/* <a
                 className="text-primary-500 dark:text-primary-500 ml-1"
                 href="https://sophiaerp.com"
                 target="_blank"
@@ -611,7 +621,7 @@ function CandidateDashboard() {
               >
                 Sophia ERP
               </a>{" "}
-              and{" "}
+              and{" "} */}
               <a
                 className="text-primary-500 dark:text-primary-500 ml-1"
                 href="https://techiefy.co.uk"
@@ -642,7 +652,7 @@ function CandidateDashboard() {
                     type="button"
                     id="button-addon1"
                   >
-                    <i className="ri-search-line"></i>
+                    <Search />
                   </button>
                 </div>
               </div>
@@ -652,14 +662,7 @@ function CandidateDashboard() {
     
 
       <div className="progress-wrap">
-        <svg
-          className="progress-circle svg-content"
-          width="100%"
-          height="100%"
-          viewBox="-1 -1 102 102"
-        >
-          <path d="M50,1 a49,49 0 0,1 0,98 a49,49 0 0,1 0,-98" />
-        </svg>
+        <ArrowUp size={20} />
       </div>
     </div>
   );

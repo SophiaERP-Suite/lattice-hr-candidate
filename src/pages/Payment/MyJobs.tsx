@@ -1,24 +1,27 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import { ChevronRight } from "lucide-react";
-function MyApplications() {
+import {
+  ChevronRight,
+ 
+} from "lucide-react";
+function MyJobs() {
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
         <div className="row">
           <div className="col-xl-12">
             <div className="page-title-box d-flex-between flex-wrap gap-15 mb-3">
-              <h1 className="page-title fs-18 lh-1 mb-0">My Applications</h1>
+              <h1 className="page-title fs-18 lh-1 mb-0">My Jobs</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item active" aria-current="page">
-                    My Applications
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    My Jobs
                   </li>
                 </ol>
               </nav>
@@ -28,7 +31,7 @@ function MyApplications() {
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header justify-between flex-wrap gap-3">
-                <h4 className="d-flex-items gap-10">All Applications</h4>
+                <h4 className="d-flex-items gap-10">All Jobs</h4>
                 <div className="d-flex flex-wrap gap-15">
                   {/* <button
                     type="button"
@@ -38,20 +41,23 @@ function MyApplications() {
                   >
                     Add New Job
                   </button> */}
-                  <a className="btn btn-success text-white" href="Jobs">
-                    Find Jobs
-                  </a>
+                  {/* <a
+                    className="btn btn-success text-white"
+                    href="javascript:void(0);"
+                  >
+                  Find Jobs
+                  </a> */}
                   <div className="dataTables-sorting-control ">
                     <select className="form-select sorting-dropdown">
                       <option value="">Sort by:</option>
-                      <option value="1_asc">ID (Low to High)</option>
+                      {/* <option value="1_asc">ID (Low to High)</option>
                       <option value="1_desc">ID (High to Low)</option>
                       <option value="2_asc">Name (A-Z)</option>
                       <option value="2_desc">Name (Z-A)</option>
                       <option value="5_asc">Company (A-Z)</option>
                       <option value="5_desc">Company (Z-A)</option>
                       <option value="8_asc">Status (Active First)</option>
-                      <option value="8_desc">Status (Inactive First)</option>
+                      <option value="8_desc">Status (Inactive First)</option> */}
                     </select>
                   </div>
                 </div>
@@ -61,20 +67,19 @@ function MyApplications() {
                   <table
                     id="dataTableDefault"
                     className="table text-nowrap w-100"
-                    style={{ textAlign: "left" }}
+                    style={{textAlign: "left"}}
                   >
                     <thead>
                       <tr>
+                        
                         <th>S/N</th>
                         <th>Job Title</th>
                         <th>Company</th>
-                        <th>Department</th>
+                        <th>Shift</th>
                         <th>Location</th>
-                        <th>Job Type</th>
-                        <th>Posted Date</th>
-                        <th>Deadline</th>
-                        {/* <th>Status</th>
-                        <th>Actions</th> */}
+                        {/* <th>Job Type</th> */}
+                        {/* <th>Status</th> */}
+                        <th>Actions</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -90,55 +95,29 @@ function MyApplications() {
                         </td>
                         <td>
                           <div className="d-flex-items gap-5">
-                            {/* <div className="avatar avatar-xs radius-100">
+                            <div className="avatar avatar-xs radius-100">
                               <img
                                 className="radius-100"
                                 src="assets/images/company/company-thumb-001.png"
                                 alt="image not found"
                               />
-                            </div> */}
+                            </div>
                             <a href="company-details.html">Gaza Solutions</a>
                           </div>
                         </td>
-                        <td>Product Design</td>
+                        <td>N/A</td>
                         <td>San Francisco, CA</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Part-time
-                          </span>
-                        </td>
-
-                        <td>May 15, 2025</td>
-                        <td>
-                          <span className="text-danger fw-medium">
-                            Jun 30, 2025
-                          </span>
-                        </td>
-                        {/* <td>
-                          <span className="badge bg-label-info">Pending</span>
-                        </td>
+                        
                         <td>
                           <div className="d-flex-items gap-5">
                             <a
-                              className="btn-icon btn-success-light"
-                              href="apps-job-details.html"
+                              className="btn btn-warning-light"
+                              href="Payslip"
                             >
-                              <i className="ri-eye-line"></i>
+                              Payslip
                             </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                            >
-                              <i className="ri-edit-line"></i>
-                            </a>
-                            <button
-                              className="btn-icon btn-danger-light removeRow"
-                              type="button"
-                            >
-                              <i className="ri-delete-bin-line"></i>
-                            </button>
                           </div>
-                        </td> */}
+                        </td>
                       </tr>
                       <tr>
                         <td>2</td>
@@ -152,55 +131,31 @@ function MyApplications() {
                         </td>
                         <td>
                           <div className="d-flex-items gap-5">
-                            {/* <div className="avatar avatar-xs radius-100">
+                            <div className="avatar avatar-xs radius-100">
                               <img
                                 className="radius-100"
-                                src="assets/images/company/company-thumb-002.html"
+                                src="assets/images/company/company-thumb-001.png"
                                 alt="image not found"
                               />
-                            </div> */}
-                            <a href="company-details.html">TechNova</a>
+                            </div>
+                            <a href="company-details.html">Gaza Solutions</a>
                           </div>
                         </td>
-                        <td>Engineering</td>
-                        <td>Remote</td>
-                        <td>
-                          <span className="badge bg-label-primary">
-                            Full-time
-                          </span>
-                        </td>
-                        <td>Jun 1, 2025</td>
-                        <td>
-                          <span className="text-danger fw-medium">
-                            Jun 25, 2025
-                          </span>
-                        </td>
-                        {/* <td>
-                          <span className="badge bg-label-success">Active</span>
-                        </td>
+                        <td>N/A</td>
+                        <td>San Francisco, CA</td>
+                        
                         <td>
                           <div className="d-flex-items gap-5">
                             <a
-                              className="btn-icon btn-success-light"
-                              href="apps-job-details.html"
+                              className="btn btn-warning-light"
+                              href="Payslip"
                             >
-                              <i className="ri-eye-line"></i>
+                              Payslip
                             </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                            >
-                              <i className="ri-edit-line"></i>
-                            </a>
-                            <button
-                              className="btn-icon btn-danger-light removeRow"
-                              type="button"
-                            >
-                              <i className="ri-delete-bin-line"></i>
-                            </button>
                           </div>
-                        </td> */}
+                        </td>
                       </tr>
+                     
                     </tbody>
                   </table>
                 </div>
@@ -387,4 +342,4 @@ function MyApplications() {
   );
 }
 
-export default MyApplications;
+export default MyJobs;

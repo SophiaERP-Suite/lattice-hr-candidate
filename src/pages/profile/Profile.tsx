@@ -1,9 +1,12 @@
 // import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 import {
-  Briefcase,
   ChevronDown,
   ChevronRight,
+  Copy,
+  Edit,
+  Eye,
   EyeIcon,
+  LogOut,
 } from "lucide-react";
 import john from "../../assets/images/avatar/avatar-thumb-001.webp";
 
@@ -112,12 +115,12 @@ function Profile() {
                 <div className="table-responsive mb-15">
                   <table className="table">
                     <tbody>
-                      <tr>
+                      {/* <tr>
                         <td style={{ minWidth: "105px" }}>Employee ID:</td>
                         <td>
                           <div className="text-heading">MD-0001</div>
                         </td>
-                      </tr>
+                      </tr> */}
                       <tr>
                         <td>Date of Join</td>
                         <td>
@@ -169,7 +172,7 @@ function Profile() {
               </div>
             </div>
           </div>
-          <div className="col-xxl-4 col-xl-6 col-lg-6">
+          {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
             <div
               className="card height-equal"
               style={{ minHeight: "761.372px" }}
@@ -289,8 +292,8 @@ function Profile() {
                 </div>
               </div>
             </div>
-          </div>
-          <div className="col-xxl-4 col-xl-6 col-lg-6">
+          </div> */}
+          {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
             <div
               className="card height-equal"
               style={{ minHeight: "761.372px" }}
@@ -397,7 +400,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           {/* <div className="col-xxl-8 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
@@ -1055,7 +1058,7 @@ function Profile() {
               </div>
             </div>
           </div> */}
-          <div className="col-xxl-4 col-xl-12">
+          {/* <div className="col-xxl-4 col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="">Performance Summary / KPIs</h4>
@@ -1166,10 +1169,10 @@ function Profile() {
            m -6, 0 
            a 6,6 0 1,0 12,0 
            a 6,6 0 1,0 -12,0" fill="#ff830f" fill-opacity="1" stroke="#ffffff" stroke-opacity="1" stroke-linecap="butt" stroke-width="1" stroke-dasharray="0" cx="0" cy="0" shape={{circle}} class="apexcharts-marker" rel="6" j="6" index="2" default-marker-size="6"></path></g></g></g><g className="apexcharts-yaxis"><text x="0" y="-124" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">100%</text><text x="0" y="-98" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">80%</text><text x="0" y="-72" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">60%</text><text x="0" y="-46" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">40%</text><text x="0" y="-20" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">20%</text><text x="0" y="6" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="regular" fill="#373d3f" class="apexcharts-text " style="font-family: Helvetica, Arial, sans-serif;">0%</text></g><g className="apexcharts-datalabels" data:realIndex="0"><rect width="20.778151512145996" height="14.222223281860352" x="-10.119791984558105" y="-121.5" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="0" y="-110.5" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="0" cy="-110.5" style="font-family: Helvetica, Arial, sans-serif;">85</text><rect width="20.778151512145996" height="14.222223281860352" x="83.38725280761719" y="-85.56938171386719" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="93.50704530317637" y="-74.56938030230454" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="93.50704530317637" cy="-74.56938030230454" style="font-family: Helvetica, Arial, sans-serif;">92</text><rect width="20.778151512145996" height="14.222223281860352" x="88.73789978027344" y="11.563623428344727" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="98.85769029523692" y="22.563622703170275" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="98.85769029523692" cy="22.563622703170275" style="font-family: Helvetica, Arial, sans-serif;">78</text><rect width="20.778151512145996" height="14.222223281860352" x="39.516510009765625" y="92.07084655761719" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="49.63629975504866" y="103.07083848803674" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="49.63629975504866" cy="103.07083848803674" style="font-family: Helvetica, Arial, sans-serif;">88</text><rect width="20.778151512145996" height="14.222223281860352" x="-63.140384674072266" y="99.09839630126953" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="-53.02059292016558" y="110.09839565767561" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-53.02059292016558" cy="110.09839565767561" style="font-family: Helvetica, Arial, sans-serif;">94</text><rect width="20.778151512145996" height="14.222223281860352" x="-114.04711151123047" y="12.720731735229492" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="-103.9273154385824" y="23.720731559743133" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-103.9273154385824" cy="23.720731559743133" style="font-family: Helvetica, Arial, sans-serif;">82</text><rect width="20.778151512145996" height="14.222223281860352" x="-86.3483657836914" y="-71.7902603149414" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#4f46e5"></rect><text x="-76.22856954063292" y="-60.790255681226505" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-76.22856954063292" cy="-60.790255681226505" style="font-family: Helvetica, Arial, sans-serif;">75</text></g><g className="apexcharts-datalabels" data:realIndex="1"><rect width="20.778151512145996" height="14.222223281860352" x="-10.119791984558105" y="-130.60000610351562" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="0" y="-119.60000000000001" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="0" cy="-119.60000000000001" style="font-family: Helvetica, Arial, sans-serif;">92</text><rect width="20.778151512145996" height="14.222223281860352" x="81.3544921875" y="-83.94831085205078" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="91.4742834487595" y="-72.94830681747183" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="91.4742834487595" cy="-72.94830681747183" style="font-family: Helvetica, Arial, sans-serif;">90</text><rect width="20.778151512145996" height="14.222223281860352" x="110.28380584716797" y="16.481334686279297" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="120.40359715445521" y="27.48133534360482" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="120.40359715445521" cy="27.48133534360482" style="font-family: Helvetica, Arial, sans-serif;">95</text><rect width="20.778151512145996" height="14.222223281860352" x="39.516510009765625" y="92.07084655761719" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="49.63629975504866" y="103.07083848803674" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="49.63629975504866" cy="103.07083848803674" style="font-family: Helvetica, Arial, sans-serif;">88</text><rect width="20.778151512145996" height="14.222223281860352" x="-56.37179946899414" y="85.04328155517578" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="-46.25200658993168" y="96.04328131839787" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-46.25200658993168" cy="96.04328131839787" style="font-family: Helvetica, Arial, sans-serif;">82</text><rect width="20.778151512145996" height="14.222223281860352" x="-124.18635559082031" y="15.034950256347656" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="-114.06656572527336" y="26.034949272888806" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-114.06656572527336" cy="26.034949272888806" style="font-family: Helvetica, Arial, sans-serif;">90</text><rect width="20.778151512145996" height="14.222223281860352" x="-104.64321899414062" y="-86.37991333007812" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#29da82"></rect><text x="-94.52342623038481" y="-75.37991704472087" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-94.52342623038481" cy="-75.37991704472087" style="font-family: Helvetica, Arial, sans-serif;">93</text></g><g className="apexcharts-datalabels" data:realIndex="2"><rect width="26.88963508605957" height="14.222223281860352" x="-13.175347328186035" y="-141" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="0" y="-130" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="0" cy="-130" style="font-family: Helvetica, Arial, sans-serif;">100</text><rect width="26.88963508605957" height="14.222223281860352" x="88.4627456665039" y="-92.05367279052734" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="101.63809272084387" y="-81.05367424163536" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="101.63809272084387" cy="-81.05367424163536" style="font-family: Helvetica, Arial, sans-serif;">100</text><rect width="20.778151512145996" height="14.222223281860352" x="91.27271270751953" y="12.14217758178711" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="101.39250286690965" y="23.14217713145669" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="101.39250286690965" cy="23.14217713145669" style="font-family: Helvetica, Arial, sans-serif;">80</text><rect width="26.88963508605957" height="14.222223281860352" x="43.22954177856445" y="106.1259536743164" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="56.40488608528257" y="117.12595282731448" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="56.40488608528257" cy="117.12595282731448" style="font-family: Helvetica, Arial, sans-serif;">100</text><rect width="26.88963508605957" height="14.222223281860352" x="-69.58023071289062" y="106.1259536743164" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="-56.40488608528254" y="117.12595282731449" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-56.40488608528254" cy="117.12595282731449" style="font-family: Helvetica, Arial, sans-serif;">100</text><rect width="26.88963508605957" height="14.222223281860352" x="-139.91598510742188" y="17.92772102355957" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="-126.74062858363708" y="28.927721414320896" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="-126.74062858363708" cy="28.927721414320896" style="font-family: Helvetica, Arial, sans-serif;">100</text><rect width="14.666666984558105" height="14.222223281860352" x="-7.064236164093018" y="-11" rx="5" ry="5" opacity="0.9" stroke-width="1" stroke="#ffffff" stroke-dasharray="0" fill="#ff830f"></rect><text x="0" y="0" text-anchor="middle" dominant-baseline="auto" font-size="11px" font-family="Helvetica, Arial, sans-serif" font-weight="600" fill="#fff" class="apexcharts-datalabel" cx="0" cy="0" style="font-family: Helvetica, Arial, sans-serif;">0</text></g></g><line x1="0" y1="0" x2="311.3315963745117" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="1" stroke-linecap="butt" className="apexcharts-ycrosshairs"></line><line x1="0" y1="0" x2="311.3315963745117" y2="0" stroke="#b6b6b6" stroke-dasharray="0" stroke-width="0" stroke-linecap="butt" className="apexcharts-ycrosshairs-hidden"></line><g className="apexcharts-yaxis-annotations"></g><g className="apexcharts-xaxis-annotations"></g><g className="apexcharts-point-annotations"></g></g><g className="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)"></g><g className="apexcharts-datalabels-group" transform="translate(0, 0) scale(1)"></g></svg><div className="apexcharts-tooltip apexcharts-theme-light"><div class="apexcharts-tooltip-title" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"></div><div class="apexcharts-tooltip-series-group apexcharts-tooltip-series-group-0" style="order: 1;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(79, 70, 229);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div className="apexcharts-tooltip-y-group"><span className="apexcharts-tooltip-text-y-label"></span><span className="apexcharts-tooltip-text-y-value"></span></div><div className="apexcharts-tooltip-goals-group"><span className="apexcharts-tooltip-text-goals-label"></span><span className="apexcharts-tooltip-text-goals-value"></span></div><div className="apexcharts-tooltip-z-group"><span className="apexcharts-tooltip-text-z-label"></span><span className="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group apexcharts-tooltip-series-group-1" style="order: 2;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(41, 218, 130);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div className="apexcharts-tooltip-y-group"><span className="apexcharts-tooltip-text-y-label"></span><span className="apexcharts-tooltip-text-y-value"></span></div><div className="apexcharts-tooltip-goals-group"><span className="apexcharts-tooltip-text-goals-label"></span><span className="apexcharts-tooltip-text-goals-value"></span></div><div className="apexcharts-tooltip-z-group"><span className="apexcharts-tooltip-text-z-label"></span><span className="apexcharts-tooltip-text-z-value"></span></div></div></div><div class="apexcharts-tooltip-series-group apexcharts-tooltip-series-group-2" style="order: 3;"><span class="apexcharts-tooltip-marker" style="background-color: rgb(255, 131, 15);"></span><div class="apexcharts-tooltip-text" style="font-family: Helvetica, Arial, sans-serif; font-size: 12px;"><div className="apexcharts-tooltip-y-group"><span className="apexcharts-tooltip-text-y-label"></span><span className="apexcharts-tooltip-text-y-value"></span></div><div className="apexcharts-tooltip-goals-group"><span className="apexcharts-tooltip-text-goals-label"></span><span className="apexcharts-tooltip-text-goals-value"></span></div><div className="apexcharts-tooltip-z-group"><span className="apexcharts-tooltip-text-z-label"></span><span className="apexcharts-tooltip-text-z-value"></span></div></div></div></div><div className="apexcharts-yaxistooltip apexcharts-yaxistooltip-0 apexcharts-yaxistooltip-left apexcharts-theme-light"><div className="apexcharts-yaxistooltip-text"></div></div></div></div>
-                                </div> */}
+                                </div> 
             </div>
-          </div>
-          <div className="col-xxl-3 col-xl-6 col-lg-6">
+          </div> */}
+          {/* <div className="col-xxl-3 col-xl-6 col-lg-6">
             <div
               className="card height-equal-2"
               style={{ minHeight: "476.059px" }}
@@ -1201,8 +1204,8 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="card-body pt-15">
-                {/* <div className="skills-list mb-10">
+              <div className="card-body pt-15"> */}
+          {/* <div className="skills-list mb-10">
                                         <div className="skill-item mb-10">
                                             <div className="skill-info d-flex-between gap-10 mb-10">
                                                 <span className="skill-name text-heading fw-6">Figma</span>
@@ -1270,14 +1273,14 @@ function Profile() {
                                         </div>
                                     </div> */}
 
-                <div className="skills-footer">
+          {/* <div className="skills-footer">
                   <span className="fs-13 text-body-secondary">
                     Skills proficiency self-assessed and updated quarterly
                   </span>
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
           <div className="col-xxl-3 col-xl-6 col-lg-6">
             <div
               className="card height-equal-2"
@@ -1385,7 +1388,7 @@ function Profile() {
                     className="btn btn-primary-light btn-sm text-primary"
                     id="copyBankDetails"
                   >
-                    <i className="ri-file-copy-line me-1"></i> Copy Details
+                    <Copy size={15} /> Copy Details
                   </button>
                 </div>
               </div>
@@ -1480,19 +1483,19 @@ function Profile() {
                   </div>
                 </div>
               </div>
-              <div className="card-body pt-15">
+              <div className="card-body pt-15" style={{ textAlign: "left" }}>
                 <div className="login-access">
                   <div className="info-group">
-                    <label>Registered Email</label>
-                    <div className="info-value">
+                    <label className="fw-bold">Registered Email</label>
+                    <div className="info-value ">
                       <span>ethan.mitchell@example.com</span>
                       <button className="icon-btn" title="Copy Email">
-                        <i className="ri-file-copy-line"></i>
+                        <Copy size={15} />
                       </button>
                     </div>
                   </div>
                   <div className="info-group">
-                    <label>Password</label>
+                    <label className="fw-bold">Password</label>
                     <div className="info-value">
                       <span className="password-display">••••••••</span>
                       <div className="action-group d-flex gap-10">
@@ -1500,16 +1503,18 @@ function Profile() {
                           className="icon-btn toggle-password"
                           title="Show Password"
                         >
-                          <i className="ri-eye-line"></i>
+                          <Eye size={15} />
                         </button>
                         <button className="icon-btn" title="Change Password">
-                          <i className="ri-edit-line"></i>
+                          <Edit size={15} />
                         </button>
                       </div>
                     </div>
                   </div>
-                  <div className="info-group">
-                    <label>Two-Factor Authentication</label>
+
+                  <hr />
+                  <div className="info-group mt-4">
+                    <label className="fw-bold">Two-Factor Authentication</label>
                     <div className="info-value">
                       <span className="badge primary-bd-transparent text-primary">
                         Active
@@ -1517,7 +1522,8 @@ function Profile() {
                       <button className="text-info">Manage 2FA</button>
                     </div>
                   </div>
-                  <div className="info-group">
+                  <hr />
+                  <div className="info-group mt-4">
                     <label>Last Login</label>
                     <div className="info-value">
                       <span>Yesterday, 2:45 PM</span>
@@ -1534,8 +1540,7 @@ function Profile() {
                     </div>
                     <div className="d-flex-center">
                       <button className="btn btn-danger-light btn-sm text-danger">
-                        <i className="ri-logout-box-r-line"></i> Sign Out All
-                        Devices
+                        <LogOut size={15} /> Sign Out All Devices
                       </button>
                     </div>
                   </div>
