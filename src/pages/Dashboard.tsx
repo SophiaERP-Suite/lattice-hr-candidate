@@ -3,7 +3,7 @@ import {
   Briefcase,
   CheckCircle,
   ChevronDown,
-  ChevronRight,
+  // ChevronRight,
   Eye,
   XCircle,
 } from "lucide-react";
@@ -23,14 +23,7 @@ function Dashboard() {
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
                   <li className="breadcrumb-item active" aria-current="page">
-                    Dashboard
-                  </li>
-                  <ChevronRight
-                    size={15}
-                    style={{ position: "relative", top: "3px" }}
-                  />
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                    <a href="Dashboard">Dashboard</a>
                   </li>
                 </ol>
               </nav>

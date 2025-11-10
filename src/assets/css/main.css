@@ -9696,16 +9696,21 @@ div.dataTables_wrapper div.dataTables_filter input {
 /*  3.3 app header css
 /*----------------------------------------*/
 .app-content-area {
+  position: relative;
+  top: 0;
+  left: 0;
   padding-inline-start: 260px;
   min-height: calc(100vh - 146px);
   margin-top: 93px;
   transition: all 0.3s ease-in-out;
 }
+
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px) {
   .app-content-area {
     padding-inline-start: 0;
   }
 }
+
 @media (max-width: 575px) {
   .app-content-area {
     padding-inline-start: 0;
@@ -10329,7 +10334,8 @@ div.dataTables_wrapper div.dataTables_filter input {
   font-family: var(--ff-remixicon);
   font-size: 12px;
   inset-inline-start: -10px;
-  opacity: 0.8;
+  /* opacity: 0.8; */
+  opacity: 0
 }
 [dir=rtl] .app-sidebar .sidebar-menu.child1 .sidebar-menu-item:before, [dir=rtl] .app-sidebar .sidebar-menu.child2 .sidebar-menu-item:before, [dir=rtl] .app-sidebar .sidebar-menu.child3 .sidebar-menu-item:before {
   content: "\f5d5";
@@ -10379,7 +10385,8 @@ div.dataTables_wrapper div.dataTables_filter input {
   height: 18px;
 }
 .app-sidebar .side-menu-icon svg * {
-  fill: #000;
+  /* fill: #000; */
+  color: #000;
   transition: all 0.3s ease-in-out;
 }
 .app-sidebar .side-menu-icon {

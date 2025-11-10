@@ -42,7 +42,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Personal Information</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -180,7 +180,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Work Experience</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -301,7 +301,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Education Qualifications</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -406,7 +406,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Projects Status Overview</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -1063,7 +1063,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Performance Summary / KPIs</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -1180,7 +1180,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Skills &amp; Certifications</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -1289,7 +1289,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Bank Details</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
@@ -1459,7 +1459,7 @@ function Profile() {
               <div className="card-header justify-between">
                 <h4 className="">Login &amp; Access Information</h4>
                 <div className="card-dropdown">
-                  <div className="dropdown">
+                  <div className="dropdown" style={{display: "none"}}>
                     <a
                       className="card-dropdown-icon"
                       href="javascript:void(0);"
