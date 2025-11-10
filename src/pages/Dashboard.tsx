@@ -8,8 +8,8 @@ import {
   XCircle,
 } from "lucide-react";
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
-import blackLogo from "../assets/images/logo/logo-black.svg";
-import whiteLogo from "../assets/images/logo/logo-white.svg";
+// import blackLogo from "../assets/images/logo/logo-black.svg";
+// import whiteLogo from "../assets/images/logo/logo-white.svg";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
 import Chart from "react-apexcharts";
 // import { ApexOptions } from "apexcharts";
