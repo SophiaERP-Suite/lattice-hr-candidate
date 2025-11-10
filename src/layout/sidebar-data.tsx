@@ -153,8 +153,8 @@ export const sidebarMenus: SidebarItem[] = [
     ),
   },
   {
-    label: "Payroll",
-    path: "PayRoll",
+    label: "Payslip",
+    path: "Payslip",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"

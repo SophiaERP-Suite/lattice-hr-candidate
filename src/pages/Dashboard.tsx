@@ -11,8 +11,42 @@ import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
 import blackLogo from "../assets/images/logo/logo-black.svg";
 import whiteLogo from "../assets/images/logo/logo-white.svg";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
+import Chart from "react-apexcharts";
+// import { ApexOptions } from "apexcharts";
+
+
+const chartOptions: ApexCharts.ApexOptions = {
+  chart: {
+    id: "basic-bar",
+    toolbar: { show: false },
+  },
+  xaxis: {
+    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+  },
+  colors: ["#3B82F6"],
+  dataLabels: {
+    enabled: false,
+  },
+  title: {
+    text: "Monthly Applications",
+    align: "center" as const, // ✅ fix
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+    },
+  },
+};
 
 function Dashboard() {
+
+
+  const chartSeries = [
+    {
+      name: "Applications",
+      data: [30, 40, 45, 50, 49, 60],
+    },
+  ];
+
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -115,7 +149,7 @@ function Dashboard() {
           <div className=" col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
-                <h4 className="">My Applications</h4>
+                <h4 className="">Financial History</h4>
                 <a
                   href="MyApplications"
                   className="btn btn-primary-light text-primary"
@@ -148,110 +182,14 @@ function Dashboard() {
                 </div> */}
               </div>
               <div className="card-body pt-15">
-                <div className="table-responsive">
-                  <table
-                    className="table tbody-b-none text-nowrap"
-                    style={{ textAlign: "left" }}
-                  >
-                    <thead>
-                      <tr>
-                        <th>Company</th>
-                        <th>Position</th>
-                        <th>Status</th>
-                        <th>Applied</th>
-                        <th>Action</th>
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-md radius-100">
-                              <img
-                                className="radius-100 border"
-                                src={blackLogo}
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Barnes care home</h6>
-                          </div>
-                        </td>
-                        <td>Engineer</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Interview
-                          </span>
-                        </td>
-                        <td>2025-10-14</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <Eye />
-                            </a>
-                            {/* <a
-                              className="btn-icon btn-secondary-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Download CV"
-                            >
-                              <i className="ri-download-line"></i>
-                            </a> */}
-                          </div>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <div className="avatar avatar-md radius-100">
-                              <img
-                                className="radius-100 border"
-                                src={whiteLogo}
-                                alt="image not found"
-                              />
-                            </div>
-                            <h6>Jenkins Hospitals</h6>
-                          </div>
-                        </td>
-                        <td>Software Developer</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Interview
-                          </span>
-                        </td>
-                        <td>2025-09-05</td>
-                        <td>
-                          <div className="d-flex-items gap-10">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="View"
-                            >
-                              <Eye />
-                            </a>
-                            {/* <a
-                              className="btn-icon btn-secondary-light"
-                              href="javascript:void(0);"
-                              data-bs-toggle="tooltip"
-                              data-bs-placement="top"
-                              data-bs-title="Download CV"
-                            >
-                              <i className="ri-download-line"></i>
-                            </a> */}
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
+                 <div className="bg-white p-4 rounded shadow">
+      <Chart
+        options={chartOptions}
+        series={chartSeries}
+        type="bar"
+        height={300}
+      />
+    </div>
               </div>
             </div>
           </div>
