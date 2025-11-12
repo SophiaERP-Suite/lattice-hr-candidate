@@ -1,4 +1,4 @@
-import { BellIcon, Settings, LogOutIcon, LayoutDashboard } from "lucide-react";
+import { BellIcon, Settings, LogOutIcon, LayoutDashboard, Briefcase, BriefcaseBusiness, UserRound } from "lucide-react";
 import type { ReactNode } from "react";
 
 export interface SidebarItem {
@@ -13,40 +13,21 @@ export const sidebarMenus: SidebarItem[] = [
     label: "Dashboard",
     path: "dashboard",
     icon: (
-      // <svg
-      //   xmlns="http://www.w3.org/2000/svg"
-      //   viewBox="0 0 24 24"
-      //   fill="currentColor"
-      //   className="sidebar-icon"
-      //   width="40"
-      //   height="40"
-      //   style={{ scale: "1.3" }}
-      // >
-      //   <path d="M14 21C13.4477 21 13 20.5523 13 20V12C13 11.4477 13.4477 11 14 11H20C20.5523 11 21 11.4477 21 12V20C21 20.5523 20.5523 21 20 21H14ZM4 13C3.44772 13 3 12.5523 3 12V4C3 3.44772 3.44772 3 4 3H10C10.5523 3 11 3.44772 11 4V12C11 12.5523 10.5523 13 10 13H4ZM9 11V5H5V11H9ZM4 21C3.44772 21 3 20.5523 3 20V16C3 15.4477 3.44772 15 4 15H10C10.5523 15 11 15.4477 11 16V20C11 20.5523 10.5523 21 10 21H4ZM5 19H9V17H5V19ZM15 19H19V13H15V19ZM13 4C13 3.44772 13.4477 3 14 3H20C20.5523 3 21 3.44772 21 4V8C21 8.55228 20.5523 9 20 9H14C13.4477 9 13 8.55228 13 8V4ZM15 5V7H19V5H15Z" />
-      // </svg>
+   
       <LayoutDashboard size={20} style={{ scale: "1.3" }}  />
     ),
   },
   {
     label: "Profile & Resume",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M4 22C4 17.5817 7.58172 14 12 14C16.4183 14 20 17.5817 20 22H18C18 18.6863 15.3137 16 12 16C8.68629 16 6 18.6863 6 22H4ZM12 13C8.685 13 6 10.315 6 7C6 3.685 8.685 1 12 1C15.315 1 18 3.685 18 7C18 10.315 15.315 13 12 13ZM12 11C14.21 11 16 9.21 16 7C16 4.79 14.21 3 12 3C9.79 3 8 4.79 8 7C8 9.21 9.79 11 12 11Z" />
-      </svg>
+      
+       <UserRound size={20} style={{ scale: "1.3" }}  />
     ),
     children: [
       {
         label: "Profile",
         path: "Profile",
-        icon: null, // Child items typically don't need icons
+        icon: null, 
       },
       {
         label: "Resume",
@@ -58,17 +39,7 @@ export const sidebarMenus: SidebarItem[] = [
   {
     label: "Job Management",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M7 5V2C7 1.44772 7.44772 1 8 1H16C16.5523 1 17 1.44772 17 2V5H21C21.5523 5 22 5.44772 22 6V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V6C2 5.44772 2.44772 5 3 5H7ZM4 16V19H20V16H4ZM4 14H20V7H4V14ZM9 3V5H15V3H9ZM11 11H13V13H11V11Z" />
-      </svg>
+       <BriefcaseBusiness size={20} style={{ scale: "1.3" }}  />
     ),
     children: [
       {
