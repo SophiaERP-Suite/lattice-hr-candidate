@@ -1,15 +1,6 @@
-// sidebarData.ts
 import { BellIcon, Settings, LogOutIcon, LayoutDashboard } from "lucide-react";
 import type { ReactNode } from "react";
-// import Dashboard from "../pages/Dashboard";
 
-/**
- * Interface for sidebar menu items
- * @property {string} label - Display text for the menu item
- * @property {string} [path] - Optional navigation path (required for items without children)
- * @property {ReactNode} icon - Icon component to display
- * @property {SidebarItem[]} [children] - Optional nested menu items for dropdowns
- */
 export interface SidebarItem {
   label: string;
   path?: string;
@@ -17,12 +8,6 @@ export interface SidebarItem {
   children?: SidebarItem[];
 }
 
-/**
- * Sidebar menu configuration
- * This array defines the structure of the sidebar navigation
- * - Items with 'path' are direct links
- * - Items with 'children' are dropdown menus
- */
 export const sidebarMenus: SidebarItem[] = [
   {
     label: "Dashboard",
