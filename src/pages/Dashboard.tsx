@@ -1,19 +1,13 @@
-// import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
 import {
   Briefcase,
   CheckCircle,
   ChevronDown,
-  // ChevronRight,
   Eye,
   XCircle,
 } from "lucide-react";
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
-// import blackLogo from "../assets/images/logo/logo-black.svg";
-// import whiteLogo from "../assets/images/logo/logo-white.svg";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
 import Chart from "react-apexcharts";
-// import { ApexOptions } from "apexcharts";
-
 
 const chartOptions: ApexCharts.ApexOptions = {
   chart: {
@@ -23,13 +17,19 @@ const chartOptions: ApexCharts.ApexOptions = {
   xaxis: {
     categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
   },
-  colors: ["#3B82F6"],
+  colors: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#06B6D4"],
+  plotOptions: {
+    bar: {
+      distributed: true,
+      borderRadius: 4,
+    },
+  },
   dataLabels: {
     enabled: false,
   },
   title: {
     text: "Monthly Applications",
-    align: "center" as const, // ✅ fix
+    align: "center",
     style: {
       fontSize: "16px",
       fontWeight: "bold",
@@ -37,16 +37,94 @@ const chartOptions: ApexCharts.ApexOptions = {
   },
 };
 
-function Dashboard() {
-
-
-  const chartSeries = [
-    {
-      name: "Applications",
-      data: [30, 40, 45, 50, 49, 60],
+const earningsOptions: ApexCharts.ApexOptions = {
+  chart: {
+    id: "earnings-history",
+    toolbar: { show: false },
+  },
+  stroke: {
+    curve: "smooth",
+    width: 3,
+  },
+  xaxis: {
+    categories: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+    title: { text: "Month" },
+  },
+  yaxis: {
+    title: { text: "Earnings ($)" },
+  },
+  dataLabels: { enabled: false },
+  fill: {
+    type: "solid",
+    gradient: {
+      shadeIntensity: 1,
+      opacityFrom: 0.5,
+      opacityTo: 0.1,
+      stops: [0, 90, 100],
     },
-  ];
+  },
+  colors: ["#10B981"],
+  title: {
+    text: "Earnings History",
+    align: "center",
+    style: { fontSize: "16px", fontWeight: "bold" },
+  },
+  tooltip: {
+    y: {
+      formatter: (val) => `$${val.toLocaleString()}`,
+    },
+  },
+};
 
+const attendanceOptions: ApexCharts.ApexOptions = {
+  chart: {
+    type: "pie",
+    toolbar: { show: false },
+  },
+  labels: ["Present", "Absent", "On Leave"],
+  colors: ["#10B981", "#EF4444", "#F59E0B"], // green, red, amber
+  legend: {
+    position: "bottom",
+    labels: { colors: "#374151" }, // gray text
+  },
+  title: {
+    text: "Attendance Overview",
+    align: "center",
+    style: {
+      fontSize: "16px",
+      fontWeight: "bold",
+    },
+  },
+  dataLabels: {
+    enabled: true,
+    formatter: (val: number) => `${val.toFixed(1)}%`, // show percentage
+  },
+  tooltip: {
+    y: {
+      formatter: (val: number) => `${val} Days`,
+    },
+  },
+};
+
+// Example data
+const attendanceSeries = [20, 5, 3]; // Present, Absent, On Leave
+
+const earningsSeries = [
+  {
+    name: "Earnings",
+    data: [3200, 4500, 3900, 5200, 6100, 7200],
+  },
+];
+
+const chartSeries = [
+  {
+    name: "Applications",
+    data: [30, 40, 45, 50, 49, 60],
+    colors: ["#3B82F6", "#10B981", "#F59E0B", "#EF4444", "#8B5CF6", "#000"],
+  },
+];
+
+function Dashboard() {
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -146,10 +224,48 @@ function Dashboard() {
             </div>
           </div>
 
+          <div className=" col-xl-8 col-xxl-6">
+            <div className="card">
+              <div className="card-header justify-between">
+                <h4 className="">My Earnings</h4>
+                <a
+                  href="Payslip"
+                  className="btn btn-primary-light text-primary"
+                >
+                  <Eye size={15} /> View All
+                </a>
+              </div>
+              <div className="card-body pt-15">
+                <Chart
+                  options={earningsOptions}
+                  series={earningsSeries}
+                  type="line"
+                  height={300}
+                />
+              </div>
+            </div>
+          </div>
+          <div className=" col-xl-4 col-xxl-6">
+            <div className="card">
+              <div className="card-header justify-between">
+                <h4 className="">Attendance History</h4>
+              </div>
+              <div className="card-body pt-15">
+                <div className="bg-white p-4">
+                  <Chart
+                    options={attendanceOptions}
+                    series={attendanceSeries}
+                    type="pie"
+                    height={300}
+                  />
+                </div>
+              </div>
+            </div>
+          </div>
           <div className=" col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
-                <h4 className="">Financial History</h4>
+                <h4 className="">Application History</h4>
                 <a
                   href="MyApplications"
                   className="btn btn-primary-light text-primary"
@@ -182,14 +298,14 @@ function Dashboard() {
                 </div> */}
               </div>
               <div className="card-body pt-15">
-                 <div className="bg-white p-4 rounded shadow">
-      <Chart
-        options={chartOptions}
-        series={chartSeries}
-        type="bar"
-        height={300}
-      />
-    </div>
+                <div className="bg-white p-4">
+                  <Chart
+                    options={chartOptions}
+                    series={chartSeries}
+                    type="bar"
+                    height={300}
+                  />
+                </div>
               </div>
             </div>
           </div>

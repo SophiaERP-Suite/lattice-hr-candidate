@@ -3,10 +3,7 @@ import {
   ChevronDown,
   ChevronRight,
   Copy,
-  Edit,
-  Eye,
   EyeIcon,
-  LogOut,
 } from "lucide-react";
 import john from "../../assets/images/avatar/avatar-thumb-001.webp";
 
@@ -34,7 +31,7 @@ function Profile() {
               </nav>
             </div>
           </div>
-          <div className="col-xxl-4 col-xl-12 col-lg-4">
+          <div className="col-12 col-xxl-6 col-xl-6 col-lg-6">
             <div
               className="card height-equal"
               style={{ minHeight: "761.372px" }}
@@ -1281,7 +1278,7 @@ function Profile() {
               </div>
             </div>
           </div> */}
-          <div className="col-xxl-3 col-xl-6 col-lg-6">
+          <div className="col-12 col-xxl-6 col-xl-6 col-lg-6">
             <div
               className="card height-equal-2"
               style={{ minHeight: "476.059px" }}
@@ -1353,10 +1350,10 @@ function Profile() {
                     </div>
                     <div className="info-value">ABC Bank</div>
                   </li>
-
+{/* 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
-                      {/* <i className="ri-map-pin-line"></i> */}
+                      <i className="ri-map-pin-line"></i>
                       <span className="text-body">Branch Location:</span>
                     </div>
                     <div className="info-value">
@@ -1365,7 +1362,7 @@ function Profile() {
                         123 Main St, Cityville
                       </small>
                     </div>
-                  </li>
+                  </li> */}
 
                   <li className="d-flex-between py-9 b-bottom">
                     <div className="info-label">
@@ -1451,7 +1448,7 @@ function Profile() {
               </div>
             </div>
           </div> */}
-          <div className="col-xxl-3 col-xl-6 col-lg-6">
+          {/* <div className="col-xxl-4 col-xl-6 col-lg-6">
             <div
               className="card height-equal-2"
               style={{ minHeight: "476.059px" }}
@@ -1547,7 +1544,7 @@ function Profile() {
                 </div>
               </div>
             </div>
-          </div>
+          </div> */}
         </div>
       </div>
     </div>

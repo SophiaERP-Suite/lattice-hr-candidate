@@ -312,6 +312,10 @@ html {
   font-size: 10px;
 }
 
+.sidebar-collapsed {
+  width: 70px;
+}
+
 /* Typography css start  */
 body {
   color: var(--color-body);
@@ -9705,6 +9709,16 @@ div.dataTables_wrapper div.dataTables_filter input {
   transition: all 0.3s ease-in-out;
 }
 
+.app-content-area2 {
+  position: relative;
+  top: 0;
+  left: 0;
+  padding-inline-start: 70px;
+  min-height: calc(100vh - 146px);
+  margin-top: 93px;
+  transition: all 0.3s ease-in-out;
+}
+
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px) {
   .app-content-area {
     padding-inline-start: 0;
@@ -9737,6 +9751,18 @@ div.dataTables_wrapper div.dataTables_filter input {
   z-index: 19;
   width: 100%;
   padding-inline-start: 260px;
+}
+
+.app-header-area2 {
+  background-color: var(--color-card-bg);
+  box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.1), 0px 1px 3px rgba(0, 0, 0, 0.1);
+  position: fixed;
+  transition: all 0.3s ease-in-out;
+  top: 0;
+  left: 0;
+  z-index: 19;
+  width: 100%;
+  padding-inline-start: 70px;
 }
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .app-header-area {
@@ -10037,6 +10063,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   inset-inline-start: 0;
   width: 100%;
 }
+
 
 @media only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .app-offcanvas-overlay.overlay-open {
@@ -12288,6 +12315,47 @@ div.dataTables_wrapper div.dataTables_filter input {
   align-content: center;
   cursor: pointer;
 }
+
+ #sidebarToggle2 {
+    display: none
+  }
+
+@media (max-width: 1200px) {
+  .app-sidebar {
+    position: fixed;
+    top: 0;
+    left: -100%; /* hidden by default */
+    height: 100%;
+    z-index: 999;
+    width: 250px;
+    transition: left 0.3s ease;
+  }
+
+  #sidebarToggle {
+display: none;
+  }
+
+  #sidebarToggle2 {
+    display: block
+  }
+
+  .app-sidebar.mobile-open {
+    left: 0; /* slide in */
+  }
+
+  /* Optionally overlay */
+  body.mobile-sidebar-open::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 998;
+  }
+}
+
 @media only screen and (min-width: 1700px) and (max-width: 1800px), only screen and (min-width: 1600px) and (max-width: 1700px), only screen and (min-width: 1400px) and (max-width: 1599px), only screen and (min-width: 1200px) and (max-width: 1399px), only screen and (min-width: 992px) and (max-width: 1199px), only screen and (min-width: 768px) and (max-width: 991px), only screen and (min-width: 576px) and (max-width: 767px), (max-width: 575px) {
   .email-intro {
     flex-direction: column;
@@ -12413,6 +12481,11 @@ div.dataTables_wrapper div.dataTables_filter input {
 .inner-sidebar-toggle {
   display: none;
 }
+
+.sidebar-mini {
+  width: 70px;
+}
+
 @media only screen and (max-width: 991px) {
   .inner-sidebar-toggle {
     display: block;

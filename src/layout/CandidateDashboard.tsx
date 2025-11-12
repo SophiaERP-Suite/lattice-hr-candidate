@@ -5,36 +5,55 @@ import fullLogo from "../assets/images/logo/lattice-logo.png";
 import fullLogoMobile from "../assets/images/logo/lattice-logo-mobile.png";
 import { sidebarMenus } from "../layout/sidebar-data";
 import {
+  ArrowLeft,
   ArrowRight,
   ArrowUp,
   Bell,
   // BellIcon,
   ChevronDown,
+  ChevronLeft,
+  ChevronUp,
   // ChevronRight,
   CircleQuestionMark,
   ClockPlus,
   LogOut,
+  Menu,
   // LogOutIcon,
   Search,
   Settings,
   UserRound,
+  // X,
 } from "lucide-react";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 
 function CandidateDashboard() {
   const [openDropdown, setOpenDropdown] = useState(null);
+  const [isCollapsed, setIsCollapsed] = useState(false);
+  const [isMobileOpen, setIsMobileOpen] = useState(false);
+
   const location = useLocation();
 
   const toggleDropdown = (name: any) => {
     setOpenDropdown(openDropdown === name ? null : name);
   };
 
-  // Check if the current path matches the menu item
+  useEffect(() => {
+    const handleClickOutside = (event: MouseEvent) => {
+      const sidebar = document.getElementById("sidebar");
+      if (sidebar && !sidebar.contains(event.target as Node)) {
+        setIsMobileOpen(false);
+      }
+    };
+
+    if (isMobileOpen)
+      document.addEventListener("mousedown", handleClickOutside);
+    return () => document.removeEventListener("mousedown", handleClickOutside);
+  }, [isMobileOpen]);
+
   const isActive = (path?: string) => {
     if (!path) return false;
-    return (
-      location.pathname === `/${path}` || location.pathname.includes(`/${path}`)
-    );
+    const currentPath = location.pathname.replace(/^\//, "");
+    return currentPath === path || currentPath.startsWith(path + "/");
   };
 
   // Check if any child is active
@@ -46,65 +65,117 @@ function CandidateDashboard() {
   return (
     <div className="page">
       {/* <!-- Start app-sidebar --> */}
-      <aside className="app-sidebar sticky" id="sidebar">
-        <div className="app-sidebar-header">
-          <a href="Dashboard" className="desktop-logo">
-            <img src={fullLogo} alt="Logo" />
-          </a>
+      <aside
+        className={`app-sidebar sticky bg-white border-end shadow-sm ${
+          isCollapsed ? "sidebar-mini" : "sidebar-full"
+        } ${isMobileOpen ? "mobile-open" : ""}`}
+        id="sidebar"
+        style={{ transition: "all 0.3s ease" }}
+      >
+        {/* Logo */}
+        <div className={`text-center py-3 border-bottom ${isMobileOpen && "d-flex justify-content-between align-items-center px-3 my-3"}`}>
+          <img
+            src={isCollapsed ? fullLogoMobile : fullLogo}
+            alt="Logo"
+            style={{
+              width: isCollapsed ? "72%" : isMobileOpen ? "74%" : "86%",
+              padding: "5px",
+            }}
+          />
+          {isMobileOpen && (
+            <a onClick={() => setIsMobileOpen(!isMobileOpen)} style={{cursor: "pointer"}}>
+              <ChevronLeft size={20} />
+            </a>
+          )}
         </div>
 
-        <div className="app-sidebar-wrapper">
-          <ul className="app-sidebar-main-menu mt-4">
-            <li className="sidebar-menu-category">
-              <span className="category-name" style={{ color: "#000" }}>
-                Candidate Portal
-              </span>
-            </li>
+        {!isCollapsed && (
+          <div
+            className="sidebar-menu-category mb-2"
+            style={{
+              display: "flex",
+              justifyContent: "center",
+              marginTop: "10px",
+            }}
+          >
+            <span className="category-name" style={{ color: "#000" }}>
+              {" "}
+              Candidate Portal{" "}
+            </span>{" "}
+          </div>
+        )}
 
-            {sidebarMenus.map((item, index) => {
-              const itemIsActive = isActive(item.path);
-              const childIsActive = hasActiveChild(item.children);
-              const isOpen = openDropdown === item.label;
-
-              return (
-                <li
-                  key={index}
-                  className={`slide ${item.children ? "has-sub" : ""} ${
-                    isOpen ? "open" : ""
-                  }`}
-                >
-                  {item.children ? (
-                    // Dropdown Menu Item
-                    <>
-                      <a
-                        href="#"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toggleDropdown(item.label);
-                        }}
-                        className={`sidebar-menu-item ${
-                          childIsActive ? "active" : ""
+        {/* Menu */}
+        <ul
+          className={`list-unstyled mt-3 ${
+            isCollapsed ? "text-center" : "px-3"
+          }`}
+        >
+          {sidebarMenus.map((item, index) => {
+            const isOpen = openDropdown === item.label;
+            const itemIsActive = isActive(item.path);
+            const childIsActive = hasActiveChild(item.children);
+            return (
+              <li
+                key={index}
+                className="mb-2"
+                style={{
+                  margin: isCollapsed ? "10px 0px 10px 12px" : "0px",
+                }}
+              >
+                {item.children ? (
+                  <>
+                    <a
+                      onClick={(e) => {
+                        e.preventDefault();
+                        // setIsCollapsed(!isCollapsed);
+                        if (isCollapsed) {
+                          setIsCollapsed(!isCollapsed);
+                          // $(".app-sidebar").toggleClass("close_sidebar");
+                        }
+                        toggleDropdown(item.label);
+                      }}
+                      id={isCollapsed ? "sidebarToggle" : undefined}
+                      style={{ cursor: "pointer", transition: "0.5s ease" }}
+                      className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark p-2 rounded ${
+                        isCollapsed
+                          ? "justify-content-center"
+                          : "justify-content-between"
+                      } ${childIsActive ? "active" : ""}`}
+                      title={isCollapsed ? item.label : ""}
+                    >
+                      <div
+                        className={`d-flex align-items-center ${
+                          isCollapsed
+                            ? "justify-content-center"
+                            : "justify-content-between"
                         }`}
                       >
-                        <div className="side-menu-icon">{item.icon}</div>
-                        <span className="sidebar-menu-label">{item.label}</span>
-                        <ChevronDown
-                          size={16}
-                          className={`side-menu-angle ${
-                            isOpen ? "rotate" : ""
-                          }`}
-                        />
-                      </a>
+                        <div className="me-2" style={{ paddingRight: "10px" }}>
+                          {item.icon}
+                        </div>
+                        {!isCollapsed && <span>{item.label}</span>}
+                      </div>
+                      {/* {!isCollapsed && isOpen ? (
+                        <ChevronUp size={20} />
+                      ) : (
+                        <ChevronDown size={20} />
+                      )} */}
 
-                      {/* Submenu */}
-                      <ul
-                        className={`sidebar-menu child1 ${
-                          isOpen ? "show" : ""
-                        }`}
-                        style={{
-                          display: isOpen ? "block" : "none",
-                        }}
-                      >
+                      {!isCollapsed && (
+                        <div>
+                          {isOpen ? (
+                            <ChevronUp size={20} />
+                          ) : (
+                            <ChevronDown size={20} />
+                          )}
+                        </div>
+                      )}
+                    </a>
+
+                    {/* Submenu (only when expanded) */}
+                    {!isCollapsed && isOpen && (
+                      <ul className="ms-4 mt-2">
                         {item.children.map((child, childIndex) => (
                           <li key={childIndex} className="slide">
                             <Link
@@ -125,32 +196,35 @@ function CandidateDashboard() {
                           </li>
                         ))}
                       </ul>
-                    </>
-                  ) : (
-                    // Single Menu Item
-                    <Link
-                      to={`/${item.path}`}
-                      className={`sidebar-menu-item ${
-                        itemIsActive ? "active" : ""
-                      }`}
-                    >
-                      <div className="side-menu-icon" style={{ color: "#000" }}>
-                        {item.icon}
-                      </div>
-                      <span className="sidebar-menu-label">{item.label}</span>
-                    </Link>
-                  )}
-                </li>
-              );
-            })}
-          </ul>
-        </div>
+                    )}
+                  </>
+                ) : (
+                  <Link
+                    to={`/${item.path}`}
+                    className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark p-2 rounded ${
+                      isCollapsed ? "justify-content-center" : ""
+                    } ${itemIsActive ? "active" : ""}`}
+                    title={isCollapsed ? item.label : ""}
+                  >
+                    <div className="me-2" style={{ paddingRight: "10px" }}>
+                      {item.icon}
+                    </div>
+                    {!isCollapsed && <span>{item.label}</span>}
+                  </Link>
+                )}
+              </li>
+            );
+          })}
+        </ul>
       </aside>
+
       <div className="app-offcanvas-overlay"></div>
       {/* <!-- end app-sidebar --> */}
 
       {/* <!-- app-header --> */}
-      <div className="app-header-area">
+      <div
+        className={`${isCollapsed ? "app-header-area2" : "app-header-area"}`}
+      >
         <header className="app-header" id="header">
           <div className="app-header-inner">
             <div className="app-header-left">
@@ -158,36 +232,44 @@ function CandidateDashboard() {
                 <div className="app-header-element">
                   <a
                     className="sidebar-toggle-bar"
-                    id="sidebarToggle"
-                    onClick={() => toggleDropdown("menu1")}
+                    id="sidebarToggle2"
+                    style={{cursor: "pointer"}}
+                    onClick={() => setIsMobileOpen(!isMobileOpen)}
                   >
-                    <div className="sidebar-menu-bar">
-                      <span></span>
-                      <span></span>
-                      <span></span>
-                    </div>
+                    <Menu />
+                  </a>
+                  <a
+                    className="sidebar-toggle-bar"
+                    id="sidebarToggle"
+                    // onClick={() => toggleDropdown("menu1")}
+                    onClick={() => setIsCollapsed(!isCollapsed)}
+                  >
+                    {isCollapsed ? (
+                      <ArrowRight className="cursor-pointer" />
+                    ) : (
+                      // <div className="sidebar-menu-bar">
+                      //   <span></span>
+                      //   <span></span>
+                      //   <span></span>
+                      // </div>
+                      <ArrowLeft className="cursor-pointer" />
+                    )}
                   </a>
                 </div>
                 <div className="app-header-ls-logo">
                   {/* <!-- large screen logo --> */}
-                  <a className="app-header-ls-dark-logo" href="index.html">
-                    <img
-                      src="../assets/images/logo/logo-black.svg"
-                      alt="image"
-                    />
+                  <a className="app-header-ls-dark-logo" href="Dashboard">
+                    <img src={fullLogo} alt="image" />
                   </a>
-                  <a className="app-header-ls-light-logo" href="index.html">
-                    <img
-                      src="../assets/images/logo/logo-white.svg"
-                      alt="image"
-                    />
+                  <a className="app-header-ls-light-logo" href="Dashboard">
+                    <img src={fullLogo} alt="image" />
                   </a>
                 </div>
                 <div className="app-header-mobile-logo">
-                  <a className="app-header-dark-logo" href="index.html">
+                  <a className="app-header-dark-logo" href="Dashboard">
                     <img src={fullLogoMobile} alt="image" />
                   </a>
-                  <a className="app-header-light-logo" href="index.html">
+                  <a className="app-header-light-logo" href="Dashboard">
                     <img src={fullLogoMobile} alt="image" />
                   </a>
                 </div>
@@ -421,7 +503,9 @@ function CandidateDashboard() {
       {/* <!-- app-header --> */}
 
       {/* <!-- app-content-area-start --> */}
-      <div className="app-content-area">
+      <div
+        className={`${isCollapsed ? "app-content-area2" : "app-content-area"}`}
+      >
         <Outlet />
       </div>
       {/* <!-- app-content-area-end --> */}
