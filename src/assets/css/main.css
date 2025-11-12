@@ -12324,7 +12324,7 @@ div.dataTables_wrapper div.dataTables_filter input {
   .app-sidebar {
     position: fixed;
     top: 0;
-    left: -100%; /* hidden by default */
+    left: -100%; 
     height: 100%;
     z-index: 999;
     width: 250px;
@@ -12340,7 +12340,7 @@ display: none;
   }
 
   .app-sidebar.mobile-open {
-    left: 0; /* slide in */
+    left: 0; 
   }
 
   /* Optionally overlay */
