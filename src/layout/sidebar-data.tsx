@@ -1,4 +1,16 @@
-import { BellIcon, Settings, LogOutIcon, LayoutDashboard, Briefcase, BriefcaseBusiness, UserRound } from "lucide-react";
+import {
+  BellIcon,
+  Settings,
+  LogOutIcon,
+  LayoutDashboard,
+  Briefcase,
+  BriefcaseBusiness,
+  UserRound,
+  Calendar,
+  Calendar1,
+  BookOpen,
+  Shield,
+} from "lucide-react";
 import type { ReactNode } from "react";
 
 export interface SidebarItem {
@@ -12,22 +24,16 @@ export const sidebarMenus: SidebarItem[] = [
   {
     label: "Dashboard",
     path: "dashboard",
-    icon: (
-   
-      <LayoutDashboard size={20} style={{ scale: "1.3" }}  />
-    ),
+    icon: <LayoutDashboard size={20} style={{ scale: "1.3" }} />,
   },
   {
     label: "Profile & Resume",
-    icon: (
-      
-       <UserRound size={20} style={{ scale: "1.3" }}  />
-    ),
+    icon: <UserRound size={20} style={{ scale: "1.3" }} />,
     children: [
       {
         label: "Profile",
         path: "Profile",
-        icon: null, 
+        icon: null,
       },
       {
         label: "Resume",
@@ -38,9 +44,7 @@ export const sidebarMenus: SidebarItem[] = [
   },
   {
     label: "Job Management",
-    icon: (
-       <BriefcaseBusiness size={20} style={{ scale: "1.3" }}  />
-    ),
+    icon: <BriefcaseBusiness size={20} style={{ scale: "1.3" }} />,
     children: [
       {
         label: "Find Jobs",
@@ -79,19 +83,7 @@ export const sidebarMenus: SidebarItem[] = [
   {
     label: "Timesheet & Attendance",
     path: "attendance",
-    icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M9 1V3H15V1H17V3H21C21.5523 3 22 3.44772 22 4V20C22 20.5523 21.5523 21 21 21H3C2.44772 21 2 20.5523 2 20V4C2 3.44772 2.44772 3 3 3H7V1H9ZM20 11H4V19H20V11ZM7 5H4V9H20V5H17V7H15V5H9V7H7V5Z" />
-      </svg>
-    ),
+    icon: <Calendar1 size={20} style={{ scale: "1.3" }} />,
   },
   {
     label: "Self Interview",
@@ -128,58 +120,32 @@ export const sidebarMenus: SidebarItem[] = [
     ),
   },
   {
-    label: "Induction & Training",
+    label: "Induction",
     path: "Induction",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M20.0833 15.1999L21.2854 15.9212C21.5221 16.0633 21.5989 16.3704 21.4569 16.6072C21.4146 16.6776 21.3557 16.7365 21.2854 16.7787L12.5144 22.0412C12.1977 22.2313 11.8021 22.2313 11.4854 22.0412L2.71451 16.7787C2.47772 16.6366 2.40093 16.3295 2.54301 16.0927C2.58523 16.0223 2.64413 15.9634 2.71451 15.9212L3.9166 15.1999L11.9999 20.0499L20.0833 15.1999ZM20.0833 10.4999L21.2854 11.2212C21.5221 11.3633 21.5989 11.6704 21.4569 11.9072C21.4146 11.9776 21.3557 12.0365 21.2854 12.0787L11.9999 17.6499L2.71451 12.0787C2.47772 11.9366 2.40093 11.6295 2.54301 11.3927C2.58523 11.3223 2.64413 11.2634 2.71451 11.2212L3.9166 10.4999L11.9999 15.3499L20.0833 10.4999ZM12.5144 1.30864L21.2854 6.5712C21.5221 6.71327 21.5989 7.0204 21.4569 7.25719C21.4146 7.32757 21.3557 7.38647 21.2854 7.42869L11.9999 12.9999L2.71451 7.42869C2.47772 7.28662 2.40093 6.97949 2.54301 6.7427C2.58523 6.67232 2.64413 6.61343 2.71451 6.5712L11.4854 1.30864C11.8021 1.11864 12.1977 1.11864 12.5144 1.30864Z" />
-      </svg>
+       <BookOpen size={20} style={{ scale: "1.3" }}  />
     ),
   },
   {
     label: "Notifications",
     path: "Notifications",
-    icon: (
-      <BellIcon size={20} style={{ scale: "1.3" }}  />
-    ),
+    icon: <BellIcon size={20} style={{ scale: "1.3" }} />,
   },
   {
     label: "Settings",
     path: "Settings",
-    icon: (
-      <Settings size={20} style={{ scale: "1.3" }}  />
-    ),
+    icon: <Settings size={20} style={{ scale: "1.3" }} />,
   },
   {
     label: "Security",
     path: "Security",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M12 1L20.2169 2.82598C20.6745 2.92766 21 3.33347 21 3.80217V13.7889C21 15.795 19.9974 17.6684 18.3282 18.7812L12 23L5.6718 18.7812C4.00261 17.6684 3 15.795 3 13.7889V3.80217C3 3.33347 3.32553 2.92766 3.78307 2.82598L12 1ZM12 3.04879L5 4.60434V13.7889C5 15.1263 5.6684 16.3752 6.7812 17.1171L12 20.5963L17.2188 17.1171C18.3316 16.3752 19 15.1263 19 13.7889V4.60434L12 3.04879ZM12 7C13.1046 7 14 7.89543 14 9C14 9.73984 13.5983 10.3858 13.0011 10.7318L13 15H11L10.9999 10.7324C10.4022 10.3866 10 9.74025 10 9C10 7.89543 10.8954 7 12 7Z" />
-      </svg>
+       <Shield size={20} style={{ scale: "1.3" }}  />
     ),
   },
   {
     label: "Logout",
-    path: "logout", // Consider using a function instead of path
-    icon: (
-      <LogOutIcon size={20} style={{ scale: "1.3" }} />
-    ),
+    path: "logout", 
+    icon: <LogOutIcon size={20} style={{ scale: "1.3" }} />,
   },
 ];
