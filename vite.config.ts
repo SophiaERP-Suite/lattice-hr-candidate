@@ -3,7 +3,7 @@ import react from '@vitejs/plugin-react'
 
 // https://vite.dev/config/
 export default defineConfig({
-  base: "/Candidate/",
+  base: "/one/lhr_cdt/",
   plugins: [
     react({
       babel: {

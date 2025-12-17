@@ -4,7 +4,7 @@ import AppRoutes from "./routes/AppRoutes";
 
 function App() {
   return (
-    <BrowserRouter basename="/Candidate">
+    <BrowserRouter basename="/one/lhr_cdt">
       <AppRoutes />
     </BrowserRouter>
   );

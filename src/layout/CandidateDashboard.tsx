@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { Link, Outlet, useLocation } from "react-router-dom";
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
@@ -9,20 +10,16 @@ import {
   ArrowRight,
   ArrowUp,
   Bell,
-  // BellIcon,
   ChevronDown,
   ChevronLeft,
   ChevronUp,
-  // ChevronRight,
   CircleQuestionMark,
   ClockPlus,
   LogOut,
   Menu,
-  // LogOutIcon,
   Search,
   Settings,
   UserRound,
-  // X,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 
