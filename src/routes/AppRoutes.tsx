@@ -1,6 +1,5 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import CandidateLayout from "../layout/CandidateLayout";
-import CandidateDashboard from "../layout/CandidateDashboard";
 import Dashboard from "../pages/Dashboard";
 import Profile from "../pages/profile/Profile";
 import MyApplications from "../pages/job/MyApplications";
@@ -28,7 +27,7 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/" element={<CandidateLayout />}>
-        <Route index element={<CandidateDashboard />} />
+        <Route index element={<Dashboard />} />
         <Route path="Dashboard" element={<Dashboard />} />
         <Route path="Profile" element={<Profile />} />
         <Route path="MyApplication" element={<MyApplications />} />
