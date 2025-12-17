@@ -70,7 +70,12 @@ function CandidateDashboard() {
         style={{ transition: "all 0.3s ease" }}
       >
         {/* Logo */}
-        <div className={`text-center py-3 border-bottom ${isMobileOpen && "d-flex justify-content-between align-items-center px-3 my-3"}`}>
+        <div
+          className={`text-center py-3 border-bottom ${
+            isMobileOpen &&
+            "d-flex justify-content-between align-items-center px-3 my-3"
+          }`}
+        >
           <img
             src={isCollapsed ? fullLogoMobile : fullLogo}
             alt="Logo"
@@ -80,7 +85,10 @@ function CandidateDashboard() {
             }}
           />
           {isMobileOpen && (
-            <a onClick={() => setIsMobileOpen(!isMobileOpen)} style={{cursor: "pointer"}}>
+            <a
+              onClick={() => setIsMobileOpen(!isMobileOpen)}
+              style={{ cursor: "pointer" }}
+            >
               <ChevronLeft size={20} />
             </a>
           )}
@@ -125,16 +133,14 @@ function CandidateDashboard() {
                     <a
                       onClick={(e) => {
                         e.preventDefault();
-                        // setIsCollapsed(!isCollapsed);
                         if (isCollapsed) {
                           setIsCollapsed(!isCollapsed);
-                          // $(".app-sidebar").toggleClass("close_sidebar");
                         }
                         toggleDropdown(item.label);
                       }}
                       id={isCollapsed ? "sidebarToggle" : undefined}
                       style={{ cursor: "pointer", transition: "0.5s ease" }}
-                      className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark p-2 rounded ${
+                      className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${
                         isCollapsed
                           ? "justify-content-center"
                           : "justify-content-between"
@@ -153,11 +159,6 @@ function CandidateDashboard() {
                         </div>
                         {!isCollapsed && <span>{item.label}</span>}
                       </div>
-                      {/* {!isCollapsed && isOpen ? (
-                        <ChevronUp size={20} />
-                      ) : (
-                        <ChevronDown size={20} />
-                      )} */}
 
                       {!isCollapsed && (
                         <div>
@@ -182,7 +183,7 @@ function CandidateDashboard() {
                               }`}
                             >
                               <ArrowRight
-                                size={12}
+                                size={17}
                                 style={{
                                   marginRight: "10px",
                                   marginLeft: "10px",
@@ -198,7 +199,7 @@ function CandidateDashboard() {
                 ) : (
                   <Link
                     to={`/${item.path}`}
-                    className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark p-2 rounded ${
+                    className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${
                       isCollapsed ? "justify-content-center" : ""
                     } ${itemIsActive ? "active" : ""}`}
                     title={isCollapsed ? item.label : ""}
@@ -230,7 +231,7 @@ function CandidateDashboard() {
                   <a
                     className="sidebar-toggle-bar"
                     id="sidebarToggle2"
-                    style={{cursor: "pointer"}}
+                    style={{ cursor: "pointer" }}
                     onClick={() => setIsMobileOpen(!isMobileOpen)}
                   >
                     <Menu />
@@ -272,15 +273,22 @@ function CandidateDashboard() {
                 </div>
               </div>
               <div className="app-header-search d-none d-lg-block">
-                <form action="#">
-                  <input
-                    className="form-control"
-                    type="text"
-                    placeholder="Search..."
-                  />
-                  <button type="submit">
-                    <Search className="" />
-                  </button>
+                <form className="d-flex align-items-center" role="search">
+                  <div className="input-group">
+                    <input
+                      type="text"
+                      className="form-control"
+                      placeholder="Search..."
+                      aria-label="Search"
+                    />
+                    <button
+                      className="btn btn-primary"
+                      style={{ position: "relative", top: "18px" }}
+                      type="submit"
+                    >
+                      <Search size={18} />
+                    </button>
+                  </div>
                 </form>
               </div>
             </div>
@@ -448,44 +456,43 @@ function CandidateDashboard() {
                       <h6 className="author-name lh-1">John Parker</h6>
                     </div>
                   </a>
-                  <ul className="dropdown-menu">
-                    <li className="bd-user-info-list">
-                      <a href="Profile">
-                        <UserRound
-                          size={17}
-                          style={{ marginRight: "7px" }}
-                          className=""
-                        />
+                  <ul
+                    className="dropdown-menu shadow-lg border-0 rounded-3 p-2"
+                    style={{ minWidth: "200px" }}
+                  >
+                    {/* Profile */}
+                    <li>
+                      <a
+                        href="Profile"
+                        className="dropdown-item d-flex align-items-center rounded-3 gap-2 py-2"
+                      >
+                        <UserRound size={15} />
                         Profile
                       </a>
                     </li>
-                    {/* <li className="bd-user-info-list">
-                        <a href="app-user-billing.html">
-                          <CreditCard
-                            size={17}
-                            style={{ marginRight: "7px" }}
-                            className=""
-                          />
-                          Plans & Billing
-                        </a>
-                      </li> */}
-                    <li className="bd-user-info-list">
-                      <a href="Settings">
-                        <Settings
-                          size={17}
-                          style={{ marginRight: "7px" }}
-                          className=""
-                        />
+
+                    {/* Settings */}
+                    <li>
+                      <a
+                        href="Settings"
+                        className="dropdown-item d-flex align-items-center rounded-3 gap-2 py-2"
+                      >
+                        <Settings size={15} />
                         Settings
                       </a>
                     </li>
-                    <li className="bd-user-info-list">
-                      <a href="Dashboard">
-                        <LogOut
-                          size={17}
-                          style={{ marginRight: "7px" }}
-                          className=""
-                        />
+
+                    <li>
+                      <hr className="dropdown-divider" />
+                    </li>
+
+                    {/* Logout */}
+                    <li>
+                      <a
+                        href="Dashboard"
+                        className="dropdown-item d-flex align-items-center rounded-3 gap-2 text-danger py-2"
+                      >
+                        <LogOut size={15} />
                         Logout
                       </a>
                     </li>
@@ -561,7 +568,16 @@ function CandidateDashboard() {
         </div>
       </div>
 
-      <div className="progress-wrap">
+      <div
+        className="progress-wrap d-flex align-items-center justify-content-center"
+        // style={{
+        //   width: "40px",
+        //   height: "40px",
+        //   borderRadius: "50%",
+        //   backgroundColor: "#0d6efd",
+        //   color: "#fff",
+        // }}
+      >
         <ArrowUp size={20} />
       </div>
     </div>

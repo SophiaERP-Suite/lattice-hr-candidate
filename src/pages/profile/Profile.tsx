@@ -34,7 +34,6 @@ function Profile() {
           <div className="col-12 col-xxl-6 col-xl-6 col-lg-6">
             <div
               className="card height-equal"
-              style={{ minHeight: "761.372px" }}
             >
               <div className="card-header justify-between">
                 <h4 className="">Personal Information</h4>
@@ -1281,7 +1280,6 @@ function Profile() {
           <div className="col-12 col-xxl-6 col-xl-6 col-lg-6">
             <div
               className="card height-equal-2"
-              style={{ minHeight: "476.059px" }}
             >
               <div className="card-header justify-between">
                 <h4 className="">Bank Details</h4>
