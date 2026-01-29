@@ -1,13 +1,19 @@
 import {
+  AlertCircle,
+  AlertTriangle,
+  ArrowRight,
   Briefcase,
   CheckCircle,
   ChevronDown,
   Eye,
+  Shield,
+  ShieldAlert,
   XCircle,
 } from "lucide-react";
 import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
 import john from "../assets/images/avatar/avatar-thumb-001.webp";
 import Chart from "react-apexcharts";
+import { useState, useEffect } from "react";
 
 const chartOptions: ApexCharts.ApexOptions = {
   chart: {
@@ -125,6 +131,7 @@ const chartSeries = [
 ];
 
 function Dashboard() {
+
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -141,6 +148,8 @@ function Dashboard() {
               </nav>
             </div>
           </div>
+
+     
 
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
@@ -177,6 +186,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
@@ -191,6 +201,7 @@ function Dashboard() {
               </div>
             </div>
           </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">

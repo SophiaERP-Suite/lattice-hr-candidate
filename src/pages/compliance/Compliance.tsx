@@ -1,204 +1,142 @@
-// import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import { ChevronRight, Eye, Flag } from "lucide-react";
-
+import { ChevronRight, FileText, User } from "lucide-react";
 import { useState } from "react";
+import IdentityVerification from "./IdentityVerification";
+import Compliance from "./ComplianceMgt";
 
-function Compliance() {
+function ComplianceMgt() {
+  const [showUploadModal, setShowUploadModal] = useState(false);
+  const [selectedRecord, setSelectedRecord] = useState(null);
+  const [activeSection, setActiveSection] = useState("documents");
+
   const [records] = useState([
     {
+      id: 1,
       company: "Bright Future Ltd",
       checkType: "DBS Check",
       status: "Pending",
       expiry: "—",
+      uploadedDate: "2025-01-15",
+      notes: "Awaiting document verification from HR.",
     },
     {
+      id: 2,
       company: "TrustGuard Services",
       checkType: "Criminal Record",
       status: "Valid",
       expiry: "2026-04-12",
+      uploadedDate: "2025-01-10",
+      notes: "All checks completed successfully.",
     },
     {
+      id: 3,
       company: "SecureHire",
       checkType: "Document Verification",
       status: "Expiring Soon",
       expiry: "2025-12-01",
+      uploadedDate: "2024-12-01",
+      notes: "Document expiring in 11 months. Renewal required.",
+    },
+    {
+      id: 4,
+      company: "Healthcare Plus",
+      checkType: "Right to Work",
+      status: "Rejected",
+      expiry: "—",
+      uploadedDate: "2025-01-20",
+      notes: "Document unclear. Please resubmit with better quality scan.",
     },
   ]);
+
+  // Calculate compliance statistics
+  const stats = {
+    pending: records.filter((r) => r.status === "Pending").length,
+    nonCompliant: records.filter((r) => r.status === "Rejected").length,
+    expiringSoon: records.filter((r) => r.status === "Expiring Soon").length,
+    fullyCompliant: records.filter((r) => r.status === "Valid").length,
+    total: records.length,
+  };
+
+  // const getStatusBadge = (status) => {
+  //   switch (status) {
+  //     case "Pending":
+  //       return <span className="badge bg-warning"><Clock size={14} className="me-5" />Pending</span>;
+  //     case "Valid":
+  //       return <span className="badge bg-success"><CheckCircle2 size={14} className="me-5" />Valid</span>;
+  //     case "Expiring Soon":
+  //       return <span className="badge bg-info"><AlertCircle size={14} className="me-5" />Expiring Soon</span>;
+  //     case "Rejected":
+  //       return <span className="badge bg-danger"><XCircle size={14} className="me-5" />Rejected</span>;
+  //     default:
+  //       return <span className="badge bg-secondary">Unknown</span>;
+  //   }
+  // };
+
+  const getCompliancePercentage = () => {
+    return Math.round((stats.fullyCompliant / stats.total) * 100);
+  };
 
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
         <div className="row">
+          {/* Page Header */}
           <div className="col-xl-12">
-            <div className="page-title-box d-flex-between flex-wrap gap-15">
-              <h1 className="page-title fs-18 lh-1">Compliance</h1>
+            <div className="page-title-box d-flex-between flex-wrap gap-15 mb-20">
+              <h1 className="page-title fs-18 lh-1">Compliance Management</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Compliance
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Compliance Mgt
                   </li>
                 </ol>
               </nav>
             </div>
           </div>
-          {/* Summary Cards */}
-          <div className="col-md-3">
-            <div className="card border-start border-warning border-4 shadow-sm">
-              <div className="card-body">
-                <p className="text-muted mb-1">Pending Checks</p>
-                <h4 className="fw-bold text-warning">12</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card border-start border-danger border-4 shadow-sm">
-              <div className="card-body">
-                <p className="text-muted mb-1">Non-Compliant</p>
-                <h4 className="fw-bold text-danger">5</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card border-start border-info border-4 shadow-sm">
-              <div className="card-body">
-                <p className="text-muted mb-1">Expiring Soon</p>
-                <h4 className="fw-bold text-info">3</h4>
-              </div>
-            </div>
-          </div>
-          <div className="col-md-3">
-            <div className="card border-start border-success border-4 shadow-sm">
-              <div className="card-body">
-                <p className="text-muted mb-1">Fully Compliant</p>
-                <h4 className="fw-bold text-success">18</h4>
-              </div>
-            </div>
+
+          <div
+            className="d-flex flex-wrap justify-content-center gap-15"
+            style={{ marginBottom: "30px" }}
+          >
+            <button
+              className={`btn d-flex align-items-center px-4 py-2 rounded-pill ${
+                activeSection === "documents"
+                  ? "btn-primary text-white"
+                  : "btn-outline-primary"
+              }`}
+              onClick={() => setActiveSection("documents")}
+            >
+              <FileText className="me-2" size={18} />
+              Compliance Documents
+            </button>
+
+            <button
+              className={`btn d-flex align-items-center px-4 py-2 rounded-pill ${
+                activeSection === "identity"
+                  ? "btn-warning text-white"
+                  : "btn-outline-warning"
+              }`}
+              onClick={() => setActiveSection("identity")}
+            >
+              <User className="me-2" size={18} />
+              Identity Verification
+              {/* <span className="badge bg-danger ms-10">Required</span> */}
+            </button>
           </div>
 
-          {/* Compliance Table */}
-          <div className="col-xl-12">
-            <div className="card shadow-sm">
-              <div className="card-header fw-bold">
-                <h5>Compliance Records</h5>
-              </div>
-              <div className="table-responsive">
-                <table
-                  id="dataTableDefault"
-                  className="table table-striped align-middle w-100"
-                  style={{ textAlign: "left" }}
-                >
-                  <thead className="table-light">
-                    <tr>
-                      <th>Company</th>
-                      <th>Check Type</th>
-                      <th>Status</th>
-                      <th>Expiry Date</th>
-                      <th>Action</th>
-                    </tr>
-                  </thead>
-                  <tbody>
-                    {records.map((rec, idx) => (
-                      <tr key={idx}>
-                        <td>{rec.company}</td>
-                        <td>{rec.checkType}</td>
-                        <td>
-                          {rec.status === "Pending" && (
-                            <span className="badge bg-warning">Pending</span>
-                          )}
-                          {rec.status === "Valid" && (
-                            <span className="badge bg-success">Valid</span>
-                          )}
-                          {rec.status === "Expiring Soon" && (
-                            <span className="badge bg-info">Expiring Soon</span>
-                          )}
-                        </td>
-                        <td>{rec.expiry}</td>
-                        <td>
-                          <button
-                            className="btn btn-sm btn-outline-primary me-2"
-                            data-bs-toggle="modal"
-                            data-bs-target="#viewModal"
-                          >
-                            <Eye size={16} className="me-1" />
-                            View
-                          </button>
-                          <button className="btn btn-sm btn-outline-danger">
-                            <Flag size={16} className="me-1" />
-                            Flag
-                          </button>
-                        </td>
-                      </tr>
-                    ))}
-                  </tbody>
-                </table>
-              </div>
-            </div>
-          </div>
-          {/* Modal for Details */}
-          <div
-            className="modal fade"
-            id="viewModal"
-            tabIndex={-1}
-            aria-labelledby="viewModalLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h5 className="modal-title" id="viewModalLabel">
-                    Compliance Record Details
-                  </h5>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body" style={{ textAlign: "left" }}>
-                  <p>
-                    <strong>Company:</strong> Bright Future Ltd
-                  </p>
-                  <p>
-                    <strong>Check Type:</strong> DBS Check
-                  </p>
-                  <p>
-                    <strong>Status:</strong>{" "}
-                    <span className="badge bg-warning text-dark">Pending</span>
-                  </p>
-                  <p>
-                    <strong>Expiry Date:</strong> —
-                  </p>
-                  <p className="text-muted">
-                    Notes: Awaiting document verification from HR.
-                  </p>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-secondary"
-                    data-bs-dismiss="modal"
-                  >
-                    Close
-                  </button>
-                  <button type="button" className="btn btn-primary">
-                    Mark as Reviewed
-                  </button>
-                </div>
-              </div>
-            </div>
-          </div>
+          {activeSection === "documents" && <Compliance />}
+
+          {activeSection === "identity" && <IdentityVerification />}
         </div>
       </div>
     </div>
   );
 }
 
-export default Compliance;
+export default ComplianceMgt;

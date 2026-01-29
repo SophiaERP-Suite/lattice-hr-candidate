@@ -22,6 +22,8 @@ import JobDetails from "../pages/job/JobDetails";
 import ClockIn from "../pages/attendance/ClockIn";
 import Settings from "../pages/Settings";
 import HelpSupport from "../pages/HelpSupport";
+import ComplianceMgt from "../pages/compliance/Compliance";
+import IdentityVerification from "../pages/compliance/IdentityVerification";
 
 function AppRoutes() {
   return (
@@ -32,7 +34,8 @@ function AppRoutes() {
         <Route path="Profile" element={<Profile />} />
         <Route path="MyApplication" element={<MyApplications />} />
         <Route path="JobsSaved" element={<JobsSaved />} />
-        <Route path="Compliance" element={<Compliance />} />
+        <Route path="Compliance" element={<ComplianceMgt />} />
+        <Route path="Identification" element={<IdentityVerification />} />
         <Route path="Attendance" element={<Attendance />} />
         <Route path="TimeSheet" element={<TimeSheet />} />
         <Route path="Notifications" element={<Notifications />} />

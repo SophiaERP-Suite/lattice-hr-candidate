@@ -8,6 +8,7 @@ import {
   Calendar1,
   BookOpen,
   Shield,
+  IdCard,
 } from "lucide-react";
 import type { ReactNode } from "react";
 
@@ -62,20 +63,17 @@ export const sidebarMenus: SidebarItem[] = [
     ],
   },
   {
-    label: "Compliance Manager",
+    label: "Compliance Management",
     path: "Compliance",
     icon: (
-      <svg
-        xmlns="http://www.w3.org/2000/svg"
-        viewBox="0 0 24 24"
-        fill="currentColor"
-        className="sidebar-icon"
-        width="20"
-        height="20"
-        style={{ scale: "1.3" }}
-      >
-        <path d="M21 8V20.9932C21 21.5501 20.5552 22 20.0066 22H3.9934C3.44495 22 3 21.556 3 21.0082V2.9918C3 2.45531 3.4487 2 4.00221 2H14.9968L21 8ZM19 9H14V4H5V20H19V9ZM8 7H11V9H8V7ZM8 11H16V13H8V11ZM8 15H16V17H8V15Z" />
-      </svg>
+       <Shield size={20} style={{ scale: "1.3" }}  />
+    ),
+  },
+  {
+    label: "Identity Verification",
+    path: "Identification",
+    icon: (
+       <IdCard size={20} style={{ scale: "1.3" }}  />
     ),
   },
   {
@@ -134,13 +132,13 @@ export const sidebarMenus: SidebarItem[] = [
     path: "Settings",
     icon: <Settings size={20} style={{ scale: "1.3" }} />,
   },
-  {
-    label: "Security",
-    path: "Security",
-    icon: (
-       <Shield size={20} style={{ scale: "1.3" }}  />
-    ),
-  },
+  // {
+  //   label: "Security",
+  //   path: "Security",
+  //   icon: (
+  //      <Shield size={20} style={{ scale: "1.3" }}  />
+  //   ),
+  // },
   {
     label: "Logout",
     path: "logout", 

@@ -6,6 +6,7 @@ import fullLogo from "../assets/images/logo/lattice-logo.png";
 import fullLogoMobile from "../assets/images/logo/lattice-logo-mobile.png";
 import { sidebarMenus } from "../layout/sidebar-data";
 import {
+  AlertTriangle,
   ArrowLeft,
   ArrowRight,
   ArrowUp,
@@ -19,14 +20,53 @@ import {
   Menu,
   Search,
   Settings,
+  Shield,
   UserRound,
 } from "lucide-react";
 import { useEffect, useState } from "react";
+import { getIdentificationDocs } from "../api/IdentificationApi";
 
 function CandidateDashboard() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
+  const [userDocs, setUserDocs] = useState<number>(0);
+  const [showComplianceNotif, setShowComplianceNotif] = useState(false);
+  const [showIdentificationNotif, setShowIdentificationNotif] = useState(false);
+
+  useEffect(() => {
+    fetchUserIdentificationDocs();
+  }, []);
+
+  const fetchUserIdentificationDocs = async () => {
+    try {
+      const userDocs = await getIdentificationDocs();
+
+      if (!userDocs) {
+        return;
+      }
+    } catch {}
+  };
+
+  useEffect(() => {
+    const needsCompliance = true;
+    const needsIdentification = true;
+
+    if (needsCompliance) {
+      setTimeout(() => setShowComplianceNotif(true), 800);
+    }
+    if (needsIdentification) {
+      setTimeout(() => setShowIdentificationNotif(true), 1500);
+    }
+  }, []);
+
+  const handleCompleteCompliance = () => {
+    window.location.href = "../lhr_cdt/Compliance";
+  };
+
+  const handleCompleteIdentification = () => {
+    window.location.href = "/identity-verification";
+  };
 
   const location = useLocation();
 
@@ -507,6 +547,143 @@ function CandidateDashboard() {
       {/* <!-- app-header --> */}
 
       {/* <!-- app-content-area-start --> */}
+
+      {/*Compliance Notification */}
+      <div
+        className={`side-notification compliance-notif ${
+          showComplianceNotif ? "show" : ""
+        }`}
+        style={{
+          position: "fixed",
+          top: "100px",
+          right: showComplianceNotif ? "20px" : "-300px",
+          width: "280px",
+          backgroundColor: "white",
+          border: "1px solid #FDE68A",
+          borderRadius: "8px",
+          boxShadow: "0 3px 10px rgba(245, 158, 11, 0.15)",
+          zIndex: 1000,
+          transition: "right 0.3s ease-in-out",
+          padding: "12px",
+          display: "flex",
+          alignItems: "center",
+          gap: "12px",
+        }}
+      >
+        <div
+          style={{
+            backgroundColor: "#FEF3C7",
+            minWidth: "36px",
+            height: "36px",
+            borderRadius: "50%",
+            display: "flex",
+            alignItems: "center",
+            justifyContent: "center",
+            flexShrink: 0,
+          }}
+        >
+          <AlertTriangle size={18} color="#D97706" />
+        </div>
+
+        <div style={{ flex: 1 }}>
+          <p
+            style={{
+              fontSize: "13px",
+              color: "#92400E",
+              marginBottom: "8px",
+              lineHeight: "1.3",
+            }}
+          >
+            Complete compliance docs
+          </p>
+          <button
+            onClick={handleCompleteCompliance}
+            style={{
+              width: "100%",
+              backgroundColor: "#F59E0B",
+              color: "white",
+              border: "none",
+              padding: "6px 12px",
+              borderRadius: "4px",
+              fontSize: "12px",
+              fontWeight: "600",
+              cursor: "pointer",
+            }}
+          >
+            Action Required
+          </button>
+        </div>
+      </div>
+
+      {/* Identity Notification */}
+      {!userDocs ||
+        (userDocs === 0 && (
+          <div
+            className={`side-notification identification-notif ${
+              showIdentificationNotif ? "show" : ""
+            }`}
+            style={{
+              position: "fixed",
+              top: showComplianceNotif ? "200px" : "100px",
+              right: showIdentificationNotif ? "20px" : "-300px",
+              width: "280px",
+              backgroundColor: "white",
+              border: "1px solid #BFDBFE",
+              borderRadius: "8px",
+              boxShadow: "0 3px 10px rgba(59, 130, 246, 0.15)",
+              zIndex: 999,
+              transition: "all 0.3s ease-in-out",
+              padding: "12px",
+              display: "flex",
+              alignItems: "center",
+              gap: "12px",
+            }}
+          >
+            <div
+              style={{
+                backgroundColor: "#DBEAFE",
+                minWidth: "36px",
+                height: "36px",
+                borderRadius: "50%",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "center",
+                flexShrink: 0,
+              }}
+            >
+              <Shield size={18} color="#1D4ED8" />
+            </div>
+
+            <div style={{ flex: 1 }}>
+              <p
+                style={{
+                  fontSize: "13px",
+                  color: "#1E40AF",
+                  marginBottom: "8px",
+                  lineHeight: "1.3",
+                }}
+              >
+                Verify identity for full access
+              </p>
+              <button
+                onClick={handleCompleteIdentification}
+                style={{
+                  width: "100%",
+                  backgroundColor: "#3B82F6",
+                  color: "white",
+                  border: "none",
+                  padding: "6px 12px",
+                  borderRadius: "4px",
+                  fontSize: "12px",
+                  fontWeight: "600",
+                  cursor: "pointer",
+                }}
+              >
+                Verify Now
+              </button>
+            </div>
+          </div>
+        ))}
       <div
         className={`${isCollapsed ? "app-content-area2" : "app-content-area"}`}
       >
