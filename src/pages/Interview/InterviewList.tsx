@@ -1,21 +1,35 @@
-import { ArrowRight, ChevronRight } from "lucide-react";
+import { ArrowRight, Briefcase, ChevronRight, ClipboardCheck, MapPin } from "lucide-react";
+import { useState, useEffect } from "react";
+import { JobSeekerAppsInterview } from "../../api/JobApi";
+import type { JobApplicationDto } from "../../types/job";
+import { NavLink } from "react-router-dom";
+import Hashids from "hashids";
 
 function InterviewList() {
-  const interviews = [
-    {
-      id: 1,
-      title: "Frontend Developer Screening",
-      status: "Not Started",
-      progress: 0,
-    },
-    {
-      id: 2,
-      title: "Customer Service Evaluation",
-      status: "In Progress",
-      progress: 50,
-    },
-    { id: 3, title: "Technical Interview", status: "Completed", progress: 100 },
-  ];
+  const [loading, setLoading] = useState<boolean>(false);
+  const [jobs, setJobs] = useState<JobApplicationDto[]>([]);
+  const [error, setError] = useState("");
+  const hashIds = new Hashids("LatticeHrEncode", 10);
+
+  useEffect(() => {
+    fetchMyApps();
+  }, []);
+
+  const fetchMyApps = async () => {
+    try {
+      setLoading(true);
+      const response = await JobSeekerAppsInterview();
+      console.log("res", response);
+      if (!response) {
+        return;
+      }
+      setJobs(response);
+    } catch {
+      setError("Could not get fetch details");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="app-content-wrap">
@@ -52,73 +66,91 @@ function InterviewList() {
         </div>
 
         {/* ===== Interview Cards ===== */}
-        <div className="row">
-          {interviews.map((item) => (
-            <div className="col-md-6 col-lg-4 mb-4" key={item.id}>
-              {/* <Link
-                to={`/SelfInterview/${item.id}`}
-                className="text-decoration-none"
-              > */}
-              <a
-                href="TakeInterview"
-                className="text-decoration-none"
-                style={{ transition: "background 0.2s" }}
-                // onMouseEnter={(e) =>
-                //   (e.currentTarget.style.backgroundColor = "#000")
-                // }
-                // onMouseLeave={(e) =>
-                //   (e.currentTarget.style.backgroundColor = "transparent")
-                // }
-              >
-                <div className="card shadow-sm border-0 hover-shadow h-100">
-                  <div className="card-body" style={{ textAlign: "left" }}>
-                    <h5 className="fw-semibold text-dark mb-1">{item.title}</h5>
-                    <small
-                      className={`fw-medium ${
-                        item.status === "Completed"
-                          ? "text-success"
-                          : item.status === "In Progress"
-                          ? "text-warning"
-                          : "text-muted"
-                      }`}
-                    >
-                      {item.status}
-                    </small>
-
-                    <div className="mt-3">
-                      <div
-                        className="progress"
-                        style={{ height: "6px", borderRadius: "3px" }}
-                      >
-                        <div
-                          className="progress-bar bg-primary"
-                          style={{ width: `${item.progress}%` }}
-                        ></div>
-                      </div>
-                      <small className="text-muted">
-                        {item.progress}% complete
-                      </small>
-                    </div>
-                    <a
-                      href="TakeInterview"
-                      className="text-decoration-none btn btn-warning mt-4"
-                      style={{ transition: "background 0.2s" }}
-                      // onMouseEnter={(e) =>
-                      //   (e.currentTarget.style.backgroundColor = "#000")
-                      // }
-                      // onMouseLeave={(e) =>
-                      //   (e.currentTarget.style.backgroundColor = "transparent")
-                      // }
-                    >
-                      Continue <ArrowRight size={15} />
-                    </a>
-                  </div>
-                </div>
-                {/* </Link> */}
-              </a>
+        {
+          loading && !error ?
+            <div className="text-center py-5">
+              <div className="spinner-border text-primary" role="status">
+                <span className="visually-hidden">Loading...</span>
+              </div>
+              <p className="mt-3 text-muted">Loading jobs...</p>
             </div>
-          ))}
-        </div>
+            :
+
+            <div className="card-body pt-15">
+              {jobs && jobs.length > 0 ? (
+                <div className="row g-4">
+                  {jobs.map((job) => (
+                    <div
+                      className="col-md-6 col-lg-4 col-xl-3"
+                      key={job.jobData.jobId}
+                    >
+                      <div className="card h-100 shadow-sm border-0 position-relative">
+
+                        {/* Company Logo */}
+                        <div className="text-center pt-3">
+                          <div className="avatar avatar-big mx-auto">
+                            <img
+                              src={`${import.meta.env.VITE_API_URL}/${job.jobData.jobPhoto}`}
+                              alt="Company Logo"
+                              className="img-fluid"
+                            />
+                          </div>
+                        </div>
+
+                        {/* Card Body */}
+                        <div className="card-body d-flex flex-column text-start">
+                          {/* Job Title */}
+                          <h5 className="fw-semibold mb-2">
+                            {job.jobData.jobTitle}
+                          </h5>
+
+                          {/* Employer */}
+                          <p className="mb-1 text-primary d-flex align-items-center">
+                            <Briefcase size={16} className="me-2" />
+                            {job.jobData.employerDetails?.businessName ||
+                              "N/A"}
+                          </p>
+
+                          {/* Location */}
+                          <p className="mb-1 d-flex align-items-center text-muted">
+                            <MapPin size={16} className="me-2" />
+                            {[
+                              job.jobData.city,
+                              job.jobData.state,
+                              job.jobData.country,
+                            ]
+                              .filter(Boolean)
+                              .join(", ") || "Remote"}
+                          </p>
+
+                          {/* Spacer pushes button down */}
+                          <div className="mt-auto d-flex justify-content-between align-items-center">
+                            <NavLink className="btn btn-warning" to={`../TakeInterview/${hashIds.encode(Number(job?.jobData.jobInterviewId))}/${hashIds.encode(Number(job?.jobData.jobId))}`}>
+                              Take Interview <ArrowRight size={14} />
+                            </NavLink>
+                          </div>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              ) : (
+                <div className="text-center py-5">
+                  <div className="mb-3">
+                    <ClipboardCheck size={50} />
+
+
+                  </div>
+                  <h5 className="text-dark mb-2">No interviews found</h5>
+                  <p className="text-black mb-3">
+                    Find jobs you like here.
+                  </p>
+                  <NavLink to={"../Jobs"} className="btn btn-success">
+                    <Briefcase size={16} /> Find Jobs
+                  </NavLink>
+                </div>
+              )}
+            </div>}
       </div>
     </div>
   );

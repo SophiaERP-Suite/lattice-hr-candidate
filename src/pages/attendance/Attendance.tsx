@@ -1,16 +1,141 @@
-// import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-
+import Hashids from "hashids";
 import {
   CalendarDays,
   ChevronRight,
   Clock,
   ClockPlus,
-  Eye,
   UserCheck,
   UserX,
 } from "lucide-react";
+import { useEffect, useMemo, useState } from "react";
+import { NavLink, useParams } from "react-router-dom";
+import {
+  getMyAttendanceByEmployerId,
+  getMyAttendanceSummaryByEmployerId,
+} from "../../api/ClockApi";
+
+// --- Interfaces ---
+
+interface AttendanceSummary {
+  totalWorkingDays: number;
+  present: number;
+  lateArrivals: number;
+  absent: number;
+}
+
+interface AttendanceRecord {
+  checkIn: string;
+  checkOut: string;
+  date: string;
+  hoursWorked: string;
+  status: string;
+  isLate: boolean;
+}
+
+interface PagedAttendanceResponse {
+  totalCount: number;
+  pageNumber: number;
+  pageSize: number;
+  records: AttendanceRecord[];
+}
+
+// --- Helpers ---
+
+const formatTime = (isoString: string): string => {
+  if (!isoString) return "—";
+  return new Date(isoString).toLocaleTimeString([], {
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
+
+const formatDate = (isoString: string): string => {
+  if (!isoString) return "—";
+  return new Date(isoString).toLocaleDateString([], {
+    day: "2-digit",
+    month: "short",
+    year: "numeric",
+  });
+};
+
+const formatHoursWorked = (duration: string): string => {
+  if (!duration) return "—";
+  const [h, m] = duration.split(":");
+  return `${parseInt(h)}h ${parseInt(m)}m`;
+};
+
+const deriveStatus = (checkIn: string): "Present" | "Late" | "Absent" => {
+  if (!checkIn) return "Absent";
+  const date = new Date(checkIn);
+  const hour = date.getUTCHours();
+  const minute = date.getUTCMinutes();
+  return hour > 9 || (hour === 9 && minute > 0) ? "Late" : "Present";
+};
 
 function Attendance() {
+  const hashIds = new Hashids("LatticeHrEncode", 10);
+  const { employerId } = useParams();
+
+  const decodedEmployerId = useMemo(() => {
+    const decoded = hashIds.decode(String(employerId));
+    return decoded.length > 0 ? Number(decoded[0]) : null;
+  }, [employerId]);
+
+  const now = new Date();
+  const currentMonth = now.getMonth() + 1;
+  const currentYear = now.getFullYear();
+
+  const [summary, setSummary] = useState<AttendanceSummary | null>(null);
+  const [attendanceRecords, setAttendanceRecords] = useState<AttendanceRecord[]>([]);
+  const [pageNumber, setPageNumber] = useState<number>(1);
+  const [pageSize] = useState<number>(10);
+  const [totalCount, setTotalCount] = useState<number>(0);
+  const [loading, setLoading] = useState<boolean>(false);
+
+  const totalPages = Math.ceil(totalCount / pageSize);
+
+  useEffect(() => {
+    if (decodedEmployerId) fetchSummary();
+  }, [decodedEmployerId]);
+
+  useEffect(() => {
+    if (decodedEmployerId) fetchAttendance();
+  }, [decodedEmployerId, pageNumber]);
+
+  const fetchSummary = async () => {
+    try {
+      const response: AttendanceSummary = await getMyAttendanceSummaryByEmployerId(
+        Number(decodedEmployerId),
+        currentMonth,
+        currentYear
+      );
+      setSummary(response);
+    } catch (error) {
+      console.error("Failed to fetch attendance summary:", error);
+    }
+  };
+
+  const fetchAttendance = async () => {
+    setLoading(true);
+    try {
+      const response: PagedAttendanceResponse = await getMyAttendanceByEmployerId(
+        Number(decodedEmployerId),
+        pageNumber,
+        pageSize
+      );
+      console.log("hhres", response)
+      setAttendanceRecords(response.records ?? []);
+      setTotalCount(response.totalCount ?? 0);
+    } catch (error) {
+      console.error("Failed to fetch attendance records:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const handlePrev = () => setPageNumber((p) => Math.max(1, p - 1));
+  const handleNext = () => setPageNumber((p) => Math.min(totalPages, p + 1));
+
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -21,12 +146,13 @@ function Attendance() {
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
                   <li className="breadcrumb-item active" aria-current="page">
-                    Attendance
+                    Attendance History
                   </li>
-                  <ChevronRight
-                    size={15}
-                    style={{ position: "relative", top: "3px" }}
-                  />
+                  <ChevronRight size={15} style={{ position: "relative", top: 3 }} />
+                  <li className="breadcrumb-item"><NavLink to={`/ClockIn/${employerId}`}>Clock In</NavLink></li>
+                  <ChevronRight size={15} style={{ position: "relative", top: 3 }} />
+                  <li className="breadcrumb-item"><NavLink to="/MyJobs">My Jobs</NavLink></li>
+                  <ChevronRight size={15} style={{ position: "relative", top: "3px" }} />
                   <li className="breadcrumb-item">
                     <a href="Dashboard">Home</a>
                   </li>
@@ -35,6 +161,7 @@ function Attendance() {
             </div>
           </div>
 
+          {/* Summary Cards */}
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
@@ -43,16 +170,12 @@ function Attendance() {
                 </div>
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Total Working Days</span>
-                  <h2 className="mb-5">25</h2>
-                  {/* <span className="text-success">
-                    +5.2%
-                    <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
+                  <h2 className="mb-5">{summary?.totalWorkingDays ?? "—"}</h2>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
@@ -61,16 +184,12 @@ function Attendance() {
                 </div>
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Present</span>
-                  <h2 className="mb-5">20</h2>
-                  {/* <span className="text-success">
-                    92.7%
-                    <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">Attendance Rate</span> */}
+                  <h2 className="mb-5">{summary?.present ?? "—"}</h2>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
@@ -79,16 +198,12 @@ function Attendance() {
                 </div>
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Late Arrivals</span>
-                  <h2 className="mb-5">12</h2>
-                  {/* <span className="text-danger">
-                    +1.1%
-                    <i className="ri-arrow-up-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
+                  <h2 className="mb-5">{summary?.lateArrivals ?? "—"}</h2>
                 </div>
               </div>
             </div>
           </div>
+
           <div className="col-xxl-3 col-xl-3 col-lg-3 col-md-6">
             <div className="card">
               <div className="card-body mini-card-body d-flex align-center gap-16">
@@ -97,41 +212,26 @@ function Attendance() {
                 </div>
                 <div className="card-content">
                   <span className="d-block fs-16 mb-5">Absent</span>
-                  <h2 className="mb-5">5</h2>
-                  {/* <span className="text-success">
-                    -0.8%
-                    <i className="ri-arrow-down-line ml-5 d-inline-block"></i>
-                  </span>
-                  <span className="fs-12 text-muted ml-5">vs Last Month</span> */}
+                  <h2 className="mb-5">{summary?.absent ?? "—"}</h2>
                 </div>
               </div>
             </div>
           </div>
 
+          {/* Attendance Table */}
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header justify-between">
                 <h4 className="d-flex-items gap-10">
-                  November 2025 Attendance
+                  {now.toLocaleString("default", { month: "long" })} {currentYear} Attendance
                 </h4>
                 <div className="d-flex flex-wrap gap-15">
-                  <a className="btn btn-success text-white" href="TimeSheet">
-                    <Eye size={15} /> View TimeSheet
-                  </a>
-                  <a href="ClockIn" className="btn btn-warning text-white">
+                  <NavLink to={`/LeaveRequests/${employerId}`} className="btn btn-info text-white">
+                    <CalendarDays size={15} /> Leave Requests
+                  </NavLink>
+                  <NavLink to={`/ClockIn/${employerId}`} className="btn btn-warning text-white">
                     <ClockPlus size={15} /> Clock In
-                  </a>
-                  {/* <div className="">
-                    <select className="form-select sorting-dropdown">
-                      <option value="">Sort by</option>
-                      <option selected value="date_desc">
-                        Newest First
-                      </option>
-                      <option value="status">Attendance Status</option>
-                      <option value="checkin_desc">Latest Arrivals</option>
-                      <option value="hours_desc">Longest Days</option>
-                    </select>
-                  </div> */}
+                  </NavLink>
                 </div>
               </div>
               <div className="card-body pt-15">
@@ -147,264 +247,73 @@ function Attendance() {
                         <th>Status</th>
                         <th>Check-In</th>
                         <th>Check-Out</th>
-                        <th>Hours</th>
+                        <th>Hours Worked</th>
                       </tr>
                     </thead>
                     <tbody>
-                      <tr>
-                        <td>25 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:58 AM</td>
-                        <td>05:55 PM</td>
-                        <td>8h 57m</td>
-                      </tr>
-                      <tr>
-                        <td>24 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:05 AM</td>
-                        <td>06:10 PM</td>
-                        <td>8h 5m</td>
-                      </tr>
-                      <tr>
-                        <td>23 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-warning">Late</span>
-                        </td>
-                        <td>09:42 AM</td>
-                        <td>06:25 PM</td>
-                        <td>7h 43m</td>
-                      </tr>
-                      <tr>
-                        <td>22 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:50 AM</td>
-                        <td>05:45 PM</td>
-                        <td>8h 55m</td>
-                      </tr>
-                      <tr>
-                        <td>21 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>20 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>19 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:15 AM</td>
-                        <td>06:30 PM</td>
-                        <td>8h 15m</td>
-                      </tr>
-                      <tr>
-                        <td>18 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:45 AM</td>
-                        <td>05:50 PM</td>
-                        <td>9h 5m</td>
-                      </tr>
-                      <tr>
-                        <td>17 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-info">Half Day</span>
-                        </td>
-                        <td>09:00 AM</td>
-                        <td>01:30 PM</td>
-                        <td>4h 30m</td>
-                      </tr>
-                      <tr>
-                        <td>16 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:10 AM</td>
-                        <td>06:20 PM</td>
-                        <td>8h 10m</td>
-                      </tr>
-                      <tr>
-                        <td>15 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-warning">Late</span>
-                        </td>
-                        <td>10:05 AM</td>
-                        <td>06:45 PM</td>
-                        <td>7h 40m</td>
-                      </tr>
-                      <tr>
-                        <td>14 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>13 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>12 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:55 AM</td>
-                        <td>06:05 PM</td>
-                        <td>9h 10m</td>
-                      </tr>
-                      <tr>
-                        <td>11 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:20 AM</td>
-                        <td>06:25 PM</td>
-                        <td>8h 5m</td>
-                      </tr>
-                      <tr>
-                        <td>10 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">
-                            Sick Leave
-                          </span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>09 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:50 AM</td>
-                        <td>05:40 PM</td>
-                        <td>8h 50m</td>
-                      </tr>
-                      <tr>
-                        <td>08 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-warning">Late</span>
-                        </td>
-                        <td>09:50 AM</td>
-                        <td>06:30 PM</td>
-                        <td>7h 40m</td>
-                      </tr>
-                      <tr>
-                        <td>07 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>06 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Weekend</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>05 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:00 AM</td>
-                        <td>06:00 PM</td>
-                        <td>9h 0m</td>
-                      </tr>
-                      <tr>
-                        <td>04 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-info">WFH</span>
-                        </td>
-                        <td>09:15 AM</td>
-                        <td>06:20 PM</td>
-                        <td>8h 5m</td>
-                      </tr>
-                      <tr>
-                        <td>03 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>08:45 AM</td>
-                        <td>05:50 PM</td>
-                        <td>9h 5m</td>
-                      </tr>
-                      <tr>
-                        <td>02 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-danger">Absent</span>
-                        </td>
-                        <td>–</td>
-                        <td>–</td>
-                        <td>0h</td>
-                      </tr>
-                      <tr>
-                        <td>01 Nov 2025</td>
-                        <td>
-                          <span className="badge bg-label-success">
-                            Present
-                          </span>
-                        </td>
-                        <td>09:10 AM</td>
-                        <td>06:15 PM</td>
-                        <td>8h 5m</td>
-                      </tr>
+                      {loading ? (
+                        <tr>
+                          <td colSpan={5} className="text-center py-3">
+                            Loading...
+                          </td>
+                        </tr>
+                      ) : attendanceRecords.length === 0 ? (
+                        <tr>
+                          <td colSpan={5} className="text-center py-3">
+                            No attendance records found.
+                          </td>
+                        </tr>
+                      ) : (
+                        attendanceRecords.map((record, index) => {
+                          const status = deriveStatus(record.checkIn);
+                          return (
+                            <tr key={index}>
+                              <td>{formatDate(record.date)}</td>
+                              <td>
+                                <span
+                                  className={`badge bg-label-${status === "Present"
+                                    ? "success"
+                                    : status === "Late"
+                                      ? "warning"
+                                      : "danger"
+                                    }`}
+                                >
+                                  {record.status}
+                                </span>
+                              </td>
+                              <td>{formatTime(record.checkIn)}</td>
+                              <td>{formatTime(record.checkOut)}</td>
+                              <td>{formatHoursWorked(record.hoursWorked)}</td>
+                            </tr>
+                          );
+                        })
+                      )}
                     </tbody>
                   </table>
                 </div>
+
+                {/* Pagination */}
+                {totalPages > 1 && (
+                  <div className="d-flex justify-content-end align-items-center gap-10 mt-3">
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={handlePrev}
+                      disabled={pageNumber === 1}
+                    >
+                      Previous
+                    </button>
+                    <span className="fs-14">
+                      Page {pageNumber} of {totalPages}
+                    </span>
+                    <button
+                      className="btn btn-sm btn-outline-secondary"
+                      onClick={handleNext}
+                      disabled={pageNumber === totalPages}
+                    >
+                      Next
+                    </button>
+                  </div>
+                )}
               </div>
             </div>
           </div>

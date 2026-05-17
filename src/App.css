@@ -1,0 +1,29 @@
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -6px;
+  color: white;
+  font-size: 10px;
+  min-width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 4px;
+  font-weight: 600;
+  animation: pop 0.2s ease-out;
+}
+
+.notification-danger {
+  background: #f63517;
+}
+
+@keyframes pop {
+  from {
+    transform: scale(0.7);
+  }
+  to {
+    transform: scale(1);
+  }
+}

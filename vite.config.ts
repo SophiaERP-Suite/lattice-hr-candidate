@@ -11,8 +11,12 @@ export default defineConfig({
       },
     }),
   ],
-   build: {
-    sourcemap: false, // Disable source maps in production
+  server: {
+    host: '192.168.1.171',
+    port: 5174,
+  },
+  build: {
+    sourcemap: false,
   },
 
 })

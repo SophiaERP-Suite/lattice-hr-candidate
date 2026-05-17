@@ -1,6 +1,38 @@
-// import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
-import { ChevronRight } from "lucide-react";
+import { Briefcase, ChevronRight, MapPin } from "lucide-react";
+import { GetMyApplications } from "../../api/JobApi";
+import { useEffect, useState } from "react";
+import type { JobApplicationDto } from "../../types/job";
+import { NavLink } from "react-router-dom";
+import Hashids from "hashids";
+
 function MyApplications() {
+  const [loading, setLoading] = useState<boolean>(false);
+  const [jobs, setJobs] = useState<JobApplicationDto[]>([]);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetchMyApps();
+  }, []);
+
+  const hashIds = new Hashids("LatticeHrEncode", 10);
+
+  const fetchMyApps = async () => {
+    try {
+      setLoading(true);
+      const response = await GetMyApplications();
+      console.log("res", response);
+      if (!response) {
+        return;
+      }
+      setJobs(response);
+
+    } catch {
+      setError("Could not get fetch details");
+    } finally {
+      setLoading(false);
+    }
+  };
+
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -30,18 +62,11 @@ function MyApplications() {
               <div className="card-header justify-between flex-wrap gap-3">
                 <h4 className="d-flex-items gap-10">All Applications</h4>
                 <div className="d-flex flex-wrap gap-15">
-                  {/* <button
-                    type="button"
-                    className="btn btn-primary"
-                    data-bs-toggle="modal"
-                    data-bs-target="#addNewJob"
-                  >
-                    Add New Job
-                  </button> */}
-                  <a className="btn btn-success text-white" href="Jobs">
-                    Find Jobs
-                  </a>
-                  <div className="dataTables-sorting-control ">
+
+                  <NavLink className="btn btn-success text-white" to={"../Jobs"}>
+                    <Briefcase size={16} />  Find Jobs
+                  </NavLink>
+                  <div className="d-none dataTables-sorting-control d-none">
                     <select className="form-select sorting-dropdown">
                       <option value="">Sort by:</option>
                       <option value="1_asc">ID (Low to High)</option>
@@ -56,331 +81,168 @@ function MyApplications() {
                   </div>
                 </div>
               </div>
-              <div className="card-body pt-15">
-                <div className="table-responsive">
-                  <table
-                    id="dataTableDefault"
-                    className="table text-nowrap w-100"
-                    style={{ textAlign: "left" }}
-                  >
-                    <thead>
-                      <tr>
-                        <th>S/N</th>
-                        <th>Job Title</th>
-                        <th>Company</th>
-                        <th>Department</th>
-                        <th>Location</th>
-                        <th>Job Type</th>
-                        <th>Posted Date</th>
-                        <th>Deadline</th>
-                        {/* <th>Status</th>
-                        <th>Actions</th> */}
-                      </tr>
-                    </thead>
-                    <tbody>
-                      <tr>
-                        <td>1</td>
-                        <td>
-                          <a
-                            href="apps-job-details.html"
-                            className="text-heading fw-semibold"
-                          >
-                            Senior UX Designer
-                          </a>
-                        </td>
-                        <td>
-                          <div className="d-flex-items gap-5">
-                            {/* <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/company/company-thumb-001.png"
-                                alt="image not found"
-                              />
-                            </div> */}
-                            <a href="company-details.html">Gaza Solutions</a>
-                          </div>
-                        </td>
-                        <td>Product Design</td>
-                        <td>San Francisco, CA</td>
-                        <td>
-                          <span className="badge bg-label-warning">
-                            Part-time
-                          </span>
-                        </td>
-
-                        <td>May 15, 2025</td>
-                        <td>
-                          <span className="text-danger fw-medium">
-                            Jun 30, 2025
-                          </span>
-                        </td>
-                        {/* <td>
-                          <span className="badge bg-label-info">Pending</span>
-                        </td>
-                        <td>
-                          <div className="d-flex-items gap-5">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="apps-job-details.html"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                            >
-                              <i className="ri-edit-line"></i>
-                            </a>
-                            <button
-                              className="btn-icon btn-danger-light removeRow"
-                              type="button"
-                            >
-                              <i className="ri-delete-bin-line"></i>
-                            </button>
-                          </div>
-                        </td> */}
-                      </tr>
-                      <tr>
-                        <td>2</td>
-                        <td>
-                          <a
-                            href="apps-job-details.html"
-                            className="text-heading fw-semibold"
-                          >
-                            Backend Developer
-                          </a>
-                        </td>
-                        <td>
-                          <div className="d-flex-items gap-5">
-                            {/* <div className="avatar avatar-xs radius-100">
-                              <img
-                                className="radius-100"
-                                src="assets/images/company/company-thumb-002.html"
-                                alt="image not found"
-                              />
-                            </div> */}
-                            <a href="company-details.html">TechNova</a>
-                          </div>
-                        </td>
-                        <td>Engineering</td>
-                        <td>Remote</td>
-                        <td>
-                          <span className="badge bg-label-primary">
-                            Full-time
-                          </span>
-                        </td>
-                        <td>Jun 1, 2025</td>
-                        <td>
-                          <span className="text-danger fw-medium">
-                            Jun 25, 2025
-                          </span>
-                        </td>
-                        {/* <td>
-                          <span className="badge bg-label-success">Active</span>
-                        </td>
-                        <td>
-                          <div className="d-flex-items gap-5">
-                            <a
-                              className="btn-icon btn-success-light"
-                              href="apps-job-details.html"
-                            >
-                              <i className="ri-eye-line"></i>
-                            </a>
-                            <a
-                              className="btn-icon btn-info-light"
-                              href="javascript:void(0);"
-                            >
-                              <i className="ri-edit-line"></i>
-                            </a>
-                            <button
-                              className="btn-icon btn-danger-light removeRow"
-                              type="button"
-                            >
-                              <i className="ri-delete-bin-line"></i>
-                            </button>
-                          </div>
-                        </td> */}
-                      </tr>
-                    </tbody>
-                  </table>
-                </div>
-              </div>
-            </div>
-          </div>
-
-          {/* <!-- create deals model start --> */}
-          <div
-            className="modal fade"
-            id="addNewJob"
-            tabIndex={-1}
-            aria-labelledby="addNewJobLabel"
-            aria-hidden="true"
-          >
-            <div className="modal-dialog modal-dialog-centered modal-lg">
-              <div className="modal-content">
-                <div className="modal-header">
-                  <h1 className="modal-title fs-16" id="addNewJobLabel">
-                    Add New Job
-                  </h1>
-                  <button
-                    type="button"
-                    className="btn-close"
-                    data-bs-dismiss="modal"
-                    aria-label="Close"
-                  ></button>
-                </div>
-                <div className="modal-body">
-                  <div className="row gy-15">
-                    <div className="col-xl-12">
-                      <div className="text-center">
-                        <div className="avatar avatar-xxl radius-100">
-                          <img
-                            src="assets/images/avatar/avatar-thumb-dummy.html"
-                            alt="image not found"
-                            id="profileImage"
-                            className="radius-100"
-                          />
-                          <span className="avatar-badge bg-primary">
-                            <input
-                              type="file"
-                              name="photo"
-                              className="p-absolute z-3 cursor-pointer w-100 h-100 op-0 pl-0 pr-0"
-                              id="profileImageChange"
-                            />
-                            <i className="ri-camera-line p-relative z-1"></i>
-                          </span>
-                        </div>
-                        <span className="d-block fw-5 text-muted">
-                          Company Logo
-                        </span>
-                      </div>
+              {
+                loading && !error ?
+                  <div className="text-center py-5">
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
                     </div>
-                    <div className="col-xl-12">
-                      <label htmlFor="jobTitle" className="form-label">
-                        Job Title
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="jobTitle"
-                        placeholder="Job Title"
-                      />
-                    </div>
-                    <div className="col-xl-6">
-                      <label htmlFor="companyName" className="form-label">
-                        Company Name
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="companyName"
-                        placeholder="Company Name"
-                      />
-                    </div>
-                    <div className="col-xl-6">
-                      <div>
-                        <label htmlFor="department" className="form-label">
-                          Department
-                        </label>
-                        <select
-                          className="js-example-basic-single"
-                          id="department"
-                        >
-                          <option value="">Select Department</option>
-                          <option value="Product Design">Product Design</option>
-                          <option value="Engineering">Engineering</option>
-                          <option value="Marketing">Marketing</option>
-                          <option value="Analytics">Analytics</option>
-                          <option value="Product">Product</option>
-                          <option value="Human Resources">
-                            Human Resources
-                          </option>
-                          <option value="Analytics">Analytics</option>
-                          <option value="Sales">Sales</option>
-                        </select>
-                      </div>
-                    </div>
-                    <div className="col-xl-6">
-                      <label htmlFor="location" className="form-label">
-                        Location
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="location"
-                        placeholder="Location"
-                      />
-                    </div>
-                    <div className="col-xl-6">
-                      <div>
-                        <label htmlFor="type" className="form-label">
-                          Job Type
-                        </label>
-                        <select className="js-example-basic-single" id="type">
-                          <option value="Full Time">Full Time</option>
-                          <option value="Part Time">Part Time</option>
-                          <option value="Remote">Remote</option>
-                        </select>
-                      </div>
-                    </div>
-
-                    <div className="col-xl-6">
-                      <label htmlFor="Experience" className="form-label">
-                        Experience
-                      </label>
-                      <input
-                        type="text"
-                        className="form-control"
-                        id="Experience"
-                        placeholder="Experience"
-                      />
-                    </div>
-
-                    <div className="col-xl-6">
-                      <label className="form-label">Salary</label>
-                      <div className="form-group">
-                        <div className="input-group">
-                          <div className="input-group-text text-muted">
-                            {" "}
-                            <i className="ri-money-dollar-circle-line fs-20"></i>{" "}
-                          </div>
-                          <input
-                            type="text"
-                            className="form-control"
-                            placeholder="Salary"
-                          />
-                        </div>
-                      </div>
-                    </div>
-                    <div className="col-xl-12">
-                      <label htmlFor="description" className="form-label">
-                        Description
-                      </label>
-                      <textarea
-                        className="form-control"
-                        id="description"
-                        rows={2}
-                        placeholder="Description"
-                      ></textarea>
-                    </div>
+                    <p className="mt-3 text-muted">Loading jobs...</p>
                   </div>
-                </div>
-                <div className="modal-footer">
-                  <button
-                    type="button"
-                    className="btn btn-danger"
-                    data-bs-dismiss="modal"
-                  >
-                    Cancel
-                  </button>
-                  <button type="button" className="btn btn-primary">
-                    Save changes
-                  </button>
-                </div>
-              </div>
+                  :
+
+                  <div className="card-body pt-15">
+                    {jobs && jobs.length > 0 ? (
+                      <div className="row g-4">
+                        {jobs.map((job) => (
+                          <div
+                            className="col-md-6 col-lg-4 col-xl-3"
+                            key={job.jobData.jobId}
+                          >
+                            <div className="card h-100 shadow-sm border-0 position-relative">
+                              <div className="position-absolute top-0 end-0 m-2">
+                                <span
+                                  className={`badge rounded-pill px-3 text-white py-2 ${job.status === "Interview"
+                                    ? "bg-success"
+                                    : job.status === "Shortlisted"
+                                      ? "bg-secondary"
+                                      : job.status === "Pending"
+                                        ? "bg-warning text-dark"
+                                        : job.status === "Reviewed"
+                                          ? "bg-info text-dark"
+                                          : job.status === "Rejected"
+                                            ? "bg-danger"
+                                            : job.status === "Hired" &&
+                                            "bg-light text-dark border"
+                                    }`}
+                                >
+                                  {job.status || "Unknown"}
+                                </span>
+                              </div>
+
+                              {/* Company Logo */}
+                              <div className="text-center pt-3">
+                                <div className="avatar avatar-big mx-auto">
+                                  <img
+                                    src={`${import.meta.env.VITE_API_URL}/${job.jobData.jobPhoto}`}
+                                    alt="Company Logo"
+                                    className="img-fluid"
+                                  />
+                                </div>
+                              </div>
+
+                              {/* Card Body */}
+                              <div className="card-body d-flex flex-column text-start">
+                                {/* Job Title */}
+                                <h5 className="fw-semibold mb-2">
+                                  {job.jobData.jobTitle}
+                                </h5>
+
+                                {/* Employer */}
+                                <p className="mb-1 text-primary d-flex align-items-center">
+                                  <Briefcase size={16} className="me-2" />
+                                  {job.jobData.employerDetails?.businessName ||
+                                    "N/A"}
+                                </p>
+
+                                {/* Location */}
+                                <p className="mb-1 d-flex align-items-center text-muted">
+                                  <MapPin size={16} className="me-2" />
+                                  {[
+                                    job.jobData.city,
+                                    job.jobData.state,
+                                    job.jobData.country,
+                                  ]
+                                    .filter(Boolean)
+                                    .join(", ") || "Remote"}
+                                </p>
+
+                                {/* Posted Date */}
+                                <p className="mb-3 text-muted small">
+                                  Posted on{" "}
+                                  {job.jobData.dateCreated
+                                    ? new Date(
+                                      job.jobData.dateCreated,
+                                    ).toLocaleDateString("en-GB", {
+                                      day: "2-digit",
+                                      month: "short",
+                                      year: "numeric",
+                                    })
+                                    : "N/A"}
+                                </p>
+
+                                {/* Posted Date */}
+                                <p className="mb-3 text-muted small">
+                                  Expire on{" "}
+                                  {job.jobData.jobExpiration
+                                    ? new Date(
+                                      job.jobData.jobExpiration,
+                                    ).toLocaleDateString("en-GB", {
+                                      day: "2-digit",
+                                      month: "short",
+                                      year: "numeric",
+                                    })
+                                    : "N/A"}
+                                </p>
+
+                                {/* Spacer pushes button down */}
+                                <div className="mt-auto d-flex justify-content-between align-items-center">
+                                  {/* Job Type Badge */}
+                                  <span
+                                    className={`badge ${job.jobData.jobType === "Full-time"
+                                      ? "bg-success"
+                                      : job.jobData.jobType === "Part-time"
+                                        ? "bg-info"
+                                        : job.jobData.jobType === "Contract"
+                                          ? "bg-warning text-dark"
+                                          : job.jobData.jobType === "Internship"
+                                            ? "bg-secondary"
+                                            : "bg-primary"
+                                      }`}
+                                  >
+                                    {job.jobData.jobType || "Not Specified"}
+                                  </span>
+                                  {(job.status === "Offered" || job.status === "Hired") && (
+                                    <NavLink
+                                      to={`../JobOffer/${hashIds.encode(
+                                        String(job.jobApplicationId))}`}
+                                      className="btn btn-sm btn-outline-primary"
+                                    >
+                                      View Offer
+                                    </NavLink>
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                      </div>
+                    ) : (
+                      <div className="text-center py-5">
+                        <div className="mb-3">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            width="48"
+                            height="48"
+                            fill="currentColor"
+                            className="bi bi-briefcase text-muted"
+                            viewBox="0 0 16 16"
+                          >
+                            <path d="M6.5 1A1.5 1.5 0 0 0 5 2.5V3H1.5A1.5 1.5 0 0 0 0 4.5v8A1.5 1.5 0 0 0 1.5 14h13a1.5 1.5 0 0 0 1.5-1.5v-8A1.5 1.5 0 0 0 14.5 3H11v-.5A1.5 1.5 0 0 0 9.5 1h-3zm0 1h3a.5.5 0 0 1 .5.5V3H6v-.5a.5.5 0 0 1 .5-.5zm1.886 6.914L15 7.151V12.5a.5.5 0 0 1-.5.5h-13a.5.5 0 0 1-.5-.5V7.15l6.614 1.764a1.5 1.5 0 0 0 .772 0zM1.5 4h13a.5.5 0 0 1 .5.5v1.616L8.129 9.948a.5.5 0 0 1-.258 0L1 6.116V4.5a.5.5 0 0 1 .5-.5z" />
+                          </svg>
+                        </div>
+                        <h5 className="text-dark mb-2">No jobs found</h5>
+                        <p className="text-black mb-3">
+                          Find jobs you like here.
+                        </p>
+                        <NavLink to={"../Jobs"} className="btn btn-success">
+                          <Briefcase size={16} /> Find Jobs
+                        </NavLink>
+                      </div>
+                    )}
+                  </div>}
             </div>
           </div>
-          {/* <!-- create deals model end --> */}
         </div>
       </div>
     </div>

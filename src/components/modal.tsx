@@ -1,10 +1,13 @@
-import { X } from "lucide-react";
+import { RefreshCcw, X } from "lucide-react";
 import React, { useEffect, useState } from "react";
+import { NavLink } from "react-router-dom";
 
 type ModalProps = {
   isOpen: boolean;
   title: string;
   message?: string | React.ReactNode;
+  resume?: string | React.ReactNode;
+  jobId?: string;
 
   confirmText?: string;
   cancelText?: string;
@@ -22,6 +25,9 @@ type ModalProps = {
   inputLabel4?: string;
   inputPlaceholder4?: string;
 
+  inputLabel5?: string;
+  inputPlaceholder5?: string;
+
   dropdownLabel?: string;
   dropdownOptions?: { value: string | number; label: string }[];
   dropdownPlaceholder?: string;
@@ -35,6 +41,7 @@ type ModalProps = {
   defaultInputValue2?: string;
   defaultInputValue3?: string;
   defaultInputValue4?: string;
+  defaultInputValue5?: string;
   defaultDropdownValue?: string;
 
   headerIcon?: React.ReactNode;
@@ -45,6 +52,7 @@ type ModalProps = {
     inputValue2?: string;
     inputValue3?: string;
     inputValue4?: string;
+    inputValue5?: string;
     dropdownValue?: string;
     file?: File;
   }) => void;
@@ -56,6 +64,8 @@ const Modal: React.FC<ModalProps> = ({
   isOpen,
   title,
   message,
+  resume,
+  jobId,
   confirmText = "Confirm",
   cancelText = "Cancel",
   confirmColor = "primary",
@@ -67,6 +77,8 @@ const Modal: React.FC<ModalProps> = ({
   inputPlaceholder3,
   inputLabel4,
   inputPlaceholder4,
+  inputLabel5,
+  inputPlaceholder5,
   dropdownLabel,
   dropdownOptions = [],
   dropdownPlaceholder = "Select an option",
@@ -76,7 +88,8 @@ const Modal: React.FC<ModalProps> = ({
   defaultInputValue = "",
   defaultInputValue2 = "",
   defaultInputValue3 = "",
-  defaultInputValue4 = "N/A",
+  defaultInputValue4 = "",
+  defaultInputValue5 = "",
   defaultDropdownValue = "",
   headerIcon,
   buttonIcon,
@@ -87,6 +100,7 @@ const Modal: React.FC<ModalProps> = ({
   const [inputValue2, setInputValue2] = useState("");
   const [inputValue3, setInputValue3] = useState("");
   const [inputValue4, setInputValue4] = useState("");
+  const [inputValue5, setInputValue5] = useState("");
   const [dropdownValue, setDropdownValue] = useState("");
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
 
@@ -96,6 +110,7 @@ const Modal: React.FC<ModalProps> = ({
       setInputValue2(defaultInputValue2);
       setInputValue3(defaultInputValue3);
       setInputValue4(defaultInputValue4);
+      setInputValue5(defaultInputValue5);
       setDropdownValue(defaultDropdownValue);
       setSelectedFile(null);
       document.body.classList.add("modal-open");
@@ -130,7 +145,39 @@ const Modal: React.FC<ModalProps> = ({
 
             {/* Body */}
             <div className="modal-body">
-              {message && <p className="text-muted">{message}</p>}
+              {message && <p className="text-black">{message}</p>}
+              {resume && (
+                <div className="d-flex justify-content-between align-items-center">
+                  {" "}
+                  <p className="text-black">
+                    <b>Your Resume:</b> {resume}{" "}
+                  </p>{" "}
+                  <NavLink
+                    className="btn btn-warning"
+                    to={`/resume?returnTo=../jobDetails/${jobId}`}
+                  >
+                   <RefreshCcw size={14} /> Change
+                  </NavLink>{" "}
+                </div>
+              )}
+
+              {dropdownLabel && (
+                <div className="mb-3">
+                  <label className="form-label">{dropdownLabel}</label>
+                  <select
+                    className="form-select"
+                    value={dropdownValue}
+                    onChange={(e) => setDropdownValue(e.target.value)}
+                  >
+                    <option value="">{dropdownPlaceholder}</option>
+                    {dropdownOptions.map((opt) => (
+                      <option key={opt.value} value={opt.value}>
+                        {opt.label}
+                      </option>
+                    ))}
+                  </select>
+                </div>
+              )}
 
               {inputLabel && (
                 <div className="mb-3">
@@ -184,21 +231,16 @@ const Modal: React.FC<ModalProps> = ({
                 </div>
               )}
 
-              {dropdownLabel && (
+              {inputLabel5 && (
                 <div className="mb-3">
-                  <label className="form-label">{dropdownLabel}</label>
-                  <select
-                    className="form-select"
-                    value={dropdownValue}
-                    onChange={(e) => setDropdownValue(e.target.value)}
-                  >
-                    <option value="">{dropdownPlaceholder}</option>
-                    {dropdownOptions.map((opt) => (
-                      <option key={opt.value} value={opt.value}>
-                        {opt.label}
-                      </option>
-                    ))}
-                  </select>
+                  <label className="form-label">{inputLabel5}</label>
+                  <textarea
+                    rows={3}
+                    className="form-control"
+                    placeholder={inputPlaceholder5}
+                    value={inputValue5}
+                    onChange={(e) => setInputValue5(e.target.value)}
+                  ></textarea>
                 </div>
               )}
 
@@ -209,13 +251,28 @@ const Modal: React.FC<ModalProps> = ({
                     type="file"
                     className="form-control"
                     accept={fileAccept}
-                    onChange={(e) =>
-                      setSelectedFile(e.target.files?.[0] || null)
-                    }
+                    onChange={(e) => {
+                      const file = e.target.files?.[0];
+                      if (file) {
+                        const maxSize = 3 * 1024 * 1024;
+
+                        if (file.size > maxSize) {
+                          alert("File size must be less than 3MB");
+                          e.target.value = "";
+                          setSelectedFile(null);
+                          return;
+                        }
+
+                        setSelectedFile(file);
+                      } else {
+                        setSelectedFile(null);
+                      }
+                    }}
                   />
                   {selectedFile && (
-                    <small className="text-muted">
-                      Selected: {selectedFile.name}
+                    <small className="text-muted d-block mt-1">
+                      Selected: {selectedFile.name} (
+                      {(selectedFile.size / 1024 / 1024).toFixed(2)} MB)
                     </small>
                   )}
                 </div>
@@ -241,6 +298,7 @@ const Modal: React.FC<ModalProps> = ({
                     inputValue2,
                     inputValue3,
                     inputValue4,
+                    inputValue5,
                     dropdownValue,
                     file: selectedFile || undefined,
                   })

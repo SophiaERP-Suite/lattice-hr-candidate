@@ -7,8 +7,12 @@ import {
   Shield,
   Plus,
   Trash2,
-  Eye,
   CheckCheck,
+  User,
+  Phone,
+  Mail,
+  Pen,
+  File,
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import Modal from "../../components/modal";
@@ -16,6 +20,7 @@ import {
   deleteIdentificationDocs,
   getIdentificationDocs,
   getIdTypes,
+  updateIdentificationDoc,
   uploadIdentificationDoc,
 } from "../../api/IdentificationApi";
 import { toast, ToastContainer } from "react-toastify";
@@ -24,30 +29,49 @@ import {
   createReference,
   deleteReference,
   getReferences,
+  getReferenceType,
+  updateReference,
 } from "../../api/Reference";
 import type { UserRefDto } from "../../types/reference";
 
-type ModalType = "add" | "edit" | "delete" | "addReference" | null;
+type ModalType =
+  | "add"
+  | "edit"
+  | "deleteRef"
+  | "editRef"
+  | "editDoc"
+  | "deleteDoc"
+  | "addReference"
+  | null;
+
+export interface ReferenceType {
+  referenceTypeId: number;
+  typeName: string;
+  isEnabled: boolean;
+  dateCreated: string;
+}
 
 function IdentityVerification() {
   const [loading, setLoading] = useState(false);
-  const [loading2, setLoading2] = useState(false);
-  const [error, setError] = useState("");
+  const [loading2, setLoading2] = useState(true);
+  const [refid, setRefId] = useState<number | null>(null);
+  const [addDoc, setAddDoc] = useState<number>(0);
+  const [idNo, setIdNo] = useState<number | null>(null);
   const [idTypes, setIdTypes] = useState<IdTypeDto[]>([]);
   const [userDocs, setUserDocs] = useState<UserDocsDto[]>([]);
   const [userRef, setUserRef] = useState<UserRefDto[]>([]);
+  const [selectedRef, setSelectedRef] = useState<UserRefDto | null>(null);
+  const [selectedRefId, setSelectedRefId] = useState<number | null>(null);
+  const [selectedDoc, setSelectedDoc] = useState<UserDocsDto | null>(null);
+  const [selectedDocId, setSelectedDocId] = useState<number | null>(null);
+  const [refType, setRefType] = useState<ReferenceType[]>([]);
   const [modalType, setModalType] = useState<ModalType>(null);
-
-  //   const getProgressPercentage = () => {
-  //     const statuses = Object.values(verificationStatus);
-  //     const completed = statuses.filter((s) => s === "completed").length;
-  //     return Math.round((completed / statuses.length) * 100);
-  //   };
 
   useEffect(() => {
     fetchIdTypes();
     fetchUserIdentificationDocs();
     fetchJobSeekerReference();
+    fetchReferenceType();
   }, []);
 
   const fetchIdTypes = async () => {
@@ -63,9 +87,27 @@ function IdentityVerification() {
     }
   };
 
-  const fetchJobSeekerReference = async () => {
+  const fetchReferenceType = async () => {
     try {
       setLoading(true);
+      const refType = await getReferenceType();
+
+      if (!refType) {
+        return;
+      }
+
+      console.log("User Ref", refType);
+      setRefType(refType);
+    } catch {
+      setUserRef([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchJobSeekerReference = async () => {
+    try {
+      setLoading2(true);
       const userRef = await getReferences();
 
       if (!userRef) {
@@ -73,11 +115,12 @@ function IdentityVerification() {
       }
 
       console.log("User Ref", userRef);
+
       setUserRef(userRef);
     } catch {
       setUserRef([]);
     } finally {
-      setLoading(false);
+      setLoading2(false);
     }
   };
 
@@ -86,14 +129,17 @@ function IdentityVerification() {
       setLoading(true);
       const userDocs = await getIdentificationDocs();
 
-      if (!userDocs) {
+      if (!userDocs || userDocs.length === 0) {
+        setUserDocs([]);
+        setAddDoc(0);
         return;
       }
 
-      console.log("User docs", userDocs);
+      setAddDoc(1);
       setUserDocs(userDocs);
     } catch {
       setUserDocs([]);
+      setAddDoc(0);
     } finally {
       setLoading(false);
     }
@@ -104,12 +150,27 @@ function IdentityVerification() {
     inputValue2?: string;
     inputValue3?: string;
     inputValue4?: string;
+    inputValue5?: string;
+    dropdownValue?: string;
   }) => {
     try {
-      console.log("id", data);
-      const { inputValue, inputValue2, inputValue3, inputValue4 } = data;
+      const {
+        inputValue,
+        inputValue2,
+        inputValue3,
+        inputValue4,
+        inputValue5,
+        dropdownValue,
+      } = data;
 
-      if (!inputValue || !inputValue2 || !inputValue3 || !inputValue4) {
+      if (
+        !inputValue ||
+        !inputValue2 ||
+        !inputValue3 ||
+        !inputValue4 ||
+        !inputValue5 ||
+        !dropdownValue
+      ) {
         console.error("Missing required fields");
         return;
       }
@@ -117,10 +178,12 @@ function IdentityVerification() {
       setLoading(true);
 
       const formData = new FormData();
-      formData.append("Email", inputValue2 ?? "N/A");
-      formData.append("Name", inputValue ?? "N/A");
-      formData.append("Phone", inputValue3 ?? "N/A");
-      formData.append("Company", inputValue4 ?? "N/A");
+      formData.append("Email", inputValue3 ?? "N/A");
+      formData.append("FirstName", inputValue ?? "N/A");
+      formData.append("LastName", inputValue2 ?? "N/A");
+      formData.append("Phone", inputValue4 ?? "N/A");
+      formData.append("Description", inputValue5 ?? "N/A");
+      formData.append("ReferenceTypeId", dropdownValue ?? 0);
 
       const response = await createReference(formData);
 
@@ -130,6 +193,7 @@ function IdentityVerification() {
       }
 
       await fetchJobSeekerReference();
+      closeModal();
     } catch (error: any) {
       console.error("Could not add reference", error);
     } finally {
@@ -137,17 +201,71 @@ function IdentityVerification() {
     }
   };
 
-  const getRefBadge = (status: string) => {
-    switch (status) {
-      case "approved":
-        return "bg-success";
-      case "pending":
-        return "bg-warning text-dark";
-      case "rejected":
-        return "bg-danger";
-      default:
-        return "bg-secondary";
+  const handleEditReference = async (data: {
+    inputValue?: string;
+    inputValue2?: string;
+    inputValue3?: string;
+    inputValue4?: string;
+    inputValue5?: string;
+    dropdownValue?: string;
+  }) => {
+    try {
+      const {
+        inputValue,
+        inputValue2,
+        inputValue3,
+        inputValue4,
+        inputValue5,
+        dropdownValue,
+      } = data;
+
+      if (
+        !inputValue ||
+        !inputValue2 ||
+        !inputValue3 ||
+        !inputValue4 ||
+        !inputValue5 ||
+        !dropdownValue
+      ) {
+        console.error("Missing required fields");
+        return;
+      }
+
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("Email", inputValue3 ?? "N/A");
+      formData.append("FirstName", inputValue ?? "N/A");
+      formData.append("LastName", inputValue2 ?? "N/A");
+      formData.append("Phone", inputValue4 ?? "N/A");
+      formData.append("Description", inputValue5 ?? "N/A");
+      formData.append("ReferenceTypeId", dropdownValue ?? 0);
+
+      const response = await updateReference(formData, Number(selectedRefId));
+
+      if (!response) {
+        toast.error("Could not add reference");
+        return;
+      }
+
+      toast.success("Reference updated successfully.")
+      await fetchJobSeekerReference();
+      closeModal();
+    } catch (error: any) {
+      console.error("Could not add reference", error);
+    } finally {
+      setLoading(false);
     }
+  };
+
+  const openDeleteDocsModal = (identificationId: number) => {
+    setModalType("deleteDoc");
+    setIdNo(identificationId);
+  };
+
+  const openDeleteRefModal = (referenceId: number) => {
+    setModalType("deleteRef");
+    setRefId(referenceId);
   };
 
   const openAddModal = () => {
@@ -158,8 +276,27 @@ function IdentityVerification() {
     setModalType("addReference");
   };
 
+  const openEditRefModal = (referenceId: number) => {
+    const reference = userRef.find((r) => r.referenceId === referenceId);
+    setSelectedRefId(referenceId);
+    setSelectedRef(reference || null);
+    setModalType("editRef");
+  };
+
+  const openEditDocModal = (docId: number) => {
+    const doc = userDocs.find((r) => r.identificationId === docId);
+    setSelectedDocId(docId);
+    setSelectedDoc(doc || null);
+    setModalType("editDoc");
+  };
+
   const closeModal = () => {
     setModalType(null);
+    setRefId(null);
+    setSelectedRefId(null);
+    setSelectedRef(null);
+    setSelectedDocId(null);
+    setSelectedDoc(null);
   };
 
   const handleConfirm = async (data: {
@@ -167,7 +304,6 @@ function IdentityVerification() {
     file?: File;
   }) => {
     try {
-      console.log("id", data);
       const { dropdownValue, file } = data;
 
       if (!dropdownValue || !file) {
@@ -182,51 +318,97 @@ function IdentityVerification() {
       formData.append("File", file);
       const response = await uploadIdentificationDoc(formData);
 
-      if (!response) {
+      if (response.status !== 200) {
         toast.error("Upload Failed");
         return;
       }
 
-      await fetchUserIdentificationDocs();
+      toast.success("Identification added successfully.")
+      closeModal();
     } catch (error: any) {
       console.error("Upload failed:", error);
     } finally {
       setLoading(false);
+      fetchUserIdentificationDocs();
     }
   };
 
-  const handleDeleteFile = async (identificationId: number) => {
+  const handleEditDoc = async (data: {
+    dropdownValue?: string;
+    file?: File;
+  }) => {
     try {
+      const { dropdownValue, file } = data;
+
+      if (!dropdownValue || !file) {
+        console.error("Missing required fields");
+        return;
+      }
+
+      setLoading(true);
+
+      const formData = new FormData();
+      formData.append("IdentificationTypeId", dropdownValue);
+      formData.append("File", file);
+
+      const response = await updateIdentificationDoc(
+        formData,
+        Number(selectedDocId),
+      );
+
+      if (response.status !== 200) {
+        toast.error("Upload Failed");
+        return;
+      }
+
+      toast.success("Indentification updated successfully.")
+      closeModal();
+    } catch (error: any) {
+      console.error("Upload failed:", error);
+    } finally {
+      setLoading(false);
+      fetchUserIdentificationDocs();
+    }
+  };
+
+  const handleDeleteFile = async () => {
+    try {
+      const identificationId = idNo;
       if (!identificationId) {
         toast.error("Please select a means of identification");
         return;
       }
 
       setLoading(true);
-
       const response = await deleteIdentificationDocs(identificationId);
 
-      if (!response) {
+      if (response.status !== 200 && response.status !== 204) {
         toast.error("Delete Failed");
         return;
       }
 
+      toast.success("Identification deleted successfully.");
       await fetchUserIdentificationDocs();
+      closeModal();
+
     } catch (error: any) {
-      console.error("Upload failed:", error);
+      console.error("Delete failed:", error);
     } finally {
       setLoading(false);
     }
   };
 
-  const handleDeleteRef = async (referenceId: number) => {
+  const baseUrl = import.meta.env.VITE_API_URL;
+
+  const handleDeleteRef = async () => {
     try {
+      const referenceId = refid;
       if (!referenceId) {
-        toast.error("Please select a means of identification");
+        toast.error("Please select a reference to be deleted");
         return;
       }
 
-      setLoading(true);
+      setLoading2(true);
 
       const response = await deleteReference(referenceId);
 
@@ -236,10 +418,11 @@ function IdentityVerification() {
       }
 
       await fetchJobSeekerReference();
+      closeModal();
     } catch (error: any) {
       console.error("Delete failed:", error);
     } finally {
-      setLoading(false);
+      setLoading2(false);
     }
   };
 
@@ -248,13 +431,37 @@ function IdentityVerification() {
       <div className="container-fluid">
         <ToastContainer />
         <Modal
+          isOpen={modalType === "editDoc"}
+          title="Update Identification Document"
+          message="Please select a file for update"
+          confirmText="Update"
+          cancelText="Cancel"
+          confirmColor="success"
+          buttonIcon={<Pen size={16} />}
+          headerIcon={<FileText size={20} />}
+          dropdownLabel="Category"
+          dropdownOptions={idTypes.map((type) => ({
+            value: type.identificationTypeId,
+            label: type.typeName,
+          }))}
+          defaultDropdownValue={
+            selectedDoc?.identificationTypeId?.toString() || ""
+          }
+          fileLabel="Select File"
+          fileAccept="image/*,.pdf,.doc,.docx"
+          loading={loading}
+          onConfirm={handleEditDoc}
+          onCancel={closeModal}
+        />
+
+        <Modal
           isOpen={modalType === "add"}
-          title="Upload File"
-          message="Please select Identification type and select a file for upload"
+          title="Upload An Identification Document"
+          message="Please select Identification type and select a file and upload"
           confirmText="Upload"
           cancelText="Cancel"
           confirmColor="success"
-          buttonIcon={<Upload size={16} />}
+          buttonIcon={<Upload size={20} />}
           headerIcon={<FileText size={20} />}
           dropdownLabel="Category"
           dropdownOptions={idTypes.map((type) => ({
@@ -269,24 +476,96 @@ function IdentityVerification() {
         />
 
         <Modal
+          isOpen={modalType === "deleteRef"}
+          title="Delete Reference"
+          message="Are you sure you want to delete this reference"
+          confirmText="Delete"
+          cancelText="Cancel"
+          confirmColor="danger"
+          buttonIcon={<Trash2 size={16} />}
+          headerIcon={<User size={20} />}
+          loading={loading}
+          onConfirm={handleDeleteRef}
+          onCancel={closeModal}
+        />
+
+        <Modal
+          isOpen={modalType === "deleteDoc"}
+          title="Delete Document"
+          message="Are you sure you want to delete this document"
+          confirmText="Delete"
+          cancelText="Cancel"
+          confirmColor="danger"
+          buttonIcon={<Trash2 size={16} />}
+          headerIcon={<File size={20} />}
+          loading={loading}
+          onConfirm={handleDeleteFile}
+          onCancel={closeModal}
+        />
+
+        <Modal
           isOpen={modalType === "addReference"}
           title="New Reference"
           message="Add a new reference"
-          confirmText="Confirm"
+          confirmText="Submit"
           cancelText="Cancel"
           confirmColor="success"
           buttonIcon={<CheckCheck size={16} />}
           headerIcon={<FileText size={20} />}
-          inputLabel="Enter Name"
-          inputPlaceholder="Enter Name"
-          inputLabel2="Enter Email"
-          inputPlaceholder2="Enter Email"
-          inputLabel3="Enter Phone"
-          inputPlaceholder3="Enter Phone"
-          inputLabel4="Enter Company"
-          inputPlaceholder4="Enter Company"
+          inputLabel="First Name"
+          inputPlaceholder="First Name"
+          dropdownLabel="Reference Type"
+          dropdownPlaceholder="Select A Reference Type"
+          dropdownOptions={refType.map((ref) => ({
+            value: ref.referenceTypeId,
+            label: ref.typeName,
+          }))}
+          inputLabel2="Last Name"
+          inputPlaceholder2="Last Name"
+          inputLabel3="Email"
+          inputPlaceholder3="Email"
+          inputLabel4="Mobile Number"
+          inputPlaceholder4="Mobile Number"
+          inputLabel5="Desrciption"
+          inputPlaceholder5="Description"
           loading={loading}
           onConfirm={handleAddReference}
+          onCancel={closeModal}
+        />
+
+        <Modal
+          isOpen={modalType === "editRef"}
+          title="Update Reference"
+          message="Update reference record"
+          confirmText="Submit"
+          cancelText="Cancel"
+          confirmColor="success"
+          buttonIcon={<CheckCheck size={16} />}
+          headerIcon={<FileText size={20} />}
+          inputLabel="First Name"
+          inputPlaceholder="First Name"
+          defaultInputValue={selectedRef?.firstName || ""}
+          dropdownLabel="Reference Type"
+          dropdownPlaceholder="Select A Reference Type"
+          dropdownOptions={refType.map((ref) => ({
+            value: ref.referenceTypeId,
+            label: ref.typeName,
+          }))}
+          defaultDropdownValue={selectedRef?.referenceTypeId}
+          inputLabel2="Last Name"
+          inputPlaceholder2="Last Name"
+          defaultInputValue2={selectedRef?.lastName || ""}
+          inputLabel3="Email"
+          inputPlaceholder3="Email"
+          defaultInputValue3={selectedRef?.email || ""}
+          inputLabel4="Mobile Number"
+          inputPlaceholder4="Mobile Number"
+          defaultInputValue4={selectedRef?.phone || ""}
+          inputLabel5="Desrciption"
+          inputPlaceholder5="Description"
+          defaultInputValue5={selectedRef?.description || ""}
+          loading={loading}
+          onConfirm={handleEditReference}
           onCancel={closeModal}
         />
 
@@ -297,15 +576,22 @@ function IdentityVerification() {
               <h1 className="page-title fs-18 lh-1">Identity Verification</h1>
               <nav aria-label="breadcrumb">
                 <ol className="breadcrumb breadcrumb-example1 mb-0">
-                  <li className="breadcrumb-item">
-                    <a href="Dashboard">Home</a>
+                  <li className="breadcrumb-item active" aria-current="page">
+                    Identity Verification
                   </li>
                   <ChevronRight
                     size={15}
                     style={{ position: "relative", top: "3px" }}
                   />
-                  <li className="breadcrumb-item active" aria-current="page">
-                    Identity Verification
+                  <li className="breadcrumb-item">
+                    <a href="Profile">Profile & Resume</a>
+                  </li>
+                  <ChevronRight
+                    size={15}
+                    style={{ position: "relative", top: "3px" }}
+                  />
+                  <li className="breadcrumb-item">
+                    <a href="Dashboard">Home</a>
                   </li>
                 </ol>
               </nav>
@@ -323,7 +609,7 @@ function IdentityVerification() {
             >
               <div className="card-body p-20">
                 <div className="row align-items-center">
-                  <div className="col-md-9">
+                  <div className="col-md-10">
                     <div className="flex-column flex-md-row d-flex align-items-start gap-15">
                       <Shield
                         size={48}
@@ -332,17 +618,15 @@ function IdentityVerification() {
                       />
                       <div>
                         <h3 className="text-white mb-10">
-                          Verify Your Identity to Unlock Full Access
+                          Get verified. Get more noticed.
                         </h3>
                         <p
                           className="text-white mb-10"
                           style={{ opacity: 0.95, fontSize: "15px" }}
                         >
-                          Complete your identity verification to access all job
-                          opportunities, apply to positions, and build your
-                          professional profile. All information is encrypted and
-                          stored securely in compliance with data protection
-                          regulations.
+                          Complete identity verification to rank higher for
+                          matching jobs. Earn a verified badge once your
+                          references are approved.
                         </p>
                         <div className="d-flex flex-wrap gap-15 mt-15">
                           <div className="d-flex align-items-center gap-10 text-white">
@@ -406,7 +690,7 @@ function IdentityVerification() {
           </div>
 
           {/* Important Notice */}
-          <div className="col-xl-12">
+          <div className="d-none col-xl-12">
             <div className="alert alert-info d-flex align-items-start gap-10 mb-20">
               <AlertCircle size={20} className="mt-5" />
               <div>
@@ -453,19 +737,23 @@ function IdentityVerification() {
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
-                <h4 className="mb-0">Required Documents</h4>
-                <button
-                  className="btn btn-success"
-                  onClick={() => openAddModal()}
-                >
-                  <Plus /> Add Doc
-                </button>
+                <h4 className="mb-0">Upload Identity Document</h4>
+                {addDoc === 0 ? (
+                  <button
+                    className="btn btn-success"
+                    onClick={() => openAddModal()}
+                  >
+                    <Plus /> Add Doc
+                  </button>
+                ) : (
+                  <></>
+                )}
               </div>
               <div className="card-body mt-5">
                 {loading && (
                   <div
                     className="d-flex justify-content-center align-items-center"
-                    style={{ height: "100px" }}
+                    style={{ height: "100px", marginTop: "15px" }}
                   >
                     <div className="spinner-border text-primary" role="status">
                       <span className="visually-hidden">Loading...</span>
@@ -482,6 +770,7 @@ function IdentityVerification() {
                         style={{
                           border: "1px solid #E5E7EB",
                           borderRadius: "8px",
+                          marginTop: "15px",
                         }}
                       >
                         <div className="row align-items-center">
@@ -492,23 +781,17 @@ function IdentityVerification() {
                                 <h5 className="mb-5">
                                   {doc.identificationTypeName}
                                 </h5>
-                                <p
-                                  className="text-muted mb-5"
-                                  style={{ fontSize: "14px" }}
-                                >
-                                  {doc.fileName} - {doc.fileType}
-                                </p>
-                                <div className="d-flex gap-10 flex-wrap">
+
+                                <div className="d-none gap-10 flex-wrap">
                                   <span
-                                    className={`badge ${
-                                      doc.status === "completed"
-                                        ? "bg-success"
-                                        : doc.status === "pending"
-                                          ? "bg-warning text-dark"
-                                          : doc.status === "rejected"
-                                            ? "bg-danger"
-                                            : "bg-secondary"
-                                    }`}
+                                    className={`badge ${doc.status === "completed"
+                                      ? "bg-success"
+                                      : doc.status === "pending"
+                                        ? "bg-warning text-dark"
+                                        : doc.status === "rejected"
+                                          ? "bg-danger"
+                                          : "bg-secondary"
+                                      }`}
                                   >
                                     {doc.status.replace("_", " ").toUpperCase()}
                                   </span>
@@ -518,26 +801,54 @@ function IdentityVerification() {
                           </div>
 
                           <div className="col-md-6 text-md-end  mt-md-0 mt-15">
-                            <a
-                              href={doc.filePath}
-                              className="btn btn-info"
-                              style={{ marginRight: "7px" }}
-                            >
-                              <Eye size={16} />
-                            </a>
                             <button
                               onClick={() =>
-                                handleDeleteFile(doc.identificationId)
+                                openEditDocModal(doc.identificationId)
+                              }
+                              className="btn btn-warning"
+                              style={{ marginRight: "7px" }}
+                            >
+                              <Pen size={16} />
+                            </button>
+                            <button
+                              onClick={() =>
+                                openDeleteDocsModal(doc.identificationId)
                               }
                               className="btn btn-danger"
                             >
                               <Trash2 size={16} />
                             </button>
                           </div>
+
+                          <div className="col-md-12">
+                            <div style={{ maxWidth: "500px" }}>
+                              <img
+                                src={`${baseUrl}${doc.filePath}`}
+                                alt="documents"
+                              />
+
+                              <p
+                                className="text-muted mb-5"
+                                style={{ fontSize: "14px" }}
+                              >
+                                <a
+                                  href={`${baseUrl}${doc.filePath}`}
+                                  target="_blank"
+                                  className="text-info"
+                                >
+                                  {doc.fileName} - {doc.fileType}
+                                </a>
+                              </p>
+                            </div>
+                          </div>
                         </div>
                       </div>
                     );
                   })}
+
+                {!loading && userDocs.length === 0 && (
+                  <div>No Uploaded Docs</div>
+                )}
               </div>
             </div>
           </div>
@@ -546,7 +857,10 @@ function IdentityVerification() {
           <div className="col-xl-12">
             <div className="card">
               <div className="card-header d-flex justify-content-between align-items-center">
-                <h4 className="mb-0">References</h4>
+                <h4 className="mb-0">
+                  References <br />
+                  <span className="text-muted small">Provide a Reference</span>
+                </h4>
                 <button
                   className="btn btn-success"
                   onClick={() => openAddRefModal()}
@@ -555,68 +869,86 @@ function IdentityVerification() {
                 </button>
               </div>
               <div className="card-body">
-                {/* Government ID */}
-                {userRef.map((ref) => (
+                {loading2 && (
                   <div
-                    key={ref.referenceId}
-                    className="verification-item mb-20 p-15"
-                    style={{ border: "1px solid #E5E7EB", borderRadius: "8px" }}
+                    className="d-flex justify-content-center align-items-center"
+                    style={{ height: "100px", marginTop: "15px" }}
                   >
-                    <div className="row align-items-center">
-                      <div className="col-md-6">
-                        <div className="d-flex align-items-start gap-15">
-                          {/* <User size={24} className="text-primary mt-5" /> */}
-                          <div>
-                            <h5 className="mb-5">{ref.name}</h5>
-
-                            <p
-                              className="text-black mb-5"
-                              style={{ fontSize: "14px" }}
-                            >
-                              Company: {ref.company}
-                            </p>
-
-                            <p
-                              className="text-black mb-5"
-                              style={{ fontSize: "14px" }}
-                            >
-                              Email: {ref.email}
-                            </p>
-
-                            <p
-                              className="text-black mb-5"
-                              style={{ fontSize: "14px" }}
-                            >
-                              Phone: {ref.phone}
-                            </p>
-
-                            <span
-                              className={`badge ${getRefBadge(ref.status)}`}
-                            >
-                              {ref.status || "PENDING"}
-                            </span>
-                          </div>
-                        </div>
-                      </div>
-
-                      <div className="col-md-6 text-md-end mt-md-0 mt-15">
-                        {/* <a
-                          href={doc.filePath}
-                          className="btn btn-info"
-                          style={{ marginRight: "7px" }}
-                        >
-                          <Eye size={16} />
-                        </a> */}
-                        <button
-                          onClick={() => handleDeleteRef(ref.referenceId)}
-                          className="btn btn-danger"
-                        >
-                          <Trash2 size={16} />
-                        </button>
-                      </div>
+                    <div className="spinner-border text-primary" role="status">
+                      <span className="visually-hidden">Loading...</span>
                     </div>
                   </div>
-                ))}
+                )}
+
+                {!loading &&
+                  userRef.length > 0 &&
+                  userRef.map((ref) => (
+                    <div
+                      key={ref.referenceId}
+                      className="verification-item mb-20 p-15"
+                      style={{
+                        border: "1px solid #E5E7EB",
+                        borderRadius: "8px",
+                        marginTop: "15px",
+                      }}
+                    >
+                      <div className="row align-items-center">
+                        <div className="col-md-6">
+                          <div className="d-flex align-items-start gap-15">
+                            <div>
+                              <h5 className="mb-5" style={{ color: "blue" }}>
+                                {ref.lastName || "_"} {ref.firstName || "_"}
+                              </h5>
+
+                              <p
+                                className="text-black mb-5"
+                                style={{ fontSize: "14px" }}
+                              >
+                                {ref.description || "_"}
+                              </p>
+                              <p
+                                className="text-black mb-5"
+                                style={{ fontSize: "14px" }}
+                              >
+                                <Mail size={14} /> {ref.email || "_"}
+                              </p>
+
+                              <p
+                                className="text-black mb-5"
+                                style={{ fontSize: "14px" }}
+                              >
+                                <Phone size={14} /> {ref.phone || "_"}
+                              </p>
+
+                              <span className="badge bg-warning">
+                                {ref.referenceType || "_"}
+                              </span>
+                            </div>
+                          </div>
+                        </div>
+
+                        <div className="col-md-6 text-md-end mt-md-0 mt-15">
+                          <button
+                            onClick={() => openEditRefModal(ref.referenceId)}
+                            className="btn btn-warning"
+                            style={{ marginRight: "7px" }}
+                          >
+                            <Pen size={16} />
+                          </button>
+                          <button
+                            onClick={() => openDeleteRefModal(ref.referenceId)}
+                            className="btn btn-danger"
+                          >
+                            <Trash2 size={16} />
+                          </button>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+
+                {!loading2 && userRef.length === 0 && (
+                  <div className="text-center">No Uploaded References</div>
+                )}
               </div>
             </div>
           </div>

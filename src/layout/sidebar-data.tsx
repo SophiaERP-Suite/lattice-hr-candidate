@@ -30,13 +30,23 @@ export const sidebarMenus: SidebarItem[] = [
     icon: <UserRound size={20} style={{ scale: "1.3" }} />,
     children: [
       {
-        label: "Profile",
+        label: "Biodata",
         path: "Profile",
+        icon: null,
+      },
+      {
+        label: "Identify Verification",
+        path: "Identification",
         icon: null,
       },
       {
         label: "Resume",
         path: "Resume",
+        icon: null,
+      },
+      {
+        label: "Bank",
+        path: "Bank",
         icon: null,
       },
     ],
@@ -52,7 +62,7 @@ export const sidebarMenus: SidebarItem[] = [
       },
       {
         label: "My Applications",
-        path: "MyApplication",
+        path: "MyApplications",
         icon: null,
       },
       {
@@ -66,19 +76,12 @@ export const sidebarMenus: SidebarItem[] = [
     label: "Compliance Management",
     path: "Compliance",
     icon: (
-       <Shield size={20} style={{ scale: "1.3" }}  />
-    ),
-  },
-  {
-    label: "Identity Verification",
-    path: "Identification",
-    icon: (
-       <IdCard size={20} style={{ scale: "1.3" }}  />
+      <Shield size={20} style={{ scale: "1.3" }} />
     ),
   },
   {
     label: "Timesheet & Attendance",
-    path: "attendance",
+    path: "MyJobs",
     icon: <Calendar1 size={20} style={{ scale: "1.3" }} />,
   },
   {
@@ -100,7 +103,7 @@ export const sidebarMenus: SidebarItem[] = [
   },
   {
     label: "Payslip",
-    path: "Payslip",
+    path: "MyJobs",
     icon: (
       <svg
         xmlns="http://www.w3.org/2000/svg"
@@ -116,10 +119,10 @@ export const sidebarMenus: SidebarItem[] = [
     ),
   },
   {
-    label: "Induction",
-    path: "Induction",
+    label: "Inductions",
+    path: "Inductions",
     icon: (
-       <BookOpen size={20} style={{ scale: "1.3" }}  />
+      <BookOpen size={20} style={{ scale: "1.3" }} />
     ),
   },
   {
@@ -141,7 +144,7 @@ export const sidebarMenus: SidebarItem[] = [
   // },
   {
     label: "Logout",
-    path: "logout", 
+    path: "logout",
     icon: <LogOutIcon size={20} style={{ scale: "1.3" }} />,
   },
 ];

@@ -1,0 +1,36 @@
+export interface UserDto {
+  address: string;
+  alternateEmail: string;
+  alternatePhone: string;
+  city: string;
+  country: string;
+  dateOfBirth: string;
+  dateCreated: string;
+  degree: string;
+  email: string;
+  firstName: string;
+  gender: string;
+  hobbies: string;
+  interviewLocation: string;
+  isActive: boolean;
+  jobCategory: string;
+  jobCategoryId: number;
+  jobLocation: string;
+  jobSector: string;
+  jobSectorId: number;
+  jobSeekerDate: string;
+  jobSeekerId: number;
+  lastName: string;
+  maritalStatus: string;
+  phone: string;
+  postCode: string;
+  profilePhoto: string;
+  qualification: string;
+  salaryRange: string;
+  state: string;
+  userId: number;
+  workExperience: number;
+  CountryId: number;
+  StateId: number;
+  CityId: number;
+}

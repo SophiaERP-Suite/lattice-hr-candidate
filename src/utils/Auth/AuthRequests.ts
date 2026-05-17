@@ -1,4 +1,4 @@
-const BaseURL = "http://localhost:5181";
+const BaseURL = import.meta.env.VITE_API_URL;
 
 export const fetchUser = async (token: string) => {
   const response = await fetch(`${BaseURL}/auth/profile`, {

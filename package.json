@@ -10,17 +10,25 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@microsoft/signalr": "^10.0.0",
+    "@react-google-maps/api": "^2.20.8",
     "apexcharts": "^5.3.6",
+    "dayjs": "^1.11.19",
+    "dompurify": "^3.3.3",
+    "hashids": "^2.3.0",
     "lucide-react": "^0.552.0",
+    "qrcode.react": "^4.2.0",
     "react": "^19.1.1",
     "react-apexcharts": "^1.8.0",
     "react-dom": "^19.1.1",
+    "react-hook-form": "^7.71.1",
     "react-router-dom": "^7.9.5",
     "react-toastify": "^11.0.5",
     "toastify": "^2.0.1"
   },
   "devDependencies": {
     "@eslint/js": "^9.36.0",
+    "@types/google.maps": "^3.58.1",
     "@types/jquery": "^3.5.33",
     "@types/node": "^24.6.0",
     "@types/react": "^19.1.16",

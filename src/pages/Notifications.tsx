@@ -1,7 +1,63 @@
-// import avatar1 from "/assets/images/avatar/avatar-thumb-010.webp"
+
 import { CheckCheck, ChevronRight, Settings } from "lucide-react";
+import type { NotificationData } from "../types/notification";
+import { useEffect, useState } from "react";
+import { GetMyNotifications, MarkAllNotificationsAsRead, MarkNotificationAsRead } from "../api/Notification";
+import relativeTime from "dayjs/plugin/relativeTime";
+import dayjs from "dayjs";
+
+dayjs.extend(relativeTime);
+
 
 function Compliance() {
+  const [notification, setNotification] = useState<NotificationData[]>();
+  const [isLoading, setIsLoading] = useState(false);
+  const [isButtonLoading, setIsButtonLoading] = useState(false);
+  const [error, setError] = useState("");
+
+  useEffect(() => {
+    fetchMyNotifications()
+  }, [])
+
+  const fetchMyNotifications = async () => {
+    try {
+      setIsLoading(true)
+      const response = await GetMyNotifications()
+
+      if (response.length > 0) {
+        setNotification(response)
+      }
+    } catch {
+      setError("Failed to fetch your notifications")
+    } finally {
+      setIsLoading(false)
+    }
+
+  }
+
+  const markAsRead = async (ActionUrl: string) => {
+    try {
+      await MarkNotificationAsRead(ActionUrl)
+      window.location.href = "./" + ActionUrl
+    } catch {
+      console.error("Failed to run notification")
+    } finally {
+      await fetchMyNotifications()
+    }
+  }
+
+  const markAllAsRead = async () => {
+    try {
+      setIsButtonLoading(true)
+      await MarkAllNotificationsAsRead()
+    } catch {
+      console.error("Failed to run notifications")
+    } finally {
+      setIsButtonLoading(false)
+      await fetchMyNotifications()
+    }
+  }
+
   return (
     <div className="app-content-wrap">
       <div className="container-fluid">
@@ -30,11 +86,16 @@ function Compliance() {
             <div className="d-flex justify-content-between align-items-center mb-3">
               <h4 className="fw-bold">All Notifications</h4>
               <div>
-                <button className="btn btn-outline-secondary btn-sm me-2">
-                 <CheckCheck size={15} /> Mark All as Read
+                <button onClick={() => markAllAsRead()} disabled={
+                  notification && notification.length > 0 ? false : true
+                } className="btn btn-secondary btn-sm me-2">
+                  {
+                    !isButtonLoading ? "Mark All as Read" : "Marking..."
+                  }
+                  <CheckCheck size={15} />
                 </button>
                 <a href="Settings" className="btn btn-primary btn-sm">
-                 <Settings size={15} /> Notification Settings
+                  <Settings size={15} /> Notification Settings
                 </a>
               </div>
             </div>
@@ -42,7 +103,7 @@ function Compliance() {
 
           <div className="col-xl-12">
             {/* <!-- Filters --> */}
-            <div className="mb-3">
+            <div className="d-none mb-3">
               <div className="btn-group" role="group">
                 <button className="btn btn-outline-primary active">All</button>
                 <button className="btn btn-outline-primary">Unread</button>
@@ -54,46 +115,31 @@ function Compliance() {
               </div>
             </div>
 
-            {/* <!-- Notification List --> */}
             <div className="list-group bg-white shadow-sm">
-              <a
-                href="NotificationDetail"
-                className="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
-              >
-                <div className="">
-                  {/* <div className="fw-bold text-primary">
-                    New Investigation Request
-                  </div> */}
-                  <p>A new case (#INV-2039) has been assigned to you.</p>
+              {notification && notification.length > 0 ? (
+                notification.map((item) => (
+                  <div
+                    key={item.notificationId}
+                    onClick={() => markAsRead(item.actionUrl)}
+                    className="list-group-item list-group-item-action cursor-pointer d-flex justify-content-between align-items-start"
+                  >
+                    <div className="">
+                      <div className="fw-bold text-primary">
+                        {item.title}
+                      </div>
+                      <p>{item.message}</p>
+                    </div>
+                    <span className="badge bg-primary rounded-pill">{dayjs(item.dateCreated).fromNow()}</span>
+                  </div>
+                ))
+              ) : (
+                <div className="list-group-item list-group-item-action d-flex justify-content-between align-items-start">
+                  <div className="content">
+                    {/* <h6 className="mb-5">Ooops</h6> */}
+                    <p className="mb-5">You have no notifications</p>
+                  </div>
                 </div>
-                <span className="badge bg-primary rounded-pill">2m ago</span>
-              </a>
-
-              <a
-                href="NotificationDetail"
-                className="list-group-item list-group-item-action d-flex justify-content-between align-items-start bg-light"
-              >
-                <div className="">
-                  {/* <div className="fw-bold text-left">Timesheet Approved</div> */}
-                  <p>
-                    Your timesheet for Nov 4 was approved by Manager John Doe.
-                  </p>
-                </div>
-                <span className="badge bg-success rounded-pill">1h ago</span>
-              </a>
-
-              <a
-                href="NotificationDetail"
-                className="list-group-item list-group-item-action d-flex justify-content-between align-items-start"
-              >
-                <div className="">
-                  {/* <div className="fw-bold text-warning">
-                    Compliance Reminder
-                  </div> */}
-                  Upload your background verification document before Nov 10.
-                </div>
-                <span className="badge bg-warning rounded-pill">3h ago</span>
-              </a>
+              )}
             </div>
           </div>
         </div>

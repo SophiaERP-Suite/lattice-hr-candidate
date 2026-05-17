@@ -18,14 +18,12 @@ function CVBuilder() {
     referees: [{ name: "", contact: "" }],
   });
 
-  // Handle input change
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
   ) => {
     setCv({ ...cv, [e.target.name]: e.target.value });
   };
 
-  // Handle change for array fields (like education, experience)
   const handleArrayChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
     index: number,

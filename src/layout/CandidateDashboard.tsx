@@ -1,7 +1,5 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Link, Outlet, useLocation } from "react-router-dom";
-import avatar1 from "../assets/images/avatar/avatar-thumb-010.webp";
-import john from "../assets/images/avatar/avatar-thumb-001.webp";
+
+import { Link, NavLink, Outlet, useLocation } from "react-router-dom";
 import fullLogo from "../assets/images/logo/lattice-logo.png";
 import fullLogoMobile from "../assets/images/logo/lattice-logo-mobile.png";
 import { sidebarMenus } from "../layout/sidebar-data";
@@ -25,27 +23,78 @@ import {
 } from "lucide-react";
 import { useEffect, useState } from "react";
 import { getIdentificationDocs } from "../api/IdentificationApi";
+import { getUserInfo } from "../api/UserApi";
+import type { UserDto } from "../types/profile";
+import { GetMyNotifications, MarkNotificationAsRead } from "../api/Notification";
+import type { NotificationData } from "../types/notification";
+import dayjs from "dayjs";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
 
 function CandidateDashboard() {
   const [openDropdown, setOpenDropdown] = useState(null);
   const [isCollapsed, setIsCollapsed] = useState(false);
   const [isMobileOpen, setIsMobileOpen] = useState(false);
-  const [userDocs, setUserDocs] = useState<number>(0);
+  const [user, setUser] = useState<UserDto>();
+  const [notification, setNotification] = useState<NotificationData[]>();
+  const [isLoading, setIsLoading] = useState(false);
   const [showComplianceNotif, setShowComplianceNotif] = useState(false);
   const [showIdentificationNotif, setShowIdentificationNotif] = useState(false);
+  const docCount = 0;
 
   useEffect(() => {
-    fetchUserIdentificationDocs();
-  }, []);
+    fetchUserIdentificationDocs(docCount);
+    fetchMyNotifications()
+  }, [docCount]);
 
-  const fetchUserIdentificationDocs = async () => {
+  const fetchMyNotifications = async () => {
+
+    const response = await GetMyNotifications()
+
+    if (response.length > 0) {
+      setNotification(response)
+    }
+
+  }
+
+  const markAsRead = async (ActionUrl: string) => {
+
+    const response = await MarkNotificationAsRead(ActionUrl)
+
+    console.log("new res", response)
+    window.location.href = "http://localhost:5174/one/lhr_cdt/" + ActionUrl
+  }
+
+  // const markAsRead = async (ActionUrl: string) => {
+  //   const response = await MarkNotificationAsRead(ActionUrl)
+  //   console.log("new res", response)
+
+  //   // Handle different URL formats
+  //   if (ActionUrl.startsWith('http')) {
+  //     // Absolute URL
+  //     window.location.href = ActionUrl
+  //   } else if (ActionUrl.startsWith('/')) {
+  //     // Root-relative URL
+  //     window.location.href = ActionUrl
+  //   } else {
+  //     // Relative URL - navigate from current location
+  //     const currentPath = window.location.pathname
+  //     const basePath = currentPath.substring(0, currentPath.lastIndexOf('/'))
+  //     window.location.href = basePath + '/' + ActionUrl
+  //   }
+  // }
+
+  const fetchUserIdentificationDocs = async (docCount: number) => {
     try {
       const userDocs = await getIdentificationDocs();
 
       if (!userDocs) {
         return;
       }
-    } catch {}
+
+      docCount = userDocs.length;
+    } catch { }
   };
 
   useEffect(() => {
@@ -58,7 +107,23 @@ function CandidateDashboard() {
     if (needsIdentification) {
       setTimeout(() => setShowIdentificationNotif(true), 1500);
     }
+
+    fetchUser();
   }, []);
+
+  const fetchUser = async () => {
+    try {
+      setIsLoading(true);
+      const response = await getUserInfo();
+      if (!response.result) {
+        return;
+      }
+      setUser(response.result);
+    } catch {
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleCompleteCompliance = () => {
     window.location.href = "../lhr_cdt/Compliance";
@@ -93,7 +158,10 @@ function CandidateDashboard() {
     return currentPath === path || currentPath.startsWith(path + "/");
   };
 
-  // Check if any child is active
+  const photoUrl = user?.profilePhoto
+    ? `${import.meta.env.VITE_API_URL}/${user.profilePhoto}`
+    : "https://img.icons8.com/color/48/gender-neutral-user.png";
+
   const hasActiveChild = (children?: any[]) => {
     if (!children) return false;
     return children.some((child) => isActive(child.path));
@@ -103,18 +171,16 @@ function CandidateDashboard() {
     <div className="page">
       {/* <!-- Start app-sidebar --> */}
       <aside
-        className={`app-sidebar sticky bg-white border-end shadow-sm ${
-          isCollapsed ? "sidebar-mini" : "sidebar-full"
-        } ${isMobileOpen ? "mobile-open" : ""}`}
+        className={`app-sidebar sticky bg-white border-end shadow-sm ${isCollapsed ? "sidebar-mini" : "sidebar-full"
+          } ${isMobileOpen ? "mobile-open" : ""}`}
         id="sidebar"
         style={{ transition: "all 0.3s ease" }}
       >
         {/* Logo */}
         <div
-          className={`text-center py-3 border-bottom ${
-            isMobileOpen &&
+          className={`text-center py-3 border-bottom ${isMobileOpen &&
             "d-flex justify-content-between align-items-center px-3 my-3"
-          }`}
+            }`}
         >
           <img
             src={isCollapsed ? fullLogoMobile : fullLogo}
@@ -152,9 +218,8 @@ function CandidateDashboard() {
 
         {/* Menu */}
         <ul
-          className={`list-unstyled mt-3 ${
-            isCollapsed ? "text-center" : "px-3"
-          }`}
+          className={`list-unstyled mt-3 ${isCollapsed ? "text-center" : "px-3"
+            }`}
         >
           {sidebarMenus.map((item, index) => {
             const isOpen = openDropdown === item.label;
@@ -180,19 +245,17 @@ function CandidateDashboard() {
                       }}
                       id={isCollapsed ? "sidebarToggle" : undefined}
                       style={{ cursor: "pointer", transition: "0.5s ease" }}
-                      className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${
-                        isCollapsed
-                          ? "justify-content-center"
-                          : "justify-content-between"
-                      } ${childIsActive ? "active" : ""}`}
+                      className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${isCollapsed
+                        ? "justify-content-center"
+                        : "justify-content-between"
+                        } ${childIsActive ? "active" : ""}`}
                       title={isCollapsed ? item.label : ""}
                     >
                       <div
-                        className={`d-flex align-items-center ${
-                          isCollapsed
-                            ? "justify-content-center"
-                            : "justify-content-between"
-                        }`}
+                        className={`d-flex align-items-center ${isCollapsed
+                          ? "justify-content-center"
+                          : "justify-content-between"
+                          }`}
                       >
                         <div className="me-2" style={{ paddingRight: "10px" }}>
                           {item.icon}
@@ -218,9 +281,8 @@ function CandidateDashboard() {
                           <li key={childIndex} className="slide">
                             <Link
                               to={`/${child.path}`}
-                              className={`sidebar-menu-item ${
-                                isActive(child.path) ? "active" : ""
-                              }`}
+                              className={`sidebar-menu-item ${isActive(child.path) ? "active" : ""
+                                }`}
                             >
                               <ArrowRight
                                 size={17}
@@ -239,9 +301,8 @@ function CandidateDashboard() {
                 ) : (
                   <Link
                     to={`/${item.path}`}
-                    className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${
-                      isCollapsed ? "justify-content-center" : ""
-                    } ${itemIsActive ? "active" : ""}`}
+                    className={`sidebar-menu-item d-flex align-items-center text-decoration-none text-dark rounded ${isCollapsed ? "justify-content-center" : ""
+                      } ${itemIsActive ? "active" : ""}`}
                     title={isCollapsed ? item.label : ""}
                   >
                     <div className="me-2" style={{ paddingRight: "10px" }}>
@@ -322,7 +383,7 @@ function CandidateDashboard() {
                       aria-label="Search"
                     />
                     <button
-                      className="btn btn-primary"
+                      className="btn btn-info"
                       style={{ position: "relative", top: "18px" }}
                       type="submit"
                     >
@@ -365,9 +426,9 @@ function CandidateDashboard() {
 
               <div className=" cursor-pointer">
                 <div>
-                  <a href="ClockIn" className="btn btn-success">
+                  <NavLink to="MyJobs" className="btn btn-success">
                     <ClockPlus size={15} /> Clock In
-                  </a>
+                  </NavLink>
                 </div>
               </div>
 
@@ -392,91 +453,65 @@ function CandidateDashboard() {
                     <span className="app-header-circle">
                       {" "}
                       <Bell size={18} className="ri-fullscreen-line" />
+                      {notification && notification.length > 0 && (
+                        <span className="notification-badge notification-danger">
+                          {notification.length > 99 ? "99+" : notification.length}
+                        </span>
+                      )}
                     </span>
                   </a>
                   <ul className="dropdown-menu">
                     <li className="dropdown-menu-header">
-                      <h5>Notification</h5>
-                      <span className="badge bg-label-primary">2 New</span>
+                      <h5>Notifications</h5>
+
+                      {notification && notification.length > 0 && (
+                        <span className="badge bg-label-warning">
+                          {notification.length} New
+                        </span>
+                      )}
                     </li>
+
                     <li className="dropdown-notifications-list card-scrollbar">
                       <ul>
-                        <li className="dropdown-notifications-list-item">
-                          <div className="avatar">
-                            <img
-                              className="radius-100"
-                              src={john}
-                              alt="image not found"
-                            />
-                          </div>
-                          <div className="content">
-                            <h6 className="mb-5">New Order Received 🛒</h6>
-                            <p className="mb-5">
-                              Order #14523 has been placed by John Dane
-                            </p>
-                            <span className="text-body-secondary">
-                              Just now
-                            </span>
-                          </div>
-                          <div className="notifications-actions d-flex direction-column align-center">
-                            <a
-                              onClick={() => toggleDropdown("menu1")}
-                              className="dropdown-notifications-read d-block pt-5"
+                        {notification && notification.length > 0 ? (
+                          notification.map((item) => (
+                            <li
+                              key={item.notificationId}
+                              onClick={() => markAsRead(item.actionUrl)}
+                              className="dropdown-notifications-list-item"
+                              style={{ cursor: "pointer" }}
                             >
-                              <span className="bullet bg-primary"></span>
-                            </a>
-                            <a
-                              onClick={() => toggleDropdown("menu1")}
-                              className="dropdown-notifications-archive"
-                            >
-                              <i className="ri-close-line"></i>
-                            </a>
-                          </div>
-                        </li>
-                        <li className="dropdown-notifications-list-item">
-                          <div className="avatar">
-                            <img
-                              className="radius-100"
-                              src={avatar1}
-                              alt="image not found"
-                            />
-                          </div>
-                          <div className="content">
-                            <h6 className="mb-5">Low Stock Alert ⚠️</h6>
-                            <p className="mb-5">
-                              Only 3 items left in stock for "Smartwatch Pro X"
-                            </p>
-                            <span className="text-body-secondary">
-                              10 mins ago
-                            </span>
-                          </div>
-                          <div className="notifications-actions d-flex direction-column align-center">
-                            <a
-                              onClick={() => toggleDropdown("menu1")}
-                              className="dropdown-notifications-read d-block pt-5"
-                            >
-                              <span className="bullet bg-primary"></span>
-                            </a>
-                            <a
-                              onClick={() => toggleDropdown("menu1")}
-                              className="dropdown-notifications-archive"
-                            >
-                              <i className="ri-close-line"></i>
-                            </a>
-                          </div>
-                        </li>
+                              <div className="content">
+                                <h6 className="mb-5">{item.title}</h6>
+                                <p className="mb-5">{item.message}</p>
+                                <span className="text-body-secondary">
+                                  {dayjs(item.dateCreated).fromNow()}
+                                </span>
+                              </div>
+                            </li>
+                          ))
+                        ) : (
+                          <li className="dropdown-notifications-list-item">
+                            <div className="content">
+                              <h6 className="mb-5">Ooops</h6>
+                              <p className="mb-5">You have no notifications</p>
+                            </div>
+                          </li>
+                        )}
                       </ul>
                     </li>
-                    <li className="dropdown-notifications-btn">
-                      <a
-                        className="btn btn-primary w-100"
-                        onClick={() => toggleDropdown("menu1")}
-                        href="Notifications"
-                      >
-                        View all notifications
-                      </a>
-                    </li>
+
+                    {/* <li className="dropdown-notifications-btn">
+    <a
+      className="btn btn-primary w-100"
+      onClick={() => toggleDropdown("menu1")}
+      href="Notifications"
+    >
+      View all notifications
+    </a>
+  </li> */}
                   </ul>
+
                 </div>
               </div>
 
@@ -491,9 +526,12 @@ function CandidateDashboard() {
                   >
                     <div className="author">
                       <div className="author-thumb">
-                        <img src={john} alt="user" />
+                        <img src={photoUrl} alt="user" />
                       </div>
-                      <h6 className="author-name lh-1">John Parker</h6>
+                      <h6 className="author-name lh-1">
+                        {" "}
+                        {user?.lastName} {user?.firstName}{" "}
+                      </h6>
                     </div>
                   </a>
                   <ul
@@ -550,9 +588,8 @@ function CandidateDashboard() {
 
       {/*Compliance Notification */}
       <div
-        className={`side-notification compliance-notif ${
-          showComplianceNotif ? "show" : ""
-        }`}
+        className={`d-none side-notification compliance-notif ${showComplianceNotif ? "show" : ""
+          }`}
         style={{
           position: "fixed",
           top: "100px",
@@ -616,74 +653,72 @@ function CandidateDashboard() {
       </div>
 
       {/* Identity Notification */}
-      {!userDocs ||
-        (userDocs === 0 && (
-          <div
-            className={`side-notification identification-notif ${
-              showIdentificationNotif ? "show" : ""
+      {docCount === 0 && (
+        <div
+          className={`d-none side-notification identification-notif ${showIdentificationNotif ? "show" : ""
             }`}
+          style={{
+            position: "fixed",
+            top: showComplianceNotif ? "200px" : "100px",
+            right: showIdentificationNotif ? "20px" : "-300px",
+            width: "280px",
+            backgroundColor: "white",
+            border: "1px solid #BFDBFE",
+            borderRadius: "8px",
+            boxShadow: "0 3px 10px rgba(59, 130, 246, 0.15)",
+            zIndex: 999,
+            transition: "all 0.3s ease-in-out",
+            padding: "12px",
+            display: "flex",
+            alignItems: "center",
+            gap: "12px",
+          }}
+        >
+          <div
             style={{
-              position: "fixed",
-              top: showComplianceNotif ? "200px" : "100px",
-              right: showIdentificationNotif ? "20px" : "-300px",
-              width: "280px",
-              backgroundColor: "white",
-              border: "1px solid #BFDBFE",
-              borderRadius: "8px",
-              boxShadow: "0 3px 10px rgba(59, 130, 246, 0.15)",
-              zIndex: 999,
-              transition: "all 0.3s ease-in-out",
-              padding: "12px",
+              backgroundColor: "#DBEAFE",
+              minWidth: "36px",
+              height: "36px",
+              borderRadius: "50%",
               display: "flex",
               alignItems: "center",
-              gap: "12px",
+              justifyContent: "center",
+              flexShrink: 0,
             }}
           >
-            <div
+            <Shield size={18} color="#1D4ED8" />
+          </div>
+
+          <div style={{ flex: 1 }}>
+            <p
               style={{
-                backgroundColor: "#DBEAFE",
-                minWidth: "36px",
-                height: "36px",
-                borderRadius: "50%",
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "center",
-                flexShrink: 0,
+                fontSize: "13px",
+                color: "#1E40AF",
+                marginBottom: "8px",
+                lineHeight: "1.3",
               }}
             >
-              <Shield size={18} color="#1D4ED8" />
-            </div>
-
-            <div style={{ flex: 1 }}>
-              <p
-                style={{
-                  fontSize: "13px",
-                  color: "#1E40AF",
-                  marginBottom: "8px",
-                  lineHeight: "1.3",
-                }}
-              >
-                Verify identity for full access
-              </p>
-              <button
-                onClick={handleCompleteIdentification}
-                style={{
-                  width: "100%",
-                  backgroundColor: "#3B82F6",
-                  color: "white",
-                  border: "none",
-                  padding: "6px 12px",
-                  borderRadius: "4px",
-                  fontSize: "12px",
-                  fontWeight: "600",
-                  cursor: "pointer",
-                }}
-              >
-                Verify Now
-              </button>
-            </div>
+              Verify identity for full access
+            </p>
+            <button
+              onClick={handleCompleteIdentification}
+              style={{
+                width: "100%",
+                backgroundColor: "#3B82F6",
+                color: "white",
+                border: "none",
+                padding: "6px 12px",
+                borderRadius: "4px",
+                fontSize: "12px",
+                fontWeight: "600",
+                cursor: "pointer",
+              }}
+            >
+              Verify Now
+            </button>
           </div>
-        ))}
+        </div>
+      )}
       <div
         className={`${isCollapsed ? "app-content-area2" : "app-content-area"}`}
       >
@@ -747,13 +782,13 @@ function CandidateDashboard() {
 
       <div
         className="progress-wrap d-flex align-items-center justify-content-center"
-        // style={{
-        //   width: "40px",
-        //   height: "40px",
-        //   borderRadius: "50%",
-        //   backgroundColor: "#0d6efd",
-        //   color: "#fff",
-        // }}
+      // style={{
+      //   width: "40px",
+      //   height: "40px",
+      //   borderRadius: "50%",
+      //   backgroundColor: "#0d6efd",
+      //   color: "#fff",
+      // }}
       >
         <ArrowUp size={20} />
       </div>
