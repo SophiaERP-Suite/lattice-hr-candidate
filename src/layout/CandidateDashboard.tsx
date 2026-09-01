@@ -63,7 +63,7 @@ function CandidateDashboard() {
     const response = await MarkNotificationAsRead(ActionUrl)
 
     console.log("new res", response)
-    window.location.href = "http://localhost:5174/one/lhr_cdt/" + ActionUrl
+    window.location.href = "http://192.168.1.171:5174/one/lhr_cdt/" + ActionUrl
   }
 
   // const markAsRead = async (ActionUrl: string) => {

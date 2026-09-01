@@ -1,4 +1,4 @@
-const BaseURL = "http://localhost:5127";
+const BaseURL = "http://192.168.1.171:5127";
 const token = localStorage.getItem("token");
 
 export const getBankDetails = async () => {

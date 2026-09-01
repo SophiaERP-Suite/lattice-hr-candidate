@@ -1,9 +1,9 @@
 const BaseURL = import.meta.env.VITE_API_URL;
 const token = localStorage.getItem("token");
 
-export const GetAllQuestions = async (jobInterviewId: number) => {
+export const GetAllQuestions = async (jobId: number) => {
   const response = await fetch(
-    `${BaseURL}/interviews/${jobInterviewId}/questions`,
+    `${BaseURL}/interviews/${jobId}/questions`,
     {
       method: "GET",
       headers: {

@@ -14,7 +14,7 @@
 
 //     if (!token) {
 //       setCheckingAuth(false);
-//       window.location.replace("http://localhost:5173/one/login");
+//       window.location.replace("http://192.168.1.171:5173/one/login");
 //       return;
 //     }
 
